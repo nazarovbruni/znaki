@@ -49,9 +49,30 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; m
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 0; }
 .nav__bar { pointer-events: auto; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; background: var(--paper); border: 2px solid var(--ink); border-radius: 18px; padding: 10px 10px 10px 22px; box-shadow: 0 8px 0 0 var(--ink); transition: box-shadow .25s; }
 .nav.is-scrolled .nav__bar { box-shadow: 0 4px 0 0 var(--ink); }
+.nav__right { display: flex; align-items: center; gap: 8px; }
+.burger { display: none; width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--ink); background: var(--paper); cursor: pointer; padding: 0; position: relative; flex: none; }
+.burger span { position: absolute; left: 12px; right: 12px; height: 2.5px; background: var(--ink); transition: transform .25s, top .25s; }
+.burger span:nth-child(1) { top: 17px; }
+.burger span:nth-child(2) { top: 25px; }
+.menu-open .burger { background: var(--ink); }
+.menu-open .burger span { background: var(--paper); top: 21px; }
+.menu-open .burger span:nth-child(1) { transform: rotate(45deg); }
+.menu-open .burger span:nth-child(2) { transform: rotate(-45deg); }
+.mmenu { position: fixed; inset: 0; z-index: 15; background: var(--paper); padding: calc(env(safe-area-inset-top, 0px) + 100px) max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 24px) max(16px, env(safe-area-inset-left, 0px)); overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; opacity: 0; visibility: hidden; transform: translateY(-12px); transition: opacity .25s, transform .3s, visibility 0s .3s; }
+.menu-open .mmenu { opacity: 1; visibility: visible; transform: none; transition: opacity .25s, transform .3s, visibility 0s; }
+.mmenu ol { list-style: none; margin: 0; padding: 0; counter-reset: m; }
+.mmenu li { border-top: 2px solid var(--ink); }
+.mmenu li:last-child { border-bottom: 2px solid var(--ink); }
+.mmenu a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 2px; font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1.15; text-decoration: none; }
+.mmenu a::after { content: "→"; font-family: var(--ui); font-size: 22px; }
+.mmenu a:hover, .mmenu a:active { color: var(--signal); }
+.mmenu__foot { font-family: var(--ui); font-size: 16px; line-height: 1.5; display: grid; gap: 4px; }
+.mmenu__foot strong { font-family: var(--display); font-size: 18px; user-select: all; }
+.menu-open { overflow: hidden; }
 .cta { display: inline-flex; align-items: center; gap: 0; text-decoration: none; font-family: var(--ui); font-weight: 600; font-size: 16px; border-radius: 999px; background: var(--signal); color: var(--paper); padding-right: 22px; white-space: nowrap; }
 .cta b { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; margin-right: 14px; font-size: 20px; transition: transform .25s; }
 .cta:hover { color: var(--paper); }
+.cta__short { display: none; }
 .cta:hover b { transform: rotate(-45deg); }
 .spacer { height: 110px; }
 
@@ -207,6 +228,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 @media (max-width: 960px) {
   .grid, .people { grid-template-columns: repeat(2, 1fr); }
   .nav ul { display: none; }
+  .burger { display: block; }
   .manifest .wrap, .curator .wrap, .section-msh .wrap, .contacts .wrap, .hero__meta { grid-template-columns: 1fr; }
   .manifest__claim { position: static; }
   .entry { grid-template-columns: 1fr; }
@@ -223,15 +245,17 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .cta { font-size: 14px; padding-right: 16px; }
   .cta b { width: 40px; height: 40px; margin-right: 10px; }
   .nav__bar { padding-left: 16px; }
-  .spacer { height: 82px; }
-  .hero { padding-block: 8px 18px; }
+  .spacer { height: 100px; }
+  .hero { padding-block: 14px 22px; }
   .hero__eyebrow { margin-bottom: 12px; font-size: 12px; }
-  .hero .sticker { margin: 0 6px 10px 0; font-size: 13px; padding: 6px 13px; }
+  .hero .sticker { margin: 0 6px 12px 0; font-size: 13px; padding: 6px 13px; }
   .signs { gap: 6px; }
   .hero__meta { margin-top: 18px; padding-top: 14px; gap: 10px; }
   .hero__lead { font-size: 20px; }
   .hero__facts { font-size: 15px; }
-  .ticker__track span { font-size: 18px; padding: 11px 0; }
+  .ticker__track span { font-size: 16px; padding: 12px 0; }
+  .cta__long { display: none; }
+  .cta__short { display: inline; }
   .ticker__track { -webkit-animation-duration: 26s; animation-duration: 26s; }
   .people { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
   .portrait__name { font-size: 16px; padding: 8px 10px; }
@@ -257,10 +281,31 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
           <li><a href="#contacts">Контакты</a></li>
         </ul>
       </nav>
-      <a class="cta" href="#gallery"><b aria-hidden="true">→</b>Смотреть знаки</a>
+      <div class="nav__right">
+        <a class="cta" href="#gallery"><b aria-hidden="true">→</b><span class="cta__long">Смотреть знаки</span><span class="cta__short">Знаки</span></a>
+        <button class="burger" type="button" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mmenu"><span></span><span></span></button>
+      </div>
     </div>
   </div>
 </header>
+
+<div class="mmenu" id="mmenu" aria-label="Меню">
+  <nav aria-label="Разделы (мобильное меню)">
+    <ol>
+      <li><a href="#manifest">О проекте</a></li>
+      <li><a href="#gallery">Галерея знаков</a></li>
+      <li><a href="#authors">Авторы</a></li>
+      <li><a href="#curator">От куратора</a></li>
+      <li><a href="#section">Секция плаката</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ol>
+  </nav>
+  <div class="mmenu__foot">
+    <span>Виртуальная выставка · Куратор — Юлия Назар</span>
+    <strong>+7 495 995-06-13</strong>
+    <strong>gallery@glubinagallery.ru</strong>
+  </div>
+</div>
 
 <main id="top">
   <div class="spacer" aria-hidden="true"></div>
@@ -520,6 +565,23 @@ function show() {
 function hide() {
   if (dlg.open) dlg.close();
 }
+// мобильное меню
+(function () {
+  const btn = document.getElementById('burger');
+  const menu = document.getElementById('mmenu');
+  const root = document.documentElement;
+  const set = (open) => {
+    root.classList.toggle('menu-open', open);
+    document.body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+  };
+  btn.addEventListener('click', () => set(!root.classList.contains('menu-open')));
+  menu.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+  document.querySelector('.cta').addEventListener('click', () => set(false));
+})();
+
 // появление при прокрутке
 (function () {
   const root = document.documentElement;
