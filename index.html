@@ -460,14 +460,14 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 
 <script>
 const WORKS = [
-  { t: 'Глушь немая', a: 'Измаил Бадоев', img: 'img/works/badoev-glush-nemaya.jpg', white: true },
-  { t: 'Всё хорошо. Ангел в пустоте', a: 'Юлия Назар', img: 'img/works/nazar-vsyo-horosho-angel-v-pustote.jpg', white: true, fill: true },
-  { t: 'Птица', a: 'Измаил Бадоев', img: 'img/works/badoev-ptica.jpg', fill: true },
-  { t: 'Самопознание. Путь в небо', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-samopoznanie-put-v-nebo.jpg' },
-  { t: 'ИИ', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-ii.jpg' },
-  { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-edinstvo.jpg' },
-  { t: 'Дети бегут от грозы', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-deti-begut-ot-grozy.jpg', white: true },
-  // Когда придёт анимация: video: 'img/works/kuplevatskiy-insight.mp4', webm: 'img/works/kuplevatskiy-insight.webm'
+  { t: 'Глушь немая', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
+  { t: 'Всё хорошо. Ангел в пустоте', a: 'Юлия Назар', img: 'img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true },
+  { t: 'Птица', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.jpg', fill: true },
+  { t: 'Самопознание. Путь в небо', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov.jpg' },
+  { t: 'ИИ', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov.jpg' },
+  { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg' },
+  { t: 'Дети бегут от грозы', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
+  // Когда придёт анимация: video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm'
   { t: 'Insight', a: 'Виктор Куплевацкий', img: null, video: null, webm: null },
   // Место под девятый знак: замените t, a и добавьте img, затем уберите empty
   { t: '?', a: 'Художник ?', img: null, empty: true },
@@ -484,7 +484,7 @@ const PEOPLE = [
     rows: [['Направления', 'живопись (холст, масло), кураторская деятельность'],
            ['Образование', 'МАХЛ РАХ (бывшая Московская средняя художественная школа им. Томского), 1991; МГАХИ им. В. И. Сурикова'],
            ['Членство', 'Московский союз художников']] },
-  { n: 'Юлия Назар', ini: 'ЮН', photo: 'img/artists/nazar-yulia.jpg',
+  { n: 'Юлия Назар', ini: 'ЮН', photo: 'img/artists/nazar-yulia-moskovskiy-soyuz-khudozhnikov.jpg',
     lead: 'Юлия Назар — художница, монументалист, куратор. Основатель московского арт-сообщества GLUBINA.',
     rows: [['Направления', 'живопись, инсталляция, паблик-арт, перформанс, ленд-арт'],
            ['Образование', 'МГАХИ им. В. И. Сурикова (факультет живописи); Институт проблем современного искусства (ИПСИ), мастерская Иосифа Бакштейна; Высшая школа «Среда обучения», мастерская Арсения Жиляева'],
@@ -515,7 +515,7 @@ function media(w, big) {
       (w.video ? `<source src="${w.video}" type="video/mp4">` : '') + '</video>';
   }
   if (w.empty) return '<span class="q-empty" aria-hidden="true">?</span><span class="q-note">Место для плаката</span>';
-  if (w.img) return `<img src="${w.img}" alt="Знак «${w.t}», автор ${w.a}" loading="lazy">`;
+  if (w.img) return `<img src="${w.img}" alt="Знак «${w.t}», ${w.a}, Московский союз художников" loading="lazy">`;
   return '<span class="anim-empty">' + PLAY + '<span>Место для анимации (GIF)</span></span>';
 }
 
@@ -538,7 +538,7 @@ peopleEl.innerHTML = PEOPLE.map((p, i) => `
   <li class="person reveal" style="--d:${(i % 3) * 120}ms">
     <button type="button" data-person="${i}" aria-label="Об авторе: ${p.n}">
       <div class="portrait">
-        ${p.photo ? `<img src="${p.photo}" alt="${p.n}">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
+        ${p.photo ? `<img src="${p.photo}" alt="${p.n}, художник, Московский союз художников">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
         <span class="portrait__more">Читать</span>
         <span class="portrait__name">${p.n}</span>
       </div>
@@ -571,7 +571,7 @@ function openPerson(i) {
     <article class="entry">
       <div class="entry__img">
         <div class="portrait" style="width:100%;max-width:420px">
-          ${p.photo ? `<img src="${p.photo}" alt="${p.n}">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
+          ${p.photo ? `<img src="${p.photo}" alt="${p.n}, художник, Московский союз художников">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
           <span class="portrait__name">${p.n}</span>
         </div>
       </div>
