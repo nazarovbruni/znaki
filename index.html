@@ -91,11 +91,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; m
 
 /* ---------- ticker */
 .ticker { background: var(--ink); color: var(--paper); overflow: hidden; border-block: 2px solid var(--ink); }
-.ticker__track { display: flex; width: max-content; animation: run 38s linear infinite; }
+.ticker__track { display: flex; width: max-content; -webkit-animation: run 38s linear infinite; animation: run 38s linear infinite; will-change: transform; }
 .ticker__track span { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.4vw, 30px); padding: 16px 0; white-space: nowrap; }
 .ticker__track i { display: inline-block; width: .7em; height: .7em; background: var(--signal); border-radius: 50%; margin: 0 .9em; vertical-align: .05em; }
-@keyframes run { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .ticker__track { animation: none; } html { scroll-behavior: auto; } }
+@-webkit-keyframes run { from { -webkit-transform: translate3d(0,0,0); } to { -webkit-transform: translate3d(-50%,0,0); } }
+@keyframes run { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 /* ---------- sections */
 section { padding-block: 88px; }
@@ -219,7 +220,16 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .cta { font-size: 14px; padding-right: 16px; }
   .cta b { width: 40px; height: 40px; margin-right: 10px; }
   .nav__bar { padding-left: 16px; }
-  .spacer { height: 96px; }
+  .spacer { height: 82px; }
+  .hero { padding-block: 8px 18px; }
+  .hero__eyebrow { margin-bottom: 12px; font-size: 12px; }
+  .hero .sticker { margin: 0 6px 10px 0; font-size: 13px; padding: 6px 13px; }
+  .signs { gap: 6px; }
+  .hero__meta { margin-top: 18px; padding-top: 14px; gap: 10px; }
+  .hero__lead { font-size: 20px; }
+  .hero__facts { font-size: 15px; }
+  .ticker__track span { font-size: 18px; padding: 11px 0; }
+  .ticker__track { -webkit-animation-duration: 26s; animation-duration: 26s; }
   .people { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
   .portrait__name { font-size: 16px; padding: 8px 10px; }
   .portrait__more { display: none; }
