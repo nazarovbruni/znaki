@@ -88,7 +88,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; m
 
 /* наклейки-плашки */
 .sticker { display: inline-block; font-family: var(--ui); font-weight: 600; font-size: 16px; background: var(--signal); color: var(--paper); border-radius: 999px; padding: 10px 22px; transform: rotate(var(--r, -8deg)); white-space: nowrap; box-shadow: 0 4px 0 var(--ink); }
-.sticker--ink { background: var(--ink); }
+.sticker--ink { background: var(--ink); box-shadow: 0 4px 0 var(--signal); }
 .hero { position: relative; }
 .hero .sticker { position: absolute; z-index: 2; }
 .hero .s1 { --r: 9deg; right: max(24px, 4vw); top: 40px; }
