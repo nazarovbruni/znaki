@@ -1,0 +1,679 @@
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>ЗНАКИ — виртуальная выставка Секции плаката Московского союза художников</title>
+<meta name="description" content="Виртуальная выставка «ЗНАКИ»: художники Секции плаката Московского союза художников создают знаки для чувств, состояний и мест, у которых их пока нет. Куратор — Юлия Назар.">
+<meta name="keywords" content="ЗНАКИ, виртуальная выставка, Секция плаката, Московский союз художников, МСХ, плакат, современное искусство, Юлия Назар, Виктор Куплевацкий, Измаил Бадоев, Светлана Дёмина, Анна Смоляницкая">
+<meta name="author" content="Секция плаката РОО «Московский союз художников»">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://nazarovbruni.github.io/znaki/">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+<link rel="alternate" type="text/markdown" title="Описание выставки для ИИ" href="llms.txt">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="ЗНАКИ">
+<meta property="og:title" content="ЗНАКИ — виртуальная выставка Секции плаката Московского союза художников">
+<meta property="og:description" content="Виртуальная выставка «ЗНАКИ»: художники Секции плаката Московского союза художников создают знаки для чувств, состояний и мест, у которых их пока нет. Куратор — Юлия Назар.">
+<meta property="og:url" content="https://nazarovbruni.github.io/znaki/">
+<meta property="og:image" content="https://nazarovbruni.github.io/znaki/img/og-znaki.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ЗНАКИ — виртуальная выставка Секции плаката МСХ">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ЗНАКИ — виртуальная выставка Секции плаката Московского союза художников">
+<meta name="twitter:description" content="Виртуальная выставка «ЗНАКИ»: художники Секции плаката Московского союза художников создают знаки для чувств, состояний и мест, у которых их пока нет. Куратор — Юлия Назар.">
+<meta name="twitter:image" content="https://nazarovbruni.github.io/znaki/img/og-znaki.jpg">
+<!--JSONLD-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Layout: система обозначений — белый лист, чёрный шрифт, один сигнальный красный.
+   Шапка из пяти «дорожных» форм, бегущая строка, словарь знаков сеткой 3×N. */
+:root {
+  --paper: #ffffff;
+  --ink: #000000;
+  --signal: #d7141a;
+  --plate: #f1f1ef;
+  --rule: #000000;
+  --muted: #555555;
+  --display: "Unbounded", "Arial Black", Arial, sans-serif;
+  --text: "PT Serif", Georgia, "Times New Roman", serif;
+  --ui: "Golos Text", Arial, Helvetica, sans-serif;
+  --wrap: 1240px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--text); font-size: 19px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+a:hover { color: var(--signal); }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.wrap {
+  max-width: var(--wrap); margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.label { font-family: var(--ui); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.12em; }
+
+/* ---------- nav */
+.nav { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 14px); left: 0; right: 0; z-index: 20; pointer-events: none; }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 0; }
+.nav__bar { pointer-events: auto; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; background: var(--paper); border: 2px solid var(--ink); border-radius: 18px; padding: 10px 10px 10px 22px; box-shadow: 0 8px 0 0 var(--ink); transition: box-shadow .25s; }
+.nav.is-scrolled .nav__bar { box-shadow: 0 4px 0 0 var(--ink); }
+.nav__right { display: flex; align-items: center; gap: 8px; }
+.burger { display: none; width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--ink); background: var(--paper); cursor: pointer; padding: 0; position: relative; flex: none; }
+.burger span { position: absolute; left: 12px; right: 12px; height: 2.5px; background: var(--ink); transition: transform .25s, top .25s; }
+.burger span:nth-child(1) { top: 17px; }
+.burger span:nth-child(2) { top: 25px; }
+.menu-open .burger { background: var(--ink); }
+.menu-open .burger span { background: var(--paper); top: 21px; }
+.menu-open .burger span:nth-child(1) { transform: rotate(45deg); }
+.menu-open .burger span:nth-child(2) { transform: rotate(-45deg); }
+.mmenu { position: fixed; inset: 0; z-index: 15; background: var(--paper); padding: calc(env(safe-area-inset-top, 0px) + 100px) max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 24px) max(16px, env(safe-area-inset-left, 0px)); overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; opacity: 0; visibility: hidden; transform: translateY(-12px); transition: opacity .25s, transform .3s, visibility 0s .3s; }
+.menu-open .mmenu { opacity: 1; visibility: visible; transform: none; transition: opacity .25s, transform .3s, visibility 0s; }
+.mmenu ol { list-style: none; margin: 0; padding: 0; counter-reset: m; }
+.mmenu li { border-top: 2px solid var(--ink); }
+.mmenu li:last-child { border-bottom: 2px solid var(--ink); }
+.mmenu a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 2px; font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1.15; text-decoration: none; }
+.mmenu a::after { content: "→"; font-family: var(--ui); font-size: 22px; }
+.mmenu a:hover, .mmenu a:active { color: var(--signal); }
+.mmenu__foot { font-family: var(--ui); font-size: 16px; line-height: 1.5; display: grid; gap: 4px; }
+.mmenu__foot strong { font-family: var(--display); font-size: 18px; user-select: all; }
+.menu-open { overflow: hidden; }
+.cta { display: inline-flex; align-items: center; gap: 0; text-decoration: none; font-family: var(--ui); font-weight: 600; font-size: 16px; border-radius: 999px; background: var(--signal); color: var(--paper); padding-right: 22px; white-space: nowrap; }
+.cta b { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; margin-right: 14px; font-size: 20px; transition: transform .25s; }
+.cta:hover { color: var(--paper); }
+.cta__short { display: none; }
+.cta [data-up] { display: none; }
+.cta.is-up [data-down] { display: none; }
+.cta.is-up [data-up] { display: inline; }
+.cta.is-up { background: var(--ink); }
+.cta.is-up b { background: var(--signal); }
+.msh-logo { display: block; width: min(300px, 100%); }
+.msh-logo img { display: block; width: 100%; height: auto; }
+.hero__org { display: grid; gap: 14px; justify-items: start; }
+.msh-logo--section { width: 190px; max-width: 100%; margin-bottom: 18px; }
+.msh-logo--foot { grid-column: 1 / -1; width: min(300px, 100%); }
+@media (hover: hover) { .cta:hover b { transform: translateY(2px); } .cta.is-up:hover b { transform: translateY(-2px); } }
+.spacer { height: 110px; }
+
+/* наклейки-плашки */
+.sticker { display: inline-block; font-family: var(--ui); font-weight: 600; font-size: 16px; background: var(--signal); color: var(--paper); border-radius: 999px; padding: 10px 22px; transform: rotate(var(--r, -8deg)); white-space: nowrap; box-shadow: 0 4px 0 var(--ink); }
+.sticker--ink { background: var(--ink); box-shadow: 0 4px 0 var(--signal); }
+.hero { position: relative; }
+.hero .sticker { position: absolute; z-index: 2; }
+.hero .s1 { --r: 9deg; right: max(24px, 4vw); top: 40px; }
+.hero .s2 { --r: -7deg; left: max(20px, 3vw); top: calc(100% - 190px); }
+
+/* появление при прокрутке */
+.js .reveal { opacity: 0; transform: translateY(48px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+.js .reveal.is-in { opacity: 1; transform: none; }
+.js .pop { opacity: 0; transform: translateY(30px) rotate(var(--r, -8deg)) scale(.6); transition: opacity .5s ease, transform .6s cubic-bezier(.3,1.6,.5,1); transition-delay: var(--d, 300ms); }
+.js .pop.is-in { opacity: 1; transform: rotate(var(--r, -8deg)); }
+@media (prefers-reduced-motion: reduce) { .js .reveal, .js .pop { opacity: 1; transform: rotate(var(--r, 0deg)); transition: none; } }
+
+/* пустые места под контент */
+.empty { border: 2px dashed var(--ink); display: grid; place-items: center; text-align: center; font-family: var(--ui); font-size: 15px; font-weight: 500; color: var(--muted); padding: 16px; background: var(--paper); }
+.nav__mark { font-family: var(--display); font-weight: 900; font-size: 22px; text-decoration: none; letter-spacing: 0.02em; }
+.nav__mark span { color: var(--signal); }
+.nav ul { display: flex; flex-wrap: wrap; gap: 6px 26px; list-style: none; margin: 0; padding: 0; font-family: var(--ui); font-size: 16px; font-weight: 500; }
+.nav ul a { text-decoration: none; }
+.nav ul a:hover { text-decoration: underline; }
+
+/* ---------- hero */
+.hero { padding-block: 72px 72px; }
+.hero__eyebrow { margin-bottom: 28px; font-size: 18px; }
+.signs { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(8px, 2vw, 24px); max-width: 1100px; }
+.signs svg { width: 100%; height: auto; display: block; overflow: visible; }
+.signs text { font-family: var(--display); font-weight: 900; }
+.hero__meta { margin-top: 44px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px 48px; align-items: end; border-top: 2px solid var(--rule); padding-top: 22px; }
+.hero__lead { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.6vw, 32px); line-height: 1.2; margin: 0; }
+.hero__facts { font-family: var(--ui); font-size: 17px; line-height: 1.5; margin: 0; }
+.hero__facts strong { font-weight: 600; }
+
+/* ---------- ticker */
+.ticker { background: var(--ink); color: var(--paper); overflow: hidden; border-block: 2px solid var(--ink); }
+.ticker__track { display: flex; width: max-content; -webkit-animation: run 38s linear infinite; animation: run 38s linear infinite; will-change: transform; }
+.ticker__track span { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.4vw, 30px); padding: 16px 0; white-space: nowrap; }
+.ticker__track i { display: inline-block; width: .7em; height: .7em; background: var(--signal); border-radius: 50%; margin: 0 .9em; vertical-align: .05em; }
+@-webkit-keyframes run { from { -webkit-transform: translate3d(0,0,0); } to { -webkit-transform: translate3d(-50%,0,0); } }
+@keyframes run { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* ---------- sections */
+section { padding-block: 88px; }
+.sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 32px; margin-bottom: 44px; }
+.sec-head h2 { font-size: clamp(38px, 6vw, 76px); line-height: 1.22; text-decoration: underline; text-decoration-thickness: 6px; text-underline-offset: 10px; text-decoration-skip-ink: none; }
+.sec-head p { margin: 0; max-width: 34ch; font-style: italic; font-size: 20px; }
+
+/* manifest */
+.manifest .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 72px; }
+.manifest__claim { font-size: clamp(32px, 4.2vw, 56px); position: sticky; top: 110px; align-self: start; }
+.manifest__claim em { font-style: normal; color: var(--signal); }
+.manifest__body { min-width: 0; max-width: 62ch; }
+.manifest__body p { margin: 0 0 1.1em; }
+.manifest__list { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.35; margin: 0 0 1.1em; }
+.manifest__close { font-weight: 700; font-size: 22px; border-top: 2px solid var(--rule); padding-top: 18px; }
+
+/* gallery */
+.gallery { border-top: 2px solid var(--rule); }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 32px; list-style: none; margin: 0; padding: 0; }
+.card { min-width: 0; }
+.card button { all: unset; cursor: pointer; display: block; width: 100%; }
+.card button:focus-visible { outline: 3px solid var(--signal); outline-offset: 6px; }
+.plate { aspect-ratio: 4 / 5; max-width: 100%; background: var(--plate); display: grid; place-items: center; padding: 28px; position: relative; transition: background .2s; }
+.plate { overflow: hidden; }
+.plate--white, .card button:hover .plate--white { background: var(--paper); }
+.plate.plate--fill { aspect-ratio: auto; padding: 0; display: block; }
+.plate.plate--fill img { position: static; width: 100%; height: auto; }
+.plate--fill .plate__no { color: var(--paper); text-shadow: 0 1px 3px rgba(0,0,0,.55); z-index: 1; }
+.plate--fill.plate--white .plate__no { color: var(--ink); text-shadow: none; }
+@media (max-width: 620px) { .plate--white { aspect-ratio: auto; padding: 40px 0 8px; } .plate.plate--white img { position: static; width: 100%; height: auto; } }
+@media (min-width: 621px) { .plate.plate--white img { top: 36px; left: 0; width: 100%; height: calc(100% - 36px); } }
+.plate img, .plate video { position: absolute; top: 44px; left: 28px; width: calc(100% - 56px); height: calc(100% - 72px); object-fit: contain; display: block; transition: transform .35s ease; }
+.card button:hover .plate img { transform: scale(1.04); }
+.card button:hover .plate { background: #e8e8e5; }
+.plate__no { position: absolute; top: 12px; left: 14px; font-family: var(--ui); font-weight: 600; font-size: 14px; letter-spacing: .08em; }
+.plate--anim { flex-direction: column; text-align: center; gap: 14px; font-family: var(--ui); font-size: 15px; color: var(--muted); }
+.plate--anim svg { width: 64px; height: 64px; }
+.card__cap { padding-top: 16px; border-top: 2px solid var(--rule); margin-top: 14px; }
+.card__title { font-family: var(--display); font-weight: 700; font-size: 21px; line-height: 1.2; display: block; }
+.card__author { font-family: var(--ui); font-size: 17px; display: block; margin-top: 6px; }
+
+/* authors */
+.authors { background: var(--plate); }
+.people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 32px; list-style: none; margin: 0; padding: 0; }
+.person button { all: unset; cursor: pointer; display: block; width: 100%; }
+.person button:focus-visible { outline: 3px solid var(--signal); outline-offset: 6px; }
+.portrait { aspect-ratio: 3 / 4; max-width: 100%; background: var(--paper); border: 2px solid var(--ink); position: relative; display: grid; place-items: center; overflow: hidden; }
+.portrait__ini { font-family: var(--display); font-weight: 900; font-size: clamp(64px, 9vw, 120px); color: var(--plate); -webkit-text-stroke: 2px var(--ink); }
+.portrait__name { position: absolute; left: 0; right: 0; bottom: 0; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 700; font-size: 20px; padding: 12px 16px; line-height: 1.2; }
+.portrait__more { position: absolute; top: 12px; right: 12px; font-family: var(--ui); font-size: 14px; font-weight: 600; background: var(--paper); border: 2px solid var(--ink); padding: 4px 10px; }
+.person button:hover .portrait__name { background: var(--signal); }
+.portrait__empty { position: absolute; inset: 14px 14px 58px; border: 2px dashed var(--ink); display: grid; place-items: center; font-family: var(--ui); font-size: 15px; color: var(--muted); }
+.q-empty { position: absolute; inset: 44px 28px 28px; border: 2px dashed var(--ink); display: grid; place-items: center; font-family: var(--display); font-weight: 900; font-size: clamp(120px, 14vw, 220px); line-height: 1; color: var(--signal); }
+.q-note { position: absolute; left: 0; right: 0; bottom: 44px; text-align: center; font-family: var(--ui); font-size: 15px; color: var(--muted); }
+.portrait__empty--q { font-family: var(--display); font-weight: 900; font-size: clamp(90px, 11vw, 160px); color: var(--signal); }
+.anim-empty { position: absolute; inset: 44px 28px 28px; border: 2px dashed var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.card button:hover .plate, .person button:hover .portrait { box-shadow: 0 8px 0 var(--ink); }
+.plate, .portrait { transition: box-shadow .25s, background .2s; }
+
+/* curator */
+.curator .wrap { display: grid; grid-template-columns: 1fr 2fr; gap: 32px 72px; }
+.curator h2 { font-size: clamp(30px, 3.6vw, 44px); }
+.curator blockquote { margin: 0; font-size: clamp(22px, 2.2vw, 27px); line-height: 1.5; max-width: 40ch; min-width: 0; }
+.curator blockquote p { margin: 0 0 1em; }
+.curator cite { font-style: normal; font-family: var(--ui); font-weight: 600; font-size: 17px; display: block; margin-top: 28px; }
+
+/* section of poster */
+.section-msh { border-top: 2px solid var(--rule); }
+.section-msh .wrap { display: grid; grid-template-columns: 1fr 2fr; gap: 32px 72px; }
+.section-msh h2 { font-size: clamp(30px, 3.6vw, 44px); }
+.section-msh__body { max-width: 62ch; min-width: 0; }
+.section-msh__body p { margin: 0 0 1em; }
+.section-msh__year { font-family: var(--display); font-weight: 900; font-size: clamp(64px, 9vw, 120px); line-height: 1; color: var(--signal); margin-top: 18px; display: block; }
+.links { display: flex; flex-wrap: wrap; gap: 12px 28px; font-family: var(--ui); font-weight: 600; font-size: 17px; margin-top: 8px; }
+
+/* question */
+.question { border-top: 2px solid var(--rule); border-bottom: 2px solid var(--rule); padding-block: 120px; }
+.question h2 { font-size: clamp(40px, 8vw, 112px); line-height: 1; max-width: 14ch; }
+.question h2 span { color: var(--signal); }
+
+/* footer / contacts */
+.contacts { background: var(--ink); color: var(--paper); padding-block: 72px 56px; }
+.contacts .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px 72px; }
+.contacts p { margin: 0; font-size: 22px; max-width: 34ch; }
+.contacts dl { margin: 0; font-family: var(--ui); display: grid; gap: 18px; }
+.contacts dt { font-size: 14px; text-transform: uppercase; letter-spacing: .12em; opacity: .85; }
+.contacts dd { margin: 4px 0 0; font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.2vw, 26px); user-select: all; word-break: break-word; }
+.contacts a:hover { color: #ff6b6f; }
+.contacts__base { grid-column: 1 / -1; border-top: 2px solid var(--paper); padding-top: 20px; font-family: var(--ui); font-size: 15px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+/* ---------- dialog */
+dialog { border: 0; padding: 0; width: min(1100px, calc(100% - 32px)); max-height: calc(100% - 32px); background: var(--paper); color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
+dialog::backdrop { background: rgba(0,0,0,.72); }
+.entry { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 0; }
+.entry__img { background: var(--plate); display: grid; place-items: center; padding: 32px; min-height: 320px; }
+.entry__img img { max-width: 100%; max-height: 70vh; object-fit: contain; }
+.entry__img.is-portrait { background: var(--plate); }
+.entry__text { padding: 36px 36px 40px; min-width: 0; overflow-y: auto; max-height: calc(100vh - 32px); }
+.entry__no { color: var(--signal); }
+.entry h3 { font-size: clamp(28px, 3.2vw, 42px); margin: 10px 0 6px; }
+.entry__author { font-family: var(--ui); font-weight: 600; font-size: 18px; margin: 0 0 26px; }
+.entry dl { margin: 0; display: grid; gap: 18px; }
+.entry dt { font-family: var(--ui); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .12em; border-top: 2px solid var(--rule); padding-top: 10px; }
+.entry dd { margin: 6px 0 0; font-size: 19px; }
+.entry dd.pending { color: var(--muted); font-style: italic; }
+.bio__lead { margin: 0 0 22px; font-size: 20px; }
+.close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--ink); color: var(--paper); cursor: pointer; padding: 0; -webkit-appearance: none; appearance: none; box-shadow: 0 0 0 3px var(--paper); transition: background .2s, transform .2s; }
+.close span { position: absolute; left: 13px; right: 13px; top: 21px; height: 2px; background: var(--paper); }
+.close span:nth-child(1) { transform: rotate(45deg); }
+.close span:nth-child(2) { transform: rotate(-45deg); }
+.close:hover { background: var(--signal); transform: rotate(90deg); }
+.portrait > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.dlg-inner { position: relative; }
+
+/* ---------- responsive */
+@media (max-width: 960px) {
+  .grid, .people { grid-template-columns: repeat(2, 1fr); }
+  .nav ul { display: none; }
+  .burger { display: block; }
+  .manifest .wrap, .curator .wrap, .section-msh .wrap, .contacts .wrap, .hero__meta { grid-template-columns: 1fr; }
+  .manifest__claim { position: static; }
+  .entry { grid-template-columns: 1fr; }
+  .entry__img img { max-height: 46vh; }
+  .entry__text { max-height: none; }
+  dialog { overflow-y: auto; }
+}
+@media (max-width: 620px) {
+  body { font-size: 18px; }
+  .grid { grid-template-columns: 1fr; }
+  .hero .sticker { position: static; margin: 0 8px 14px 0; font-size: 14px; padding: 8px 16px; }
+  .hero .s1 { --r: -4deg; }
+  .hero .s2 { --r: 3deg; }
+  .cta { font-size: 15px; padding-right: 16px; }
+  .cta b { width: 40px; height: 40px; margin-right: 10px; }
+  .nav__bar { padding-left: 16px; }
+  .spacer { height: 104px; }
+  .hero { padding-block: 22px 48px; }
+  .hero__eyebrow { margin-bottom: 18px; font-size: 15px; }
+  .hero .sticker { margin: 0 6px 12px 0; font-size: 15px; padding: 7px 14px; }
+  .signs { gap: 6px; }
+  .hero__meta { margin-top: 28px; padding-top: 20px; gap: 16px; }
+  .hero__lead { font-size: 20px; }
+  .hero__facts { font-size: 15px; }
+  .hero__org .msh-logo { width: 220px; }
+  .ticker__track span { font-size: 16px; padding: 12px 0; }
+  .sec-head { margin-bottom: 32px; gap: 18px; }
+  .sec-head h2 { font-size: 34px; line-height: 1.32; text-decoration-thickness: 4px; text-underline-offset: 7px; }
+  .sec-head p { font-size: 18px; line-height: 1.55; }
+  .cta__long { display: none; }
+  .cta__short { display: inline; }
+  .ticker__track { -webkit-animation-duration: 26s; animation-duration: 26s; }
+  .people { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+  .portrait__name { font-size: 16px; padding: 8px 10px; }
+  .portrait__more { display: none; }
+  section { padding-block: 64px; }
+  .question { padding-block: 80px; }
+  .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .entry__text { padding: 28px 20px 32px; }
+  .entry__img { padding: 20px; min-height: 0; }
+}
+</style>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav__bar">
+      <a class="nav__mark" href="#top">ЗНАКИ<span>.</span></a>
+      <nav aria-label="Разделы">
+        <ul>
+          <li><a href="#manifest">О проекте</a></li>
+          <li><a href="#authors">Авторы</a></li>
+          <li><a href="#curator">От куратора</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="nav__right">
+        <a class="cta" id="cta" href="#gallery"><b aria-hidden="true"><span data-down>↓</span><span data-up>↑</span></b><span data-down><span class="cta__long">Смотреть работы</span><span class="cta__short">Работы</span></span><span data-up>Наверх</span></a>
+        <button class="burger" type="button" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mmenu"><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mmenu" id="mmenu" aria-label="Меню">
+  <nav aria-label="Разделы (мобильное меню)">
+    <ol>
+      <li><a href="#manifest">О проекте</a></li>
+      <li><a href="#gallery">Галерея знаков</a></li>
+      <li><a href="#authors">Авторы</a></li>
+      <li><a href="#curator">От куратора</a></li>
+      <li><a href="#section">Секция плаката</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ol>
+  </nav>
+  <div class="mmenu__foot">
+    <span>Виртуальная выставка · Куратор — Юлия Назар</span>
+    <strong>+7 495 995-06-13</strong>
+    <strong>gallery@glubinagallery.ru</strong>
+  </div>
+</div>
+
+<main id="top">
+  <div class="spacer" aria-hidden="true"></div>
+  <div class="hero wrap">
+    <span class="sticker s1 pop" style="--d:700ms">9 знаков · 6 художников</span>
+    <span class="sticker sticker--ink s2 pop" style="--d:950ms">Секция плаката МСХ</span>
+    <p class="label hero__eyebrow">Виртуальная выставка</p>
+    <h1 class="signs"><span class="sr-only">ЗНАКИ — виртуальная выставка Секции плаката Московского союза художников</span>
+      <!-- З: запрещающий круг -->
+      <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="88" fill="#fff" stroke="#d7141a" stroke-width="22"/><text x="100" y="134" text-anchor="middle" font-size="104" fill="#000">З</text></svg>
+      <!-- Н: предупреждающий треугольник -->
+      <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 14 L190 180 L10 180 Z" fill="#fff" stroke="#d7141a" stroke-width="18" stroke-linejoin="round"/><text x="100" y="164" text-anchor="middle" font-size="84" fill="#000">Н</text></svg>
+      <!-- А: информационный квадрат -->
+      <svg viewBox="0 0 200 200" aria-hidden="true"><rect x="10" y="10" width="180" height="180" rx="14" fill="#000"/><text x="100" y="138" text-anchor="middle" font-size="110" fill="#fff">А</text></svg>
+      <!-- К: ромб -->
+      <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 6 L194 100 L100 194 L6 100 Z" fill="#fff" stroke="#000" stroke-width="12" stroke-linejoin="round"/><text x="100" y="134" text-anchor="middle" font-size="92" fill="#000">К</text></svg>
+      <!-- И: красный круг -->
+      <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="#d7141a"/><text x="100" y="138" text-anchor="middle" font-size="110" fill="#fff">И</text></svg>
+    </h1>
+    <div class="hero__meta">
+      <p class="hero__lead">Знаки для того, у чего их пока нет</p>
+      <div class="hero__org">
+      <a class="msh-logo" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo.png" alt="Московский союз художников" width="900" height="136"></a>
+      <p class="hero__facts">Выставочный проект художников <strong>Секции плаката РОО «Московский Союз художников»</strong><br>Куратор — <a href="https://julianazar.ru" target="_blank" rel="noopener">Юлия Назар</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>Для чувства<i></i>Состояния<i></i>Отношения<i></i>Ситуации<i></i>Места<i></i>Нового явления<i></i>Личного опыта<i></i>Коллективного опыта<i></i></span>
+      <span>Для чувства<i></i>Состояния<i></i>Отношения<i></i>Ситуации<i></i>Места<i></i>Нового явления<i></i>Личного опыта<i></i>Коллективного опыта<i></i></span>
+    </div>
+  </div>
+
+  <section class="manifest" id="manifest" aria-labelledby="m-h">
+    <div class="wrap">
+      <h2 class="manifest__claim" id="m-h">Мы решили создать знаки для того, у&nbsp;чего их <em>пока нет</em>.</h2>
+      <div class="manifest__body">
+        <p>Нас окружает огромное количество знаков. Они регулируют движение, предупреждают об опасности, обозначают запрет, принадлежность, направление.</p>
+        <p>Но значительная часть человеческого опыта до сих пор не имеет собственного обозначения.</p>
+        <p class="manifest__list">Для чувства. Состояния. Отношения. Ситуации. Места. Нового явления. Личного или коллективного опыта.</p>
+        <p>Каждый художник сам выбирает, что именно хочет обозначить. Знаком может стать графический символ, изображение, цвет, форма, жест, слово, фотография или живописный образ.</p>
+        <p>Нам важно не столько создать универсальный символ, сколько зафиксировать сам жест называния: увидеть то, что обычно остаётся без обозначения, и дать ему визуальную форму.</p>
+        <p>Так появились знак немой глуши, знак того, что всё хорошо, знак пути в небо, знак единства, знак детей, бегущих от грозы.</p>
+        <p>Каждый художник представляет свой знак, его название и короткое пояснение: что он обозначает и почему понадобился собственный образ. Вместе эти работы складываются в единый визуальный словарь — систему обозначений, созданную не государством, не навигацией и не рекламой, а художниками.</p>
+        <p class="manifest__close">Это словарь того, что мы замечаем, чувствуем и считаем важным обозначить сегодня.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery" aria-labelledby="g-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="g-h">Галерея знаков</h2>
+        <p>Каждая работа здесь не иллюстрирует понятие, а предлагает новый способ его обозначить.</p>
+      </div>
+      <ul class="grid" id="works"></ul>
+    </div>
+  </section>
+
+  <section class="authors" id="authors" aria-labelledby="a-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="a-h">Авторы</h2>
+        <p>Нажмите на портрет, чтобы прочитать об авторе.</p>
+      </div>
+      <ul class="people" id="people"></ul>
+    </div>
+  </section>
+
+  <section class="curator" id="curator" aria-labelledby="c-h">
+    <div class="wrap">
+      <h2 id="c-h">От куратора</h2>
+      <blockquote>
+        <p>Этот проект не предлагает готовой системы знаков. Напротив, он показывает, насколько по-разному художники могут обозначать одно и то же пространство человеческого опыта.</p>
+        <p>Здесь важен не только созданный образ, но и сам момент выбора: что сегодня кажется художнику настолько значимым, что для этого хочется придумать отдельный знак.</p>
+        <p>Поэтому «ЗНАКИ» можно рассматривать как коллективный портрет настоящего, собранный не из событий, а из того, что мы считаем необходимым заметить и назвать.</p>
+        <cite>Юлия Назар, куратор</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section-msh" id="section" aria-labelledby="s-h">
+    <div class="wrap">
+      <div>
+        <a class="msh-logo msh-logo--section" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
+        <h2 id="s-h">Секция плаката МСХ</h2>
+        <span class="section-msh__year">1932</span>
+      </div>
+      <div class="section-msh__body">
+        <p>Секция плаката Московского союза художников ведёт историю с 1932 года. Она выросла из Общества работников революционного плаката и вошла в Московский союз художников как самостоятельная секция; её первым руководителем был Дмитрий Моор.</p>
+        <p>Сегодня в секции около 150 художников. Секция проводит выставки и конкурсы, участвует в культурных проектах, а её мастера преподают в художественных вузах и училищах.</p>
+        <div class="links">
+          <a href="https://artanum.ru/examination/index.php?id=26" target="_blank" rel="noopener">Секция плаката на сайте МСХ ↗</a>
+          <a href="https://artanum.ru/" target="_blank" rel="noopener">Московский союз художников ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="question" aria-label="Вопрос зрителю">
+    <div class="wrap">
+      <h2>А для чего сегодня не хватает знака вам<span>?</span></h2>
+    </div>
+  </section>
+</main>
+
+<footer class="contacts" id="contacts">
+  <div class="wrap">
+    <p>Проект продолжается. Художники Секции плаката могут предложить собственный знак для включения в виртуальную экспозицию.</p>
+    <dl>
+      <div><dt>Телефон</dt><dd><a href="tel:+74959950613">+7 495 995-06-13</a></dd></div>
+      <div><dt>Почта</dt><dd><a href="mailto:gallery@glubinagallery.ru">gallery@glubinagallery.ru</a></dd></div>
+    </dl>
+    <a class="msh-logo msh-logo--foot" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo-dark.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
+    <div class="contacts__base">
+      <span>ЗНАКИ · Виртуальная выставка · Секция плаката РОО «МСХ»</span>
+      <span>Куратор — Юлия Назар</span>
+    </div>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlg-title">
+  <div class="dlg-inner">
+    <button class="close" type="button" id="dlg-close" aria-label="Закрыть"><span></span><span></span></button>
+    <div id="dlg-body"></div>
+  </div>
+</dialog>
+
+<script>
+const WORKS = [
+  { t: 'Глушь немая', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
+  { t: 'Всё хорошо. Ангел в пустоте', a: 'Юлия Назар', img: 'img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true },
+  { t: 'Птица', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.jpg', fill: true },
+  { t: 'Самопознание. Путь в небо', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov.jpg' },
+  { t: 'ИИ', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov.jpg' },
+  { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg' },
+  { t: 'Дети бегут от грозы', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
+  // Когда придёт анимация: video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm'
+  { t: 'Insight', a: 'Виктор Куплевацкий', img: null, video: null, webm: null },
+  // Место под девятый знак: замените t, a и добавьте img, затем уберите empty
+  { t: '?', a: 'Художник ?', img: null, empty: true },
+  // Пояснения авторов: добавьте поля means: '...' и why: '...'
+];
+
+const PEOPLE = [
+  { n: 'Измаил Бадоев', ini: 'ИБ', photo: null,
+    lead: 'Измаил Тамерланович Бадоев — художник, мастер декоративно-прикладного искусства. Живёт и работает в Москве.',
+    rows: [['Направления', 'живопись, графика, декоративное панно'],
+           ['Выставки', 'участник коллективных выставок современного искусства, в том числе российско-азиатского арт-проекта «Завтра», приуроченного ко Дню космонавтики (2021)']] },
+  { n: 'Светлана Дёмина', ini: 'СД', photo: null,
+    lead: 'Светлана Дёмина — художница и куратор. Родилась в 1973 году в Москве. В живописи совмещает абстракцию и метафорический реализм.',
+    rows: [['Направления', 'живопись (холст, масло), кураторская деятельность'],
+           ['Образование', 'МАХЛ РАХ (бывшая Московская средняя художественная школа им. Томского), 1991; МГАХИ им. В. И. Сурикова'],
+           ['Членство', 'Московский союз художников']] },
+  { n: 'Юлия Назар', ini: 'ЮН', photo: 'img/artists/nazar-yulia-moskovskiy-soyuz-khudozhnikov.jpg',
+    lead: 'Юлия Назар — художница, монументалист, куратор. Основатель московского арт-сообщества GLUBINA.',
+    rows: [['Направления', 'живопись, инсталляция, паблик-арт, перформанс, ленд-арт'],
+           ['Образование', 'МГАХИ им. В. И. Сурикова (факультет живописи); Институт проблем современного искусства (ИПСИ), мастерская Иосифа Бакштейна; Высшая школа «Среда обучения», мастерская Арсения Жиляева'],
+           ['Сайт', '<a href="https://julianazar.ru" target="_blank" rel="noopener">julianazar.ru</a>']] },
+  { n: 'Виктор Куплевацкий', ini: 'ВК', photo: null,
+    lead: 'Виктор Куплевацкий — графический дизайнер, художник-плакатист. Более 40 лет работает в визуальных коммуникациях и брендинге.',
+    rows: [['Направления', 'плакат, товарные знаки, логотипы, фирменные стили, каллиграфия, полиграфия и оформление книг'],
+           ['Образование', 'МВХПУ (бывшее Строгановское), специальность «Графический дизайн», 1975–1980'],
+           ['Членство', 'Московский союз художников (Секция плаката), Союз художников Подмосковья; ранее — Союз дизайнеров СССР'],
+           ['Выставки', 'участник российских и зарубежных выставок; работы публикуются в профильных каталогах и журналах по дизайну'],
+           ['Сайт', '<a href="https://kuplevatskiy.ru/" target="_blank" rel="noopener">kuplevatskiy.ru</a>']] },
+  { n: 'Анна Смоляницкая', ini: 'АС', photo: null,
+    lead: 'Анна Смоляницкая — художник-живописец. Работает маслом в традициях русской реалистической школы с элементами импрессионизма.',
+    rows: [['Жанры', 'натюрморт, пейзаж, городские сцены, цветочные композиции'],
+           ['Работы', 'находятся в частных коллекциях']] },
+  // Место под шестого художника: замените n, lead, rows и уберите empty
+  { n: 'Художник ?', ini: '?', photo: null, empty: true,
+    lead: 'Здесь появится рассказ о художнике.', rows: [] },
+];
+
+const no = (i) => '№ ' + String(i + 1).padStart(2, '0');
+const PLAY = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#000" stroke-width="4"/><path d="M26 20 L46 32 L26 44 Z" fill="#d7141a"/></svg>';
+
+function media(w, big) {
+  if (w.video || w.webm) {
+    return `<video autoplay muted loop playsinline ${big ? '' : 'aria-hidden="true"'}>` +
+      (w.webm ? `<source src="${w.webm}" type="video/webm">` : '') +
+      (w.video ? `<source src="${w.video}" type="video/mp4">` : '') + '</video>';
+  }
+  if (w.empty) return '<span class="q-empty" aria-hidden="true">?</span><span class="q-note">Место для плаката</span>';
+  if (w.img) return `<img src="${w.img}" alt="Знак «${w.t}», ${w.a}, Московский союз художников" loading="lazy">`;
+  return '<span class="anim-empty">' + PLAY + '<span>Место для анимации (GIF)</span></span>';
+}
+
+const worksEl = document.getElementById('works');
+if (!worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) => `
+  <li class="card reveal" id="znak-${String(i + 1).padStart(2, '0')}" style="--d:${(i % 3) * 120}ms">
+    <button type="button" data-work="${i}" aria-label="Открыть: Знак «${w.t}», ${w.a}">
+      <div class="plate ${w.img || w.video || w.empty ? '' : 'plate--anim'} ${w.white ? 'plate--white' : ''} ${w.fill ? 'plate--fill' : ''}">
+        <span class="plate__no">${no(i)}</span>${media(w)}
+      </div>
+      <div class="card__cap">
+        <span class="card__title">Знак «${w.t}»</span>
+        <span class="card__author">${w.a}</span>
+      </div>
+    </button>
+  </li>`).join('');
+
+const peopleEl = document.getElementById('people');
+if (!peopleEl.children.length) peopleEl.innerHTML = PEOPLE.map((p, i) => `
+  <li class="person reveal" style="--d:${(i % 3) * 120}ms">
+    <button type="button" data-person="${i}" aria-label="Об авторе: ${p.n}">
+      <div class="portrait">
+        ${p.photo ? `<img src="${p.photo}" alt="${p.n}, художник, Московский союз художников">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
+        <span class="portrait__more">Читать</span>
+        <span class="portrait__name">${p.n}</span>
+      </div>
+    </button>
+  </li>`).join('');
+
+const dlg = document.getElementById('dlg');
+const body = document.getElementById('dlg-body');
+let lastFocus = null;
+
+function openWork(i) {
+  const w = WORKS[i];
+  const means = w.means ? `<dd>${w.means}</dd>` : '<dd class="pending">Пояснение автора появится здесь.</dd>';
+  const why = w.why ? `<dd>${w.why}</dd>` : '<dd class="pending">Пояснение автора появится здесь.</dd>';
+  body.innerHTML = `
+    <article class="entry">
+      <div class="entry__img ${w.img || w.video || w.empty ? '' : 'plate--anim'}" style="position:relative;${w.empty ? 'min-height:420px' : ''}">${media(w, true)}</div>
+      <div class="entry__text">
+        <span class="label entry__no">${no(i)} · Знак</span>
+        <h3 id="dlg-title">«${w.t}»</h3>
+        <p class="entry__author">${w.a}</p>
+        <dl><div><dt>Обозначает</dt>${means}</div><div><dt>Почему понадобился знак</dt>${why}</div></dl>
+      </div>
+    </article>`;
+  show();
+}
+function openPerson(i) {
+  const p = PEOPLE[i];
+  body.innerHTML = `
+    <article class="entry">
+      <div class="entry__img">
+        <div class="portrait" style="width:100%;max-width:420px">
+          ${p.photo ? `<img src="${p.photo}" alt="${p.n}, художник, Московский союз художников">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
+          <span class="portrait__name">${p.n}</span>
+        </div>
+      </div>
+      <div class="entry__text">
+        <span class="label entry__no">Автор</span>
+        <h3 id="dlg-title">${p.n}</h3>
+        <p class="bio__lead">${p.lead}</p>
+        <dl>${p.rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      </div>
+    </article>`;
+  show();
+}
+function show() {
+  lastFocus = document.activeElement;
+  if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+  document.getElementById('dlg-close').focus();
+}
+function hide() {
+  if (dlg.open) dlg.close();
+}
+// мобильное меню
+(function () {
+  const btn = document.getElementById('burger');
+  const menu = document.getElementById('mmenu');
+  const root = document.documentElement;
+  const set = (open) => {
+    root.classList.toggle('menu-open', open);
+    document.body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+  };
+  btn.addEventListener('click', () => set(!root.classList.contains('menu-open')));
+  menu.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+  document.querySelector('.cta').addEventListener('click', () => set(false));
+})();
+
+// кнопка «Смотреть работы ↓» / «Наверх ↑»
+(function () {
+  const cta = document.getElementById('cta');
+  const gallery = document.getElementById('gallery');
+  const update = () => {
+    const up = gallery.getBoundingClientRect().top < window.innerHeight * 0.35;
+    cta.classList.toggle('is-up', up);
+    cta.setAttribute('href', up ? '#top' : '#gallery');
+    cta.setAttribute('aria-label', up ? 'Наверх' : 'Смотреть работы');
+  };
+  cta.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (cta.classList.contains('is-up')) window.scrollTo({ top: 0, behavior: 'smooth' });
+    else gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+// появление при прокрутке
+(function () {
+  const root = document.documentElement;
+  const targets = [
+    ...document.querySelectorAll('.signs svg'),
+    ...document.querySelectorAll('.hero__meta, .manifest__claim, .manifest__body > p, .sec-head, .curator h2, .curator blockquote, .section-msh .wrap > *, .question h2, .contacts .wrap > *'),
+  ];
+  document.querySelectorAll('.signs svg').forEach((el, i) => el.style.setProperty('--d', (i * 110) + 'ms'));
+  targets.forEach((el) => el.classList.add('reveal'));
+  if (!('IntersectionObserver' in window)) return;
+  root.classList.add('js');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .pop').forEach((el) => io.observe(el));
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+
+dlg.addEventListener('close', () => { body.innerHTML = ''; if (lastFocus) lastFocus.focus(); });
+document.getElementById('dlg-close').addEventListener('click', hide);
+dlg.addEventListener('click', (e) => { if (e.target === dlg) hide(); });
+worksEl.addEventListener('click', (e) => { const b = e.target.closest('[data-work]'); if (b) openWork(+b.dataset.work); });
+peopleEl.addEventListener('click', (e) => { const b = e.target.closest('[data-person]'); if (b) openPerson(+b.dataset.person); });
+</script>
