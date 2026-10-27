@@ -234,8 +234,12 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 .entry dd { margin: 6px 0 0; font-size: 19px; }
 .entry dd.pending { color: var(--muted); font-style: italic; }
 .bio__lead { margin: 0 0 22px; font-size: 20px; }
-.close { position: absolute; top: 12px; right: 12px; z-index: 2; width: 48px; height: 48px; border: 2px solid var(--ink); background: var(--paper); cursor: pointer; font-size: 26px; line-height: 1; font-family: var(--ui); }
-.close:hover { background: var(--ink); color: var(--paper); }
+.close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--ink); color: var(--paper); cursor: pointer; padding: 0; -webkit-appearance: none; appearance: none; box-shadow: 0 0 0 3px var(--paper); transition: background .2s, transform .2s; }
+.close span { position: absolute; left: 13px; right: 13px; top: 21px; height: 2px; background: var(--paper); }
+.close span:nth-child(1) { transform: rotate(45deg); }
+.close span:nth-child(2) { transform: rotate(-45deg); }
+.close:hover { background: var(--signal); transform: rotate(90deg); }
+.portrait > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .dlg-inner { position: relative; }
 
 /* ---------- responsive */
@@ -449,7 +453,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 
 <dialog id="dlg" aria-labelledby="dlg-title">
   <div class="dlg-inner">
-    <button class="close" type="button" id="dlg-close" aria-label="Закрыть">×</button>
+    <button class="close" type="button" id="dlg-close" aria-label="Закрыть"><span></span><span></span></button>
     <div id="dlg-body"></div>
   </div>
 </dialog>
@@ -534,7 +538,7 @@ peopleEl.innerHTML = PEOPLE.map((p, i) => `
   <li class="person reveal" style="--d:${(i % 3) * 120}ms">
     <button type="button" data-person="${i}" aria-label="Об авторе: ${p.n}">
       <div class="portrait">
-        ${p.photo ? `<img src="${p.photo}" alt="${p.n}" style="width:100%;height:100%;object-fit:cover">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
+        ${p.photo ? `<img src="${p.photo}" alt="${p.n}">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
         <span class="portrait__more">Читать</span>
         <span class="portrait__name">${p.n}</span>
       </div>
@@ -567,7 +571,7 @@ function openPerson(i) {
     <article class="entry">
       <div class="entry__img">
         <div class="portrait" style="width:100%;max-width:420px">
-          ${p.photo ? `<img src="${p.photo}" alt="${p.n}" style="width:100%;height:100%;object-fit:cover">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
+          ${p.photo ? `<img src="${p.photo}" alt="${p.n}">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
           <span class="portrait__name">${p.n}</span>
         </div>
       </div>
