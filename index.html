@@ -73,6 +73,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; m
 .cta b { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; margin-right: 14px; font-size: 20px; transition: transform .25s; }
 .cta:hover { color: var(--paper); }
 .cta__short { display: none; }
+.msh-logo { display: block; width: min(300px, 100%); }
+.msh-logo img { display: block; width: 100%; height: auto; }
+.hero__org { display: grid; gap: 14px; justify-items: start; }
+.msh-logo--section { width: min(340px, 100%); margin-bottom: 26px; }
+.msh-logo--foot { grid-column: 1 / -1; background: var(--paper); border-radius: 12px; padding: 12px 16px; width: min(320px, 100%); }
 .cta:hover b { transform: rotate(-45deg); }
 .spacer { height: 110px; }
 
@@ -253,6 +258,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .hero__meta { margin-top: 18px; padding-top: 14px; gap: 10px; }
   .hero__lead { font-size: 20px; }
   .hero__facts { font-size: 15px; }
+  .hero__org .msh-logo { width: 220px; }
   .ticker__track span { font-size: 16px; padding: 12px 0; }
   .sec-head { margin-bottom: 32px; gap: 18px; }
   .sec-head h2 { font-size: 34px; line-height: 1.32; text-decoration-thickness: 4px; text-underline-offset: 7px; }
@@ -330,7 +336,10 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
     </h1>
     <div class="hero__meta">
       <p class="hero__lead">Знаки для того, у чего их пока нет</p>
+      <div class="hero__org">
+      <a class="msh-logo" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo.png" alt="Московский союз художников" width="900" height="136"></a>
       <p class="hero__facts">Выставочный проект художников <strong>Секции плаката РОО «Московский Союз художников»</strong><br>Куратор — <a href="https://julianazar.ru" target="_blank" rel="noopener">Юлия Назар</a></p>
+      </div>
     </div>
   </div>
 
@@ -396,6 +405,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
         <span class="section-msh__year">1932</span>
       </div>
       <div class="section-msh__body">
+        <a class="msh-logo msh-logo--section" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
         <p>Секция плаката Московского союза художников ведёт историю с 1932 года. Она выросла из Общества работников революционного плаката и вошла в Московский союз художников как самостоятельная секция; её первым руководителем был Дмитрий Моор.</p>
         <p>Сегодня в секции около 150 художников. Секция проводит выставки и конкурсы, участвует в культурных проектах, а её мастера преподают в художественных вузах и училищах.</p>
         <div class="links">
@@ -420,6 +430,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
       <div><dt>Телефон</dt><dd><a href="tel:+74959950613">+7 495 995-06-13</a></dd></div>
       <div><dt>Почта</dt><dd><a href="mailto:gallery@glubinagallery.ru">gallery@glubinagallery.ru</a></dd></div>
     </dl>
+    <a class="msh-logo msh-logo--foot" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
     <div class="contacts__base">
       <span>ЗНАКИ · Виртуальная выставка · Секция плаката РОО «МСХ»</span>
       <span>Куратор — Юлия Назар</span>
