@@ -108,7 +108,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; m
 .hero__org { display: grid; gap: 14px; justify-items: start; }
 .msh-logo--section { width: 190px; max-width: 100%; margin-bottom: 18px; }
 .partners { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 28px 56px; }
-.msh-logo--foot { width: min(300px, 100%); }
+.msh-logo--foot { flex: 0 1 300px; min-width: 0; max-width: 100%; }
 .glubina { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--paper); font-family: var(--ui); font-weight: 400; font-size: 14px; line-height: 1.2; text-transform: uppercase; letter-spacing: .01em; }
 .glubina img { height: 64px; width: auto; display: block; }
 .glubina:hover { color: var(--paper); }
@@ -242,6 +242,15 @@ section { padding-block: 88px; }
 .contacts { background: var(--ink); color: var(--paper); padding-block: 72px 56px; }
 .contacts .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px 72px; }
 .contacts p { margin: 0; font-size: 22px; max-width: 34ch; }
+.call { grid-column: 1 / -1; display: grid; gap: 22px; justify-items: start; padding-bottom: 48px; border-bottom: 2px solid var(--paper); }
+.contacts .call__eyebrow { font-family: var(--ui); font-weight: 600; font-size: 15px; text-transform: uppercase; letter-spacing: .14em; color: var(--signal); }
+.call__title { font-family: var(--display); font-weight: 900; font-size: clamp(34px, 6vw, 80px); line-height: 1.08; max-width: 16ch; color: var(--paper); }
+.call__title span { color: var(--signal); white-space: nowrap; }
+.contacts .call__text { font-size: clamp(19px, 1.8vw, 23px); line-height: 1.55; max-width: 46ch; }
+.call__btn { font-size: 17px; padding-right: 26px; margin-top: 6px; }
+.call__btn b { width: 54px; height: 54px; background: var(--paper); color: var(--ink); }
+.contacts .call__btn:hover { color: var(--paper); }
+@media (hover: hover) { .call__btn:hover b { transform: translateX(4px); } }
 .contacts dl { margin: 0; font-family: var(--ui); display: grid; gap: 18px; }
 .contacts dt { font-size: 14px; text-transform: uppercase; letter-spacing: .12em; opacity: .85; }
 .contacts dd { margin: 6px 0 0; font-family: var(--ui); font-weight: 400; font-size: clamp(18px, 1.8vw, 21px); letter-spacing: .01em; user-select: all; word-break: break-word; }
@@ -291,8 +300,8 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .hero .sticker { position: static; margin: 0 8px 14px 0; font-size: 14px; padding: 8px 16px; }
   .hero .s1 { --r: -4deg; }
   .hero .s2 { --r: 3deg; }
-  .cta { font-size: 15px; padding-right: 16px; }
-  .cta b { width: 40px; height: 40px; margin-right: 10px; }
+  .nav .cta { font-size: 15px; padding-right: 16px; }
+  .nav .cta b { width: 40px; height: 40px; margin-right: 10px; }
   .nav__bar { padding-left: 16px; }
   .spacer { height: 104px; }
   .hero { padding-block: 22px 48px; }
@@ -323,10 +332,10 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .nav__mark { font-size: 19px; }
   .nav__bar { gap: 10px; padding-left: 14px; }
   .nav__right { gap: 6px; }
-  .cta { padding-right: 0; background: transparent; }
-  .cta > span { display: none !important; }
-  .cta b { margin-right: 0; }
-  .cta.is-up { background: transparent; }
+  .nav .cta { padding-right: 0; background: transparent; }
+  .nav .cta > span { display: none !important; }
+  .nav .cta b { margin-right: 0; }
+  .nav .cta.is-up { background: transparent; }
 }
 @media (max-width: 620px) and (max-height: 760px) {
   .spacer { height: 90px; }
@@ -349,6 +358,10 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .hero__org .msh-logo { width: 160px; }
   .mmenu a { padding: 9px 2px; font-size: 20px; }
 }
+@media (max-width: 960px) { .contacts .wrap { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 380px) { .call__title { font-size: 28px; } }
+@media (max-width: 300px) { .call__title { font-size: 23px; } }
+.call > * { min-width: 0; max-width: 100%; }
 </style>
 
 <header class="nav" id="nav">
@@ -498,7 +511,12 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 
 <footer class="contacts" id="contacts">
   <div class="wrap">
-    <p>Проект продолжается. Художники Секции плаката могут предложить собственный знак для включения в виртуальную экспозицию.</p>
+    <div class="call">
+      <p class="call__eyebrow">Художникам Секции плаката</p>
+      <h2 class="call__title">Знак <span>№&nbsp;09</span> ещё не&nbsp;придуман. Может быть, он&nbsp;ваш.</h2>
+      <p class="call__text">Словарь открыт и пополняется. Если вы видите то, у&nbsp;чего ещё нет обозначения, — нарисуйте для этого знак. Пришлите работу, её название и пару строк о&nbsp;том, что она обозначает, и&nbsp;мы добавим её в&nbsp;экспозицию.</p>
+      <a class="cta call__btn" href="mailto:gallery@glubinagallery.ru?subject=%D0%97%D0%BD%D0%B0%D0%BA%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8%20%C2%AB%D0%97%D0%9D%D0%90%D0%9A%D0%98%C2%BB"><b aria-hidden="true">→</b>Предложить свой знак</a>
+    </div>
     <dl>
       <div><dt>Телефон куратора</dt><dd><a href="tel:+74959950613">+7 495 995-06-13</a></dd></div>
       <div><dt>Почта для связи</dt><dd><a href="mailto:gallery@glubinagallery.ru">gallery@glubinagallery.ru</a></dd></div>
