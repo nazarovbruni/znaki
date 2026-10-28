@@ -198,6 +198,8 @@ section { padding-block: 88px; }
 .card__cap { padding-top: 16px; border-top: 2px solid var(--rule); margin-top: 14px; }
 .card__title { font-family: var(--display); font-weight: 700; font-size: 21px; line-height: 1.2; display: block; }
 .card__author { font-family: var(--ui); font-size: 17px; display: block; margin-top: 6px; }
+.card__hint { display: block; margin-top: 10px; font-family: var(--ui); font-size: 14px; color: var(--signal); font-weight: 600; }
+.entry__orig { margin: -18px 0 22px; font-family: var(--ui); font-size: 14px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
 
 /* authors */
 .authors { background: var(--plate); }
@@ -544,9 +546,9 @@ const WORKS = [
   { t: 'Глушь немая', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
   { t: 'Всё хорошо. Ангел в пустоте', a: 'Юлия Назар', img: 'img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true },
   { t: 'Птица', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.jpg', fill: true },
-  { t: 'Самопознание. Путь в небо', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov.jpg' },
-  { t: 'ИИ', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov.jpg' },
-  { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg' },
+  { t: 'Самопознание. Путь в небо', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true },
+  { t: 'ИИ', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true },
+  { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true },
   { t: 'Дети бегут от грозы', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
   // Когда придёт анимация: video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm'
   { t: 'Insight', a: 'Виктор Куплевацкий', img: null, video: null, webm: null },
@@ -602,7 +604,7 @@ function media(w, big) {
   }
   if (w.empty) return '<span class="q-empty" aria-hidden="true">?</span><span class="q-note">Место для плаката</span>';
   if (w.img && big) return `<picture><source type="image/webp" srcset="${w.img.replace(/\.jpg$/, '.webp')}"><img src="${w.img}" alt="Знак «${w.t}», ${w.a}, Московский союз художников"></picture>`;
-  if (w.img) return `<img src="${w.img}" alt="Знак «${w.t}», ${w.a}, Московский союз художников" loading="lazy">`;
+  if (w.img) return `<img src="${w.card || w.img}" alt="Знак «${w.t}», ${w.a}, Московский союз художников" loading="lazy">`;
   return '<span class="anim-empty">' + PLAY + '<span>Место для анимации (GIF)</span></span>';
 }
 
@@ -615,7 +617,7 @@ if (!worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) => `
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «${w.t}»</span>
-        <span class="card__author">${w.a}</span>
+        <span class="card__author">${w.a}</span>${w.card ? '<span class="card__hint">Нажмите, чтобы увидеть оригинал работы →</span>' : ''}
       </div>
     </button>
   </li>`).join('');
@@ -646,7 +648,7 @@ function openWork(i) {
       <div class="entry__text">
         <span class="label entry__no">${no(i)} · Знак</span>
         <h3 id="dlg-title">«${w.t}»</h3>
-        <p class="entry__author">${w.a}</p>
+        <p class="entry__author">${w.a}</p>${w.card ? '<p class="entry__orig">Фото оригинала работы</p>' : ''}
         <dl><div><dt>Обозначает</dt>${means}</div><div><dt>Почему понадобился знак</dt>${why}</div></dl>
       </div>
     </article>`;

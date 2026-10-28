@@ -90,6 +90,12 @@ def to_picture(m):
     return f'<picture><source type="image/webp" srcset="{srcset}" sizes="{SIZES[kind]}">{tag}</picture>'
 page = re.sub(r'<img src="(img/(?:works|artists)/[^"]+\.jpg)"[^>]*>', to_picture, page)
 
+# WebP для всех картинок работ и фото (их открывают и во всплывающем окне)
+for kind in ('works', 'artists'):
+    for f in sorted(os.listdir(os.path.join(SITE, 'img', kind))):
+        if f.endswith('.jpg') and not os.path.exists(os.path.join(OUT, 'img', kind, f[:-4] + '.webp')):
+            webp_variants('img/%s/%s' % (kind, f))
+
 # размеры картинок (против прыжков вёрстки)
 def add_size(m):
     tag, src_ = m.group(0), m.group(1)
@@ -136,7 +142,7 @@ for i, w in enumerate(W):
          'artform': 'Плакат', 'inLanguage': 'ru',
          'isPartOf': {'@id': URL + '#exhibition'}}
     if w.get('img'):
-        a['image'] = URL + w['img']
+        a['image'] = [URL + w['card'], URL + w['img']] if w.get('card') else URL + w['img']
     if w.get('means'):
         a['description'] = strip_tags(w['means'])
     artworks.append(a)
@@ -172,6 +178,9 @@ today = datetime.date.today().isoformat()
 imgs = ''.join(
     f'\n    <image:image><image:loc>{URL}{w["img"]}</image:loc><image:title>Знак «{w["t"]}», {w["a"]}, Московский союз художников</image:title></image:image>'
     for w in W if w.get('img'))
+imgs += ''.join(
+    f'\n    <image:image><image:loc>{URL}{w["card"]}</image:loc><image:title>Знак «{w["t"]}», {w["a"]}, Московский союз художников</image:title></image:image>'
+    for w in W if w.get('card'))
 imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{p["photo"]}</image:loc><image:title>{p["n"]}, художник, Московский союз художников</image:title></image:image>'
     for p in P if p.get('photo'))
