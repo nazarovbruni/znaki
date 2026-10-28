@@ -374,7 +374,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; m
 .mmenu a::after { content: "→"; font-family: var(--ui); font-size: 22px; }
 .mmenu a:hover, .mmenu a:active { color: var(--signal); }
 .mmenu__foot { font-family: var(--ui); font-size: 16px; line-height: 1.5; display: grid; gap: 4px; }
-.mmenu__foot strong { font-family: var(--display); font-size: 18px; user-select: all; }
+.mmenu__foot strong { font-family: var(--ui); font-weight: 400; font-size: 17px; user-select: all; }
 .menu-open { overflow: hidden; }
 .cta { display: inline-flex; align-items: center; gap: 0; text-decoration: none; font-family: var(--ui); font-weight: 600; font-size: 16px; border-radius: 999px; background: var(--signal); color: var(--paper); padding-right: 22px; white-space: nowrap; }
 .cta b { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; margin-right: 14px; font-size: 20px; transition: transform .25s; }
@@ -526,7 +526,8 @@ section { padding-block: 88px; }
 .contacts p { margin: 0; font-size: 22px; max-width: 34ch; }
 .contacts dl { margin: 0; font-family: var(--ui); display: grid; gap: 18px; }
 .contacts dt { font-size: 14px; text-transform: uppercase; letter-spacing: .12em; opacity: .85; }
-.contacts dd { margin: 4px 0 0; font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.2vw, 26px); user-select: all; word-break: break-word; }
+.contacts dd { margin: 6px 0 0; font-family: var(--ui); font-weight: 400; font-size: clamp(18px, 1.8vw, 21px); letter-spacing: .01em; user-select: all; word-break: break-word; }
+.contacts dd a { text-decoration-thickness: 1px; text-underline-offset: 5px; }
 .contacts a:hover { color: #ff6b6f; }
 .contacts__base { grid-column: 1 / -1; border-top: 2px solid var(--paper); padding-top: 20px; font-family: var(--ui); font-size: 15px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
 
@@ -937,8 +938,8 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   <div class="wrap">
     <p>Проект продолжается. Художники Секции плаката могут предложить собственный знак для включения в виртуальную экспозицию.</p>
     <dl>
-      <div><dt>Телефон</dt><dd><a href="tel:+74959950613">+7 495 995-06-13</a></dd></div>
-      <div><dt>Почта</dt><dd><a href="mailto:gallery@glubinagallery.ru">gallery@glubinagallery.ru</a></dd></div>
+      <div><dt>Телефон куратора</dt><dd><a href="tel:+74959950613">+7 495 995-06-13</a></dd></div>
+      <div><dt>Почта для связи</dt><dd><a href="mailto:gallery@glubinagallery.ru">gallery@glubinagallery.ru</a></dd></div>
     </dl>
     <div class="partners">
       <a class="msh-logo msh-logo--foot" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo-dark.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
