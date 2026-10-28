@@ -10,6 +10,7 @@
 <link rel="alternate" type="text/markdown" title="Описание выставки для ИИ" href="llms.txt">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
@@ -106,7 +107,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; m
 .msh-logo img { display: block; width: 100%; height: auto; }
 .hero__org { display: grid; gap: 14px; justify-items: start; }
 .msh-logo--section { width: 190px; max-width: 100%; margin-bottom: 18px; }
-.msh-logo--foot { grid-column: 1 / -1; width: min(300px, 100%); }
+.partners { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 28px 56px; }
+.msh-logo--foot { width: min(300px, 100%); }
+.glubina { display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--paper); font-family: var(--ui); font-weight: 600; font-size: 16px; line-height: 1.35; }
+.glubina img { height: 64px; width: auto; display: block; }
+.glubina:hover { color: var(--paper); }
+.glubina:hover span { text-decoration: underline; text-underline-offset: 4px; }
 @media (hover: hover) { .cta:hover b { transform: translateY(2px); } .cta.is-up:hover b { transform: translateY(-2px); } }
 .spacer { height: 110px; }
 
@@ -496,7 +502,10 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
       <div><dt>Телефон</dt><dd><a href="tel:+74959950613">+7 495 995-06-13</a></dd></div>
       <div><dt>Почта</dt><dd><a href="mailto:gallery@glubinagallery.ru">gallery@glubinagallery.ru</a></dd></div>
     </dl>
-    <a class="msh-logo msh-logo--foot" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo-dark.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
+    <div class="partners">
+      <a class="msh-logo msh-logo--foot" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo-dark.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
+      <a class="glubina" href="https://t.me/galleryglubina" target="_blank" rel="noopener"><img src="img/glubina-gallery-logo.png" alt="Галерея «Глубина»" width="246" height="192" loading="lazy"><span>При поддержке<br>галереи «Глубина»</span></a>
+    </div>
     <div class="contacts__base">
       <span>ЗНАКИ · Виртуальная выставка · Секция плаката РОО «МСХ»</span>
       <span>Куратор — Юлия Назар</span>

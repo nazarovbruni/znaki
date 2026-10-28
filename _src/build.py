@@ -25,7 +25,7 @@ page = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
         + head + '</style>\n</head>\n<body>\n' + rest.lstrip() + '\n</body>\n</html>\n')
 
 # статика
-for name in ['favicon.ico', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']:
+for name in ['favicon.ico', 'favicon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']:
     shutil.copy(os.path.join(SITE, name), os.path.join(OUT, name))
 if os.path.exists(os.path.join(OUT, 'img')):
     shutil.rmtree(os.path.join(OUT, 'img'))
@@ -160,6 +160,7 @@ graph = [
      'organizer': [{'@id': URL + '#section'}, {'@type': 'Person', 'name': 'Юлия Назар',
                                                'jobTitle': 'Куратор', 'url': 'https://julianazar.ru'}],
      'performer': [{'@id': p['@id']} for p in persons],
+     'sponsor': {'@type': 'Organization', 'name': 'Галерея «Глубина»', 'alternateName': 'Glubina Gallery', 'url': 'https://t.me/galleryglubina'},
      'workFeatured': [{'@id': a['@id']} for a in artworks]},
     section, *persons, *artworks,
 ]
@@ -202,6 +203,7 @@ lines = ['# ЗНАКИ — виртуальная выставка', '',
          f'Адрес: {URL}',
          'Организатор: Секция плаката РОО «Московский союз художников» (МСХ)',
          'Куратор: Юлия Назар (https://julianazar.ru)',
+         'При поддержке галереи «Глубина» (https://t.me/galleryglubina)',
          'Формат: виртуальная выставка, вход свободный', '',
          '## О проекте', '', manifest_text(), '',
          '## Работы', '']
