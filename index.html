@@ -180,7 +180,9 @@
    },
    "jobTitle": "Художник",
    "image": "https://nazarovbruni.github.io/znaki/img/artists/nazar-yulia-moskovskiy-soyuz-khudozhnikov.jpg",
-   "sameAs": "https://julianazar.ru"
+   "sameAs": [
+    "https://julianazar.ru"
+   ]
   },
   {
    "@type": "Person",
@@ -192,17 +194,23 @@
    },
    "jobTitle": "Художник",
    "image": "https://nazarovbruni.github.io/znaki/img/artists/kuplevatskiy-viktor-moskovskiy-soyuz-khudozhnikov.jpg",
-   "sameAs": "https://kuplevatskiy.ru/"
+   "sameAs": [
+    "https://kuplevatskiy.ru/"
+   ]
   },
   {
    "@type": "Person",
    "@id": "https://nazarovbruni.github.io/znaki/#artist-5",
    "name": "Анна Смоляницкая",
-   "description": "Анна Смоляницкая — художник-живописец. Работает маслом в традициях русской реалистической школы с элементами импрессионизма.",
+   "description": "Анна Сергеевна Смоляницкая — художник-живописец. Живёт и работает в Москве.",
    "memberOf": {
     "@id": "https://nazarovbruni.github.io/znaki/#msh"
    },
-   "jobTitle": "Художник"
+   "jobTitle": "Художник",
+   "image": "https://nazarovbruni.github.io/znaki/img/artists/smolyanitskaya-anna-moskovskiy-soyuz-khudozhnikov.jpg",
+   "sameAs": [
+    "https://vk.ru/id2924160"
+   ]
   },
   {
    "@type": "VisualArtwork",
@@ -879,7 +887,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   <li class="person reveal" style="--d:120ms">
     <button type="button" data-person="4" aria-label="Об авторе: Анна Смоляницкая">
       <div class="portrait">
-        <span class="portrait__empty">Место для фото</span>
+        <picture><source type="image/webp" srcset="img/artists/smolyanitskaya-anna-moskovskiy-soyuz-khudozhnikov.webp 900w" sizes="(max-width: 620px) 50vw, (max-width: 960px) 50vw, 400px"><img src="img/artists/smolyanitskaya-anna-moskovskiy-soyuz-khudozhnikov.jpg" alt="Анна Смоляницкая, художник, Московский союз художников" width="900" height="1200"></picture>
         <span class="portrait__more">Читать</span>
         <span class="portrait__name">Анна Смоляницкая</span>
       </div>
@@ -1000,10 +1008,13 @@ const PEOPLE = [
            ['Членство', 'Московский союз художников (Секция плаката), Союз художников Подмосковья; ранее — Союз дизайнеров СССР'],
            ['Выставки', 'участник российских и зарубежных художественных выставок; его знаковые работы публикуются в профильных каталогах и журналах по дизайну'],
            ['Сайт', '<a href="https://kuplevatskiy.ru/" target="_blank" rel="noopener">kuplevatskiy.ru</a>']] },
-  { n: 'Анна Смоляницкая', ini: 'АС', photo: null,
-    lead: 'Анна Смоляницкая — художник-живописец. Работает маслом в традициях русской реалистической школы с элементами импрессионизма.',
-    rows: [['Жанры', 'натюрморт, пейзаж, городские сцены, цветочные композиции'],
-           ['Работы', 'находятся в частных коллекциях']] },
+  { n: 'Анна Смоляницкая', ini: 'АС', photo: 'img/artists/smolyanitskaya-anna-moskovskiy-soyuz-khudozhnikov.jpg',
+    lead: 'Анна Сергеевна Смоляницкая — художник-живописец. Живёт и работает в Москве.',
+    rows: [['Образование', 'МГАХИ им. В. И. Сурикова'],
+           ['Членство', 'действительный член Московского союза художников'],
+           ['Выставки', 'многочисленные выставки на различных площадках; картины выставлялись в Центральном доме художника, Манеже, Библиотеке им. Ленина и Гостином дворе'],
+           ['Аукционы', 'участие и продажи на аукционах'],
+           ['ВКонтакте', '<a href="https://vk.ru/id2924160" target="_blank" rel="noopener">vk.ru/id2924160</a>']] },
   // Место под шестого художника: замените n, lead, rows и уберите empty
   { n: 'Художник ?', ini: '?', photo: null, empty: true,
     lead: 'Здесь появится рассказ о художнике.', rows: [] },

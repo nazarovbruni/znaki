@@ -121,11 +121,9 @@ for i, p in enumerate(P):
          'memberOf': {'@id': URL + '#msh'}, 'jobTitle': 'Художник'}
     if p.get('photo'):
         d['image'] = URL + p['photo']
-    for k, v in p['rows']:
-        if k == 'Сайт':
-            m = re.search(r'href="([^"]+)"', v)
-            if m:
-                d['sameAs'] = m.group(1)
+    links = [m for k, v in p['rows'] for m in re.findall(r'href="([^"]+)"', v)]
+    if links:
+        d['sameAs'] = links
     persons.append(d)
 pid = {p['name']: p['@id'] for p in persons}
 artworks = []
