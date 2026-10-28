@@ -30,7 +30,7 @@
 <!--JSONLD-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Golos+Text:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Golos+Text:wght@400;500;600&display=swap">
 <style>
 /* Layout: система обозначений — белый лист, чёрный шрифт, один сигнальный красный.
    Шапка из пяти «дорожных» форм, бегущая строка, словарь знаков сеткой 3×N. */
@@ -48,6 +48,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+picture { display: contents; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 body {
@@ -262,7 +263,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 .close span:nth-child(1) { transform: rotate(45deg); }
 .close span:nth-child(2) { transform: rotate(-45deg); }
 .close:hover { background: var(--signal); transform: rotate(90deg); }
-.portrait > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .dlg-inner { position: relative; }
 
 /* ---------- responsive */
@@ -537,6 +538,7 @@ function media(w, big) {
       (w.video ? `<source src="${w.video}" type="video/mp4">` : '') + '</video>';
   }
   if (w.empty) return '<span class="q-empty" aria-hidden="true">?</span><span class="q-note">Место для плаката</span>';
+  if (w.img && big) return `<picture><source type="image/webp" srcset="${w.img.replace(/\.jpg$/, '.webp')}"><img src="${w.img}" alt="Знак «${w.t}», ${w.a}, Московский союз художников"></picture>`;
   if (w.img) return `<img src="${w.img}" alt="Знак «${w.t}», ${w.a}, Московский союз художников" loading="lazy">`;
   return '<span class="anim-empty">' + PLAY + '<span>Место для анимации (GIF)</span></span>';
 }

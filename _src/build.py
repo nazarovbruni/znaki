@@ -66,6 +66,30 @@ page = page.replace('<ul class="grid" id="works"></ul>',
 page = page.replace('<ul class="people" id="people"></ul>',
                     '<ul class="people" id="people">\n' + clean(res['people']) + '\n</ul>', 1)
 
+# WebP-версии работ и фото (полная и 800px) + <picture>
+def webp_variants(rel):
+    src_path = os.path.join(SITE, rel)
+    base = os.path.splitext(rel)[0]
+    im = Image.open(src_path).convert('RGB')
+    w, h = im.size
+    out = []
+    im.save(os.path.join(OUT, base + '.webp'), 'WEBP', quality=80, method=6)
+    if w > 1000:
+        im.resize((800, round(h * 800 / w)), Image.LANCZOS).save(
+            os.path.join(OUT, base + '-800.webp'), 'WEBP', quality=80, method=6)
+        out.append((base + '-800.webp', 800))
+    out.append((base + '.webp', w))
+    return out
+
+SIZES = {'works': '(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px',
+         'artists': '(max-width: 620px) 50vw, (max-width: 960px) 50vw, 400px'}
+def to_picture(m):
+    tag, rel = m.group(0), m.group(1)
+    kind = rel.split('/')[1]
+    srcset = ', '.join(f'{f} {w}w' for f, w in webp_variants(rel))
+    return f'<picture><source type="image/webp" srcset="{srcset}" sizes="{SIZES[kind]}">{tag}</picture>'
+page = re.sub(r'<img src="(img/(?:works|artists)/[^"]+\.jpg)"[^>]*>', to_picture, page)
+
 # размеры картинок (против прыжков вёрстки)
 def add_size(m):
     tag, src_ = m.group(0), m.group(1)
