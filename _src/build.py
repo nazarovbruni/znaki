@@ -160,7 +160,7 @@ graph = [
      'organizer': [{'@id': URL + '#section'}, {'@type': 'Person', 'name': 'Юлия Назар',
                                                'jobTitle': 'Куратор', 'url': 'https://julianazar.ru'}],
      'performer': [{'@id': p['@id']} for p in persons],
-     'sponsor': {'@type': 'Organization', 'name': 'Галерея «Глубина»', 'alternateName': 'Glubina Gallery', 'url': 'https://t.me/galleryglubina'},
+     'sponsor': {'@type': 'Organization', 'name': 'Галерея «Глубина»', 'alternateName': 'Glubina Gallery', 'url': 'https://galleryglubina.ru'},
      'workFeatured': [{'@id': a['@id']} for a in artworks]},
     section, *persons, *artworks,
 ]
@@ -203,7 +203,7 @@ lines = ['# ЗНАКИ — виртуальная выставка', '',
          f'Адрес: {URL}',
          'Организатор: Секция плаката РОО «Московский союз художников» (МСХ)',
          'Куратор: Юлия Назар (https://julianazar.ru)',
-         'При поддержке галереи «Глубина» (https://t.me/galleryglubina)',
+         'При поддержке галереи «Глубина» (https://galleryglubina.ru)',
          'Формат: виртуальная выставка, вход свободный', '',
          '## О проекте', '', manifest_text(), '',
          '## Работы', '']
