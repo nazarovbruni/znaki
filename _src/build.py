@@ -46,7 +46,8 @@ const { chromium } = require('playwright');
   const r = await p.evaluate(() => ({
     works: document.getElementById('works').innerHTML,
     people: document.getElementById('people').innerHTML,
-    W: WORKS, P: PEOPLE,
+    series: document.getElementById('series').innerHTML,
+    W: WORKS, P: PEOPLE, SER: SERIES, SER_A: SERIES_AUTHOR,
   }));
   console.log(JSON.stringify(r));
   await b.close();
@@ -63,6 +64,8 @@ def clean(h):
 
 page = page.replace('<ul class="grid" id="works"></ul>',
                     '<ul class="grid" id="works">\n' + clean(res['works']) + '\n</ul>', 1)
+page = page.replace('<ol class="digital__signs" id="series"></ol>',
+                    '<ol class="digital__signs" id="series">\n' + clean(res['series']) + '\n</ol>', 1)
 page = page.replace('<ul class="people" id="people"></ul>',
                     '<ul class="people" id="people">\n' + clean(res['people']) + '\n</ul>', 1)
 
@@ -74,20 +77,29 @@ def webp_variants(rel):
     w, h = im.size
     out = []
     im.save(os.path.join(OUT, base + '.webp'), 'WEBP', quality=80, method=6)
+    if 600 < w <= 1000:
+        im.resize((480, round(h * 480 / w)), Image.LANCZOS).save(
+            os.path.join(OUT, base + '-480.webp'), 'WEBP', quality=80, method=6)
+        out.append((base + '-480.webp', 480))
     if w > 1000:
         im.resize((800, round(h * 800 / w)), Image.LANCZOS).save(
             os.path.join(OUT, base + '-800.webp'), 'WEBP', quality=80, method=6)
         out.append((base + '-800.webp', 800))
+    if w > 1700:
+        im.resize((1400, round(h * 1400 / w)), Image.LANCZOS).save(
+            os.path.join(OUT, base + '-1400.webp'), 'WEBP', quality=80, method=6)
+        out.append((base + '-1400.webp', 1400))
     out.append((base + '.webp', w))
     return out
 
 SIZES = {'works': '(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px',
-         'artists': '(max-width: 620px) 50vw, (max-width: 960px) 50vw, 400px'}
+         'artists': '(max-width: 620px) 50vw, (max-width: 960px) 50vw, 380px'}
 def to_picture(m):
     tag, rel = m.group(0), m.group(1)
     kind = rel.split('/')[1]
     srcset = ', '.join(f'{f} {w}w' for f, w in webp_variants(rel))
-    return f'<picture><source type="image/webp" srcset="{srcset}" sizes="{SIZES[kind]}">{tag}</picture>'
+    sizes = '(max-width: 960px) 100vw, 1240px' if 'data-wide' in tag else SIZES[kind]
+    return f'<picture><source type="image/webp" srcset="{srcset}" sizes="{sizes}">{tag}</picture>'
 page = re.sub(r'<img src="(img/(?:works|artists)/[^"]+\.jpg)"[^>]*>', to_picture, page)
 
 # WebP для всех картинок работ и фото (их открывают и во всплывающем окне)
@@ -109,7 +121,11 @@ def add_size(m):
 page = re.sub(r'<img src="(img/[^"]+)"[^>]*>', add_size, page)
 
 # 3. JSON-LD
-W, P = res['W'], res['P']
+W, P, SER, SER_A = res['W'], res['P'], res['SER'], res['SER_A']
+SIGN = lambda x: 'img/works/mamchur-yuriy-%s-moskovskiy-soyuz-khudozhnikov.png' % x['slug']
+SCENE = lambda x: 'img/works/mamchur-yuriy-%s-sreda-moskovskiy-soyuz-khudozhnikov.jpg' % x['slug']
+COVER = 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-moskovskiy-soyuz-khudozhnikov.jpg'
+BOX = 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-korobka-moskovskiy-soyuz-khudozhnikov.jpg'
 def strip_tags(t):
     return re.sub(r'<[^>]+>', '', t)
 
@@ -134,7 +150,7 @@ for i, p in enumerate(P):
 pid = {p['name']: p['@id'] for p in persons}
 artworks = []
 for i, w in enumerate(W):
-    if w.get('empty') or not (w.get('img') or w.get('video')):
+    if w.get('empty') or w.get('series') or not (w.get('img') or w.get('video')):
         continue
     a = {'@type': 'VisualArtwork', '@id': URL + '#znak-%02d' % (i + 1),
          'name': 'Знак «%s»' % w['t'], 'url': URL + '#znak-%02d' % (i + 1),
@@ -146,6 +162,19 @@ for i, w in enumerate(W):
     if w.get('means'):
         a['description'] = strip_tags(w['means'])
     artworks.append(a)
+
+ser_parts = []
+for i, x in enumerate(SER):
+    ser_parts.append({'@type': 'VisualArtwork', '@id': URL + '#digital-%d' % (i + 1),
+        'name': 'Знак «%s»' % x['t'], 'alternateName': x['en'], 'url': URL + '#digital-%d' % (i + 1),
+        'creator': {'@id': pid.get(SER_A)}, 'artform': 'Графика', 'inLanguage': 'ru',
+        'image': [URL + SIGN(x), URL + SCENE(x)], 'description': x['concept'] + ' ' + x['depth']})
+series_node = {'@type': 'CreativeWorkSeries', '@id': URL + '#digital', 'name': 'Знаки цифрового антропогенеза',
+    'creator': {'@id': pid.get(SER_A)}, 'dateCreated': '2026', 'url': URL + '#digital',
+    'image': [URL + COVER, URL + BOX], 'isPartOf': {'@id': URL + '#exhibition'},
+    'hasPart': [{'@id': x['@id']} for x in ser_parts],
+    'description': 'Графическое исследование тектонических сдвигов в человеческой природе: серия из пяти знаков о новом виде человека, изменённого интерфейсами, алгоритмами и цифровой средой.'}
+artworks += [series_node] + ser_parts
 
 desc = re.search(r'<meta name="description" content="([^"]+)"', page).group(1)
 title = re.search(r'<title>([^<]+)</title>', page).group(1)
@@ -177,7 +206,14 @@ open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(page)
 today = datetime.date.today().isoformat()
 imgs = ''.join(
     f'\n    <image:image><image:loc>{URL}{w["img"]}</image:loc><image:title>Знак «{w["t"]}», {w["a"]}, Московский союз художников</image:title></image:image>'
-    for w in W if w.get('img'))
+    for w in W if w.get('img') and not w.get('series'))
+imgs += ''.join(
+    f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>{t}</image:title></image:image>'
+    for x in SER for u, t in ((SIGN(x), f'Знак «{x["t"]}», {SER_A}, Московский союз художников'),
+                              (SCENE(x), f'Знак «{x["t"]}» в среде, {SER_A}, Московский союз художников')))
+imgs += ''.join(
+    f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>Знаки цифрового антропогенеза, {SER_A}, Московский союз художников</image:title></image:image>'
+    for u in (COVER, BOX))
 imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{w["card"]}</image:loc><image:title>Знак «{w["t"]}», {w["a"]}, Московский союз художников</image:title></image:image>'
     for w in W if w.get('card'))
@@ -217,10 +253,18 @@ lines = ['# ЗНАКИ — виртуальная выставка', '',
 for i, w in enumerate(W):
     if w.get('empty'):
         continue
+    if w.get('series'):
+        lines.append(f'- №{i + 1:02d}. Серия «{w["t"]}» — {w["a"]}, {w["series"]} знаков (см. раздел «Спецпроект» ниже)')
+        continue
     line = f'- №{i + 1:02d}. Знак «{w["t"]}» — {w["a"]}'
     if w.get('means'):
         line += '. ' + strip_tags(w['means'])
     lines.append(line)
+lines += ['', f'## Спецпроект: «Знаки цифрового антропогенеза» — {SER_A}, 2026', '',
+          f'Адрес: {URL}#digital', '',
+          'Графическое исследование тектонических сдвигов в человеческой природе. Серия фиксирует появление нового вида человека, изменённого интерфейсами, алгоритмами и цифровой средой. Знаки построены на языке системной графики, дорожных стандартов и интерфейсов. Визуализации выполнены с применением инструментов генеративного искусства и цифрового монтажа.', '']
+for i, x in enumerate(SER):
+    lines.append(f'- {i + 1}. «{x["t"]}»' + (f' ({x["sub"]})' if x['sub'] else '') + f' / {x["en"]}. Концепт: {x["concept"]} Смысл: {x["depth"]}')
 lines += ['', '## Художники', '']
 for p in P:
     if p.get('empty'):
