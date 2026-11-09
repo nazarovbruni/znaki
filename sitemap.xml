@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://nazarovbruni.github.io/znaki/</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Глушь немая», Измаил Бадоев, Московский союз художников</image:title></image:image>
@@ -12,6 +12,7 @@
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «ИИ», Анна Смоляницкая, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Единство», Светлана Дёмина, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Дети бегут от грозы», Виктор Куплевацкий, Московский союз художников</image:title></image:image>
+    <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Не теряй голову на дороге», Камиль Зайнетдинов, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.jpg</image:loc><image:title>Знак «Самопознание. Путь в небо», Анна Смоляницкая, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.jpg</image:loc><image:title>Знак «ИИ», Анна Смоляницкая, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg</image:loc><image:title>Знак «Единство», Светлана Дёмина, Московский союз художников</image:title></image:image>
@@ -19,5 +20,6 @@
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/artists/nazar-yulia-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Юлия Назар, художник, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/artists/kuplevatskiy-viktor-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Виктор Куплевацкий, художник, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/artists/smolyanitskaya-anna-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Анна Смоляницкая, художник, Московский союз художников</image:title></image:image>
+    <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/artists/zaynetdinov-kamil-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Камиль Зайнетдинов, художник, Московский союз художников</image:title></image:image>
   </url>
 </urlset>

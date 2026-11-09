@@ -127,7 +127,7 @@ for i, p in enumerate(P):
          'memberOf': {'@id': URL + '#msh'}, 'jobTitle': 'Художник'}
     if p.get('photo'):
         d['image'] = URL + p['photo']
-    links = [m for k, v in p['rows'] for m in re.findall(r'href="([^"]+)"', v)]
+    links = [m for k, v in p['rows'] for m in re.findall(r'href="([^"]+)"', v) if 'artanum.ru' not in m]
     if links:
         d['sameAs'] = links
     persons.append(d)
