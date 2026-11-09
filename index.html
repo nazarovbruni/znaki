@@ -141,6 +141,9 @@
      "@id": "https://nazarovbruni.github.io/znaki/#znak-07"
     },
     {
+     "@id": "https://nazarovbruni.github.io/znaki/#znak-08"
+    },
+    {
      "@id": "https://nazarovbruni.github.io/znaki/#znak-09"
     },
     {
@@ -371,6 +374,21 @@
   },
   {
    "@type": "VisualArtwork",
+   "@id": "https://nazarovbruni.github.io/znaki/#znak-08",
+   "name": "Знак «Insight»",
+   "url": "https://nazarovbruni.github.io/znaki/#znak-08",
+   "creator": {
+    "@id": "https://nazarovbruni.github.io/znaki/#artist-4"
+   },
+   "artform": "Плакат",
+   "inLanguage": "ru",
+   "isPartOf": {
+    "@id": "https://nazarovbruni.github.io/znaki/#exhibition"
+   },
+   "image": "https://nazarovbruni.github.io/znaki/img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg"
+  },
+  {
+   "@type": "VisualArtwork",
    "@id": "https://nazarovbruni.github.io/znaki/#znak-09",
    "name": "Знак «Не теряй голову на дороге»",
    "url": "https://nazarovbruni.github.io/znaki/#znak-09",
@@ -591,7 +609,8 @@ section { padding-block: 88px; }
 .plate { overflow: hidden; }
 .plate--white, .card button:hover .plate--white { background: var(--paper); }
 .plate.plate--fill { aspect-ratio: auto; padding: 0; display: block; }
-.plate.plate--fill img { position: static; width: 100%; height: auto; }
+.plate.plate--fill img, .plate.plate--fill video { position: static; width: 100%; height: auto; }
+.entry__img video { max-width: 100%; max-height: 70vh; display: block; }
 .plate--fill .plate__no { color: var(--paper); text-shadow: 0 1px 3px rgba(0,0,0,.55); z-index: 1; }
 .plate--fill.plate--white .plate__no { color: var(--ink); text-shadow: none; }
 @media (max-width: 620px) { .plate--white { aspect-ratio: auto; padding: 40px 0 8px; } .plate.plate--white img { position: static; width: 100%; height: auto; } }
@@ -948,8 +967,8 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   </li>
   <li class="card reveal" id="znak-08" style="--d:120ms">
     <button type="button" data-work="7" aria-label="Открыть: Знак «Insight», Виктор Куплевацкий">
-      <div class="plate plate--anim  ">
-        <span class="plate__no">№ 08</span><span class="anim-empty"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#000" stroke-width="4"></circle><path d="M26 20 L46 32 L26 44 Z" fill="#d7141a"></path></svg><span>Место для анимации (GIF)</span></span>
+      <div class="plate  plate--white plate--fill">
+        <span class="plate__no">№ 08</span><video autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg" aria-label="Знак «Insight», Виктор Куплевацкий, Московский союз художников"><source src="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm" type="video/webm"><source src="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4" type="video/mp4"></video>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Insight»</span>
@@ -1158,7 +1177,7 @@ const WORKS = [
   { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true },
   { t: 'Дети бегут от грозы', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
   // Когда придёт анимация: video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm'
-  { t: 'Insight', a: 'Виктор Куплевацкий', img: null, video: null, webm: null },
+  { t: 'Insight', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg', video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm', white: true, fill: true },
   // Место под девятый знак: замените t, a и добавьте img, затем уберите empty
   { t: 'Не теряй голову на дороге', a: 'Камиль Зайнетдинов', img: 'img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
     means: 'Не только призыв к безопасности, но и напоминание о важности ясности сознания.',
@@ -1220,7 +1239,7 @@ const PLAY = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32
 
 function media(w, big) {
   if (w.video || w.webm) {
-    return `<video autoplay muted loop playsinline ${big ? '' : 'aria-hidden="true"'}>` +
+    return `<video autoplay muted loop playsinline preload="metadata"${w.img ? ` poster="${w.img}"` : ''} aria-label="Знак «${w.t}», ${w.a}, Московский союз художников">` +
       (w.webm ? `<source src="${w.webm}" type="video/webm">` : '') +
       (w.video ? `<source src="${w.video}" type="video/mp4">` : '') + '</video>';
   }

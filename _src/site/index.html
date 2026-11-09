@@ -184,7 +184,8 @@ section { padding-block: 88px; }
 .plate { overflow: hidden; }
 .plate--white, .card button:hover .plate--white { background: var(--paper); }
 .plate.plate--fill { aspect-ratio: auto; padding: 0; display: block; }
-.plate.plate--fill img { position: static; width: 100%; height: auto; }
+.plate.plate--fill img, .plate.plate--fill video { position: static; width: 100%; height: auto; }
+.entry__img video { max-width: 100%; max-height: 70vh; display: block; }
 .plate--fill .plate__no { color: var(--paper); text-shadow: 0 1px 3px rgba(0,0,0,.55); z-index: 1; }
 .plate--fill.plate--white .plate__no { color: var(--ink); text-shadow: none; }
 @media (max-width: 620px) { .plate--white { aspect-ratio: auto; padding: 40px 0 8px; } .plate.plate--white img { position: static; width: 100%; height: auto; } }
@@ -553,7 +554,7 @@ const WORKS = [
   { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true },
   { t: 'Дети бегут от грозы', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg', white: true },
   // Когда придёт анимация: video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm'
-  { t: 'Insight', a: 'Виктор Куплевацкий', img: null, video: null, webm: null },
+  { t: 'Insight', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg', video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm', white: true, fill: true },
   // Место под девятый знак: замените t, a и добавьте img, затем уберите empty
   { t: 'Не теряй голову на дороге', a: 'Камиль Зайнетдинов', img: 'img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
     means: 'Не только призыв к безопасности, но и напоминание о важности ясности сознания.',
@@ -615,7 +616,7 @@ const PLAY = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32
 
 function media(w, big) {
   if (w.video || w.webm) {
-    return `<video autoplay muted loop playsinline ${big ? '' : 'aria-hidden="true"'}>` +
+    return `<video autoplay muted loop playsinline preload="metadata"${w.img ? ` poster="${w.img}"` : ''} aria-label="Знак «${w.t}», ${w.a}, Московский союз художников">` +
       (w.webm ? `<source src="${w.webm}" type="video/webm">` : '') +
       (w.video ? `<source src="${w.video}" type="video/mp4">` : '') + '</video>';
   }
