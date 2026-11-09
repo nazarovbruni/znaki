@@ -47,7 +47,8 @@ const { chromium } = require('playwright');
     works: document.getElementById('works').innerHTML,
     people: document.getElementById('people').innerHTML,
     series: document.getElementById('series').innerHTML,
-    W: WORKS, P: PEOPLE, SER: SERIES, SER_A: SERIES_AUTHOR,
+    bu: document.getElementById('bu-grid').innerHTML,
+    W: WORKS, P: PEOPLE, SER: SERIES, SER_A: SERIES_AUTHOR, BU: BU,
   }));
   console.log(JSON.stringify(r));
   await b.close();
@@ -66,6 +67,8 @@ page = page.replace('<ul class="grid" id="works"></ul>',
                     '<ul class="grid" id="works">\n' + clean(res['works']) + '\n</ul>', 1)
 page = page.replace('<ol class="digital__signs" id="series"></ol>',
                     '<ol class="digital__signs" id="series">\n' + clean(res['series']) + '\n</ol>', 1)
+page = page.replace('<ol class="bu__grid" id="bu-grid"></ol>',
+                    '<ol class="bu__grid" id="bu-grid">\n' + clean(res['bu']) + '\n</ol>', 1)
 page = page.replace('<ul class="people" id="people"></ul>',
                     '<ul class="people" id="people">\n' + clean(res['people']) + '\n</ul>', 1)
 
@@ -121,7 +124,8 @@ def add_size(m):
 page = re.sub(r'<img src="(img/[^"]+)"[^>]*>', add_size, page)
 
 # 3. JSON-LD
-W, P, SER, SER_A = res['W'], res['P'], res['SER'], res['SER_A']
+W, P, SER, SER_A, BU = res['W'], res['P'], res['SER'], res['SER_A'], res['BU']
+BUIMG = lambda slug: 'img/works/bukheevy-bulkin-mikheeva-%s-moskovskiy-soyuz-khudozhnikov.jpg' % slug
 SIGN = lambda x: 'img/works/mamchur-yuriy-%s-moskovskiy-soyuz-khudozhnikov.png' % x['slug']
 SCENE = lambda x: 'img/works/mamchur-yuriy-%s-sreda-moskovskiy-soyuz-khudozhnikov.jpg' % x['slug']
 COVER = 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-moskovskiy-soyuz-khudozhnikov.jpg'
@@ -138,9 +142,14 @@ persons = []
 for i, p in enumerate(P):
     if p.get('empty'):
         continue
-    d = {'@type': 'Person', '@id': URL + '#artist-' + str(i + 1), 'name': p['n'],
-         'description': strip_tags(p['lead']),
-         'memberOf': {'@id': URL + '#msh'}, 'jobTitle': 'Художник'}
+    if p.get('group'):
+        d = {'@type': 'Organization', '@id': URL + '#artist-' + str(i + 1), 'name': p['n'],
+             'alternateName': 'Бухеевы', 'description': strip_tags(p['lead']),
+             'member': [{'@type': 'Person', 'name': m_, 'jobTitle': 'Художник', 'memberOf': {'@id': URL + '#msh'}} for m_ in p['group']]}
+    else:
+        d = {'@type': 'Person', '@id': URL + '#artist-' + str(i + 1), 'name': p['n'],
+             'description': strip_tags(p['lead']),
+             'memberOf': {'@id': URL + '#msh'}, 'jobTitle': 'Художник'}
     if p.get('photo'):
         d['image'] = URL + p['photo']
     links = [m for k, v in p['rows'] for m in re.findall(r'href="([^"]+)"', v) if 'artanum.ru' not in m and m.startswith('http')]
@@ -175,6 +184,17 @@ series_node = {'@type': 'CreativeWorkSeries', '@id': URL + '#digital', 'name': '
     'hasPart': [{'@id': x['@id']} for x in ser_parts],
     'description': 'Графическое исследование тектонических сдвигов в человеческой природе: серия из пяти знаков о новом виде человека, изменённого интерфейсами, алгоритмами и цифровой средой.'}
 artworks += [series_node] + ser_parts
+bu_parts = []
+for i, b in enumerate(BU):
+    imgs_ = [URL + BUIMG(f) for f in b['frames']] if b.get('frames') else URL + BUIMG(b['slug'])
+    bu_parts.append({'@type': 'VisualArtwork', '@id': URL + '#bukhei-%d' % (i + 1), 'name': 'Знак «%s»' % b['t'],
+        'url': URL + '#bukhei-%d' % (i + 1), 'creator': {'@id': pid.get('БУ ХЕЕВЫ')}, 'artform': 'Плакат', 'inLanguage': 'ru',
+        'image': imgs_, 'description': strip_tags(b['means'])})
+artworks += [{'@type': 'CreativeWorkSeries', '@id': URL + '#bukhei', 'name': 'Бухейпроект',
+    'alternateName': 'Постероконцептуализм', 'creator': {'@id': pid.get('БУ ХЕЕВЫ')}, 'url': URL + '#bukhei',
+    'image': URL + 'img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg',
+    'isPartOf': {'@id': URL + '#exhibition'}, 'hasPart': [{'@id': x['@id']} for x in bu_parts],
+    'description': 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева): 16 знаков-идеограмм в духе постероконцептуализма — теории, по которой плакат одновременно самодостаточен, становится частью общей картины, обретает значимость через тиражирование и переходит из плоскости в объём.'}] + bu_parts
 
 desc = re.search(r'<meta name="description" content="([^"]+)"', page).group(1)
 title = re.search(r'<title>([^<]+)</title>', page).group(1)
@@ -213,6 +233,16 @@ imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>{t}</image:title></image:image>'
     for x in SER for u, t in ((SIGN(x), f'Знак «{x["t"]}», {SER_A}, Московский союз художников'),
                               (SCENE(x), f'Знак «{x["t"]}» в среде, {SER_A}, Московский союз художников')))
+imgs += ''.join(
+    f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>Знаки цифрового антропогенеза, {SER_A}, Московский союз художников</image:title></image:image>'
+ for u in ())
+imgs += ''.join(
+    f'\n    <image:image><image:loc>{URL}{BUIMG(f)}</image:loc><image:title>Знак «{b["t"]}», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников</image:title></image:image>'
+    for b in BU for f in (b.get('frames') or [b['slug']]))
+imgs += ''.join(
+    f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>{t}</image:title></image:image>'
+    for u, t in ((BUIMG('vybor-1987-plakat'), 'Плакат «Выбор», 1987, БУ ХЕЕВЫ'), (BUIMG('vybor-1997-tarart'), 'Объёмный «Выбор», Тарарт, 1997, БУ ХЕЕВЫ'),
+                 (BUIMG('kontur-vybora-2008-ekspozitsiya'), 'Проект «Контур выбора», 2008, БУ ХЕЕВЫ'), (BUIMG('bukheyproekt-seriya'), 'Бухейпроект, БУ ХЕЕВЫ')))
 imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>Знаки цифрового антропогенеза, {SER_A}, Московский союз художников</image:title></image:image>'
     for u in (COVER, BOX, 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg'))
@@ -268,6 +298,11 @@ lines += ['', f'## Спецпроект: «Знаки цифрового ант�
           'Графическое исследование тектонических сдвигов в человеческой природе. Серия фиксирует появление нового вида человека, изменённого интерфейсами, алгоритмами и цифровой средой. Знаки построены на языке системной графики, дорожных стандартов и интерфейсов. Визуализации выполнены с применением инструментов генеративного искусства и цифрового монтажа.', '']
 for i, x in enumerate(SER):
     lines.append(f'- {i + 1}. «{x["t"]}»' + (f' ({x["sub"]})' if x['sub'] else '') + f' / {x["en"]}. Концепт: {x["concept"]} Смысл: {x["depth"]}')
+lines += ['', '## Спецпроект: «Бухейпроект» — БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева)', '',
+          f'Адрес: {URL}#bukhei', '',
+          'Постероконцептуализм (post — после, постер — плакат) — термин авторов: произведение создаётся как самодостаточное; одновременно может стать частью общей картины или новой смысловой мозаики; может обрести новую значимость через тиражирование; может перейти из плоскости в объём. Направление «Тарарт» — объёмный плакат. Знак «Выбор» (1987) представлен шестью вариантами, сменяющими друг друга.', '']
+for i, b in enumerate(BU):
+    lines.append(f'- {i + 1}. «{b["t"]}». Обозначает: {strip_tags(b["means"])} Почему: {strip_tags(b["why"])}')
 lines += ['', '## Художники', '']
 for p in P:
     if p.get('empty'):
