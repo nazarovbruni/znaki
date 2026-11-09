@@ -717,6 +717,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 .entry dd { margin: 6px 0 0; font-size: 19px; }
 .entry dd.pending { color: var(--muted); font-style: italic; }
 .bio__lead { margin: 0 0 22px; font-size: 20px; }
+.bio__full { display: block; font-family: var(--ui); font-size: 15px; color: var(--muted); margin: -2px 0 10px; }
 .close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--ink); color: var(--paper); cursor: pointer; padding: 0; -webkit-appearance: none; appearance: none; box-shadow: 0 0 0 3px var(--paper); transition: background .2s, transform .2s; }
 .close span { position: absolute; left: 13px; right: 13px; top: 21px; height: 2px; background: var(--paper); }
 .close span:nth-child(1) { transform: rotate(45deg); }
@@ -1336,6 +1337,14 @@ function openWork(i) {
     </article>`;
   show();
 }
+// в окне имя уже стоит заголовком — убираем его из начала текста
+function leadText(p) {
+  const m = p.lead.match(/^([^—]+?)\s+—\s+(.*)$/);
+  if (!m) return p.lead;
+  const rest = m[2].charAt(0).toUpperCase() + m[2].slice(1);
+  const full = m[1].trim();
+  return (full !== p.n ? `<span class="bio__full">${full}</span>` : '') + rest;
+}
 function openPerson(i) {
   const p = PEOPLE[i];
   body.innerHTML = `
@@ -1343,13 +1352,12 @@ function openPerson(i) {
       <div class="entry__img">
         <div class="portrait" style="width:100%;max-width:420px">
           ${p.photo ? `<img src="${p.photo}" alt="${p.n}, художник, Московский союз художников">` : p.empty ? `<span class="portrait__empty portrait__empty--q">?</span>` : `<span class="portrait__empty">Место для фото</span>`}
-          <span class="portrait__name">${p.n}</span>
         </div>
       </div>
       <div class="entry__text">
         <span class="label entry__no">Автор</span>
         <h3 id="dlg-title">${p.n}</h3>
-        <p class="bio__lead">${p.lead}</p>
+        <p class="bio__lead">${leadText(p)}</p>
         <dl>${p.rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
       </div>
     </article>`;
