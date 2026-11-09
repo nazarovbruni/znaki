@@ -144,6 +144,9 @@
      "@id": "https://nazarovbruni.github.io/znaki/#znak-09"
     },
     {
+     "@id": "https://nazarovbruni.github.io/znaki/#znak-10"
+    },
+    {
      "@id": "https://nazarovbruni.github.io/znaki/#znak-11"
     },
     {
@@ -381,6 +384,24 @@
    },
    "image": "https://nazarovbruni.github.io/znaki/img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg",
    "description": "Не только призыв к безопасности, но и напоминание о важности ясности сознания."
+  },
+  {
+   "@type": "VisualArtwork",
+   "@id": "https://nazarovbruni.github.io/znaki/#znak-10",
+   "name": "Знак «Лето. Дача»",
+   "url": "https://nazarovbruni.github.io/znaki/#znak-10",
+   "creator": {
+    "@id": "https://nazarovbruni.github.io/znaki/#artist-7"
+   },
+   "artform": "Плакат",
+   "inLanguage": "ru",
+   "isPartOf": {
+    "@id": "https://nazarovbruni.github.io/znaki/#exhibition"
+   },
+   "image": [
+    "https://nazarovbruni.github.io/znaki/img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg",
+    "https://nazarovbruni.github.io/znaki/img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov.jpg"
+   ]
   },
   {
    "@type": "VisualArtwork",
@@ -949,12 +970,12 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   </li>
   <li class="card reveal" id="znak-10" style="--d:0ms">
     <button type="button" data-work="9" aria-label="Открыть: Знак «Лето. Дача», Эркен Кагаров">
-      <div class="plate plate--anim  ">
-        <span class="plate__no">№ 10</span><span class="anim-empty"><span>Место для фото работы</span></span>
+      <div class="plate  plate--white plate--fill">
+        <span class="plate__no">№ 10</span><picture><source type="image/webp" srcset="img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card-800.webp 800w, img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.webp 1018w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «Лето. Дача», Эркен Кагаров, Московский союз художников" loading="lazy" width="1018" height="1203"></picture>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Лето. Дача»</span>
-        <span class="card__author">Эркен Кагаров</span>
+        <span class="card__author">Эркен Кагаров</span><span class="card__hint">Нажмите, чтобы увидеть оригинал работы →</span>
       </div>
     </button>
   </li>
@@ -1142,7 +1163,7 @@ const WORKS = [
   { t: 'Не теряй голову на дороге', a: 'Камиль Зайнетдинов', img: 'img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
     means: 'Не только призыв к безопасности, но и напоминание о важности ясности сознания.',
     why: 'Дорога становится образом жизни, а способность сохранять ясность, внимание и присутствие помогает не сбиться с собственного пути.' },
-  { t: 'Лето. Дача', a: 'Эркен Кагаров', img: null, wait: 'Место для фото работы' },
+  { t: 'Лето. Дача', a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true },
   { t: 'Парадокс', a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true },
   { t: 'Бах', a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true },
   // Пояснения авторов: добавьте поля means: '...' и why: '...'
