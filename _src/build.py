@@ -213,7 +213,7 @@ imgs += ''.join(
                               (SCENE(x), f'Знак «{x["t"]}» в среде, {SER_A}, Московский союз художников')))
 imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>Знаки цифрового антропогенеза, {SER_A}, Московский союз художников</image:title></image:image>'
-    for u in (COVER, BOX))
+    for u in (COVER, BOX, 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg'))
 imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{w["card"]}</image:loc><image:title>Знак «{w["t"]}», {w["a"]}, Московский союз художников</image:title></image:image>'
     for w in W if w.get('card'))
