@@ -165,6 +165,12 @@
      "@id": "https://nazarovbruni.github.io/znaki/#znak-12"
     },
     {
+     "@id": "https://nazarovbruni.github.io/znaki/#znak-13"
+    },
+    {
+     "@id": "https://nazarovbruni.github.io/znaki/#znak-14"
+    },
+    {
      "@id": "https://nazarovbruni.github.io/znaki/#digital"
     },
     {
@@ -514,6 +520,38 @@
    "description": "Музыку Баха. Каллиграфическая буква «Б» закручивается в скрипичный ключ: имя композитора и знак музыки становятся одной линией."
   },
   {
+   "@type": "VisualArtwork",
+   "@id": "https://nazarovbruni.github.io/znaki/#znak-13",
+   "name": "Знак «ПЦ»",
+   "url": "https://nazarovbruni.github.io/znaki/#znak-13",
+   "creator": {
+    "@id": "https://nazarovbruni.github.io/znaki/#artist-9"
+   },
+   "artform": "Плакат",
+   "inLanguage": "ru",
+   "isPartOf": {
+    "@id": "https://nazarovbruni.github.io/znaki/#exhibition"
+   },
+   "image": "https://nazarovbruni.github.io/znaki/img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.jpg",
+   "description": "Характеристику состояния или явление в сжатой форме. Смысл передают слова-синонимы: тотальный крах, тяжёлый случай, жесть, полный провал, катаклизм, довыделывались, звездец, треш, хана, крышка, конец, абзац, труба, каюк, апокалипсис."
+  },
+  {
+   "@type": "VisualArtwork",
+   "@id": "https://nazarovbruni.github.io/znaki/#znak-14",
+   "name": "Знак «Иностранный агент»",
+   "url": "https://nazarovbruni.github.io/znaki/#znak-14",
+   "creator": {
+    "@id": "https://nazarovbruni.github.io/znaki/#artist-9"
+   },
+   "artform": "Плакат",
+   "inLanguage": "ru",
+   "isPartOf": {
+    "@id": "https://nazarovbruni.github.io/znaki/#exhibition"
+   },
+   "image": "https://nazarovbruni.github.io/znaki/img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.jpg",
+   "description": "Клеймо «Иностранный агент» означает принадлежность отмеченного им субъекта к лицам, чья деятельность находится под наблюдением, финансируется извне и требует контроля со стороны государственных органов, поскольку может быть направлена против государства."
+  },
+  {
    "@type": "CreativeWorkSeries",
    "@id": "https://nazarovbruni.github.io/znaki/#digital",
    "name": "Знаки цифрового антропогенеза",
@@ -830,6 +868,10 @@ section { padding-block: 88px; }
 .person--join a:hover .join__mark { transform: rotate(90deg); }
 .person--join a:hover .portrait__name { background: var(--ink); }
 .person--join:not(.join--desk) { display: none; }
+.card--join .plate { border: 2px dashed var(--ink); background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
+.card--join .card__title { color: var(--signal); }
+.card--join .card__link:hover .join__mark { transform: rotate(90deg); }
+@media (max-width: 960px) { .card--join { display: none; } }
 @media (max-width: 960px) { .person--join { display: none; } .person--join.join--mob { display: block; } .join__mark { width: 72px; height: 72px; font-size: 46px; } .join__text { font-size: 14px; } }
 .portrait__empty { position: absolute; inset: 14px 14px 58px; border: 2px dashed var(--ink); display: grid; place-items: center; font-family: var(--ui); font-size: 15px; color: var(--muted); }
 .q-empty { position: absolute; inset: 44px 28px 28px; border: 2px dashed var(--ink); display: grid; place-items: center; font-family: var(--display); font-weight: 900; font-size: clamp(120px, 14vw, 220px); line-height: 1; color: var(--signal); }
@@ -1134,7 +1176,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 <main id="top">
   <div class="spacer" aria-hidden="true"></div>
   <div class="hero wrap">
-    <span class="sticker s1 pop" style="--d:700ms">17 знаков · 9 художников</span>
+    <span class="sticker s1 pop" style="--d:700ms">19 знаков · 9 художников</span>
     <span class="sticker sticker--ink s2 pop" style="--d:950ms">Секция плаката МСХ</span>
     <p class="label hero__eyebrow">Виртуальная выставка</p>
     <h1 class="signs"><span class="sr-only">ЗНАКИ — виртуальная выставка Секции плаката Московского союза художников</span>
@@ -1321,10 +1363,35 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
       </div>
     </button>
   </li>
-  <li class="card reveal card--series" id="znak-13" style="--d:0ms">
+  <li class="card reveal" id="znak-13" style="--d:0ms">
+    <button type="button" data-work="12" aria-label="Открыть: Знак «ПЦ», Иван Островский">
+      <div class="plate  plate--white plate--fill">
+        <span class="plate__no">№ 13</span><picture><source type="image/webp" srcset="img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.webp 1060w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «ПЦ», Иван Островский, Московский союз художников" loading="lazy" width="1060" height="1200"></picture>
+      </div>
+      <div class="card__cap">
+        <span class="card__title">Знак «ПЦ»</span>
+        <span class="card__author">Иван Островский</span>
+      </div>
+    </button>
+  </li>
+  <li class="card reveal" id="znak-14" style="--d:120ms">
+    <button type="button" data-work="13" aria-label="Открыть: Знак «Иностранный агент», Иван Островский">
+      <div class="plate  plate--white plate--fill">
+        <span class="plate__no">№ 14</span><picture><source type="image/webp" srcset="img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.webp 1200w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Иностранный агент», Иван Островский, Московский союз художников" loading="lazy" width="1200" height="1186"></picture>
+      </div>
+      <div class="card__cap">
+        <span class="card__title">Знак «Иностранный агент»</span>
+        <span class="card__author">Иван Островский</span>
+      </div>
+    </button>
+  </li>
+  <li class="card card--join reveal"><a class="card__link" href="#contacts" aria-label="Предложите свой знак">
+      <div class="plate"><span class="join__mark" aria-hidden="true">+</span><span class="join__text">Место для вашего знака</span></div>
+      <div class="card__cap"><span class="card__title">Знак № 20</span><span class="card__author">Предложите свой знак →</span></div>
+    </a></li><li class="card reveal card--series" id="znak-15" style="--d:240ms">
     <a class="card__link" href="#digital" aria-label="Серия «Знаки цифрового антропогенеза», Юрий Мамчур: 5 знаков">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 13</span><picture><source type="image/webp" srcset="img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov-1400.webp 1400w, img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.webp 2000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Знаки цифрового антропогенеза», Юрий Мамчур, Московский союз художников" loading="lazy" width="2000" height="520"></picture>
+        <span class="plate__no">№ 15</span><picture><source type="image/webp" srcset="img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov-1400.webp 1400w, img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.webp 2000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Знаки цифрового антропогенеза», Юрий Мамчур, Московский союз художников" loading="lazy" width="2000" height="520"></picture>
       </div>
       <div class="card__cap">
         <span class="card__title">Серия «Знаки цифрового антропогенеза» · 5 знаков</span>
@@ -1550,7 +1617,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   <div class="wrap">
     <div class="call">
       <h2 class="call__title">Художники Секции плаката, <span>присоединяйтесь!</span></h2>
-      <p class="call__sub">Знак <span>№&nbsp;18</span> ждёт своего автора.</p>
+      <p class="call__sub">Знак <span>№&nbsp;20</span> ждёт своего автора.</p>
       <p class="call__text">Словарь открыт и пополняется. Если вы видите то, у&nbsp;чего ещё нет обозначения, — нарисуйте для этого знак. Пришлите работу, её название и пару строк о&nbsp;том, что она обозначает, и&nbsp;мы добавим её в&nbsp;экспозицию.</p>
       <a class="cta call__btn" href="mailto:gallery@glubinagallery.ru?subject=%D0%97%D0%BD%D0%B0%D0%BA%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8%20%C2%AB%D0%97%D0%9D%D0%90%D0%9A%D0%98%C2%BB"><b aria-hidden="true">→</b>Предложить свой знак</a>
     </div>
@@ -1616,6 +1683,12 @@ const WORKS = [
   { t: 'Бах', a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
     means: 'Музыку Баха. Каллиграфическая буква «Б» закручивается в скрипичный ключ: имя композитора и знак музыки становятся одной линией.',
     why: 'Музыку нельзя нарисовать, но можно обозначить. Буква, превращённая в ключ, — знак того, что имя может звучать.' },
+  { t: 'ПЦ', a: 'Иван Островский', img: 'img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Характеристику состояния или явление в сжатой форме. Смысл передают слова-синонимы: тотальный крах, тяжёлый случай, жесть, полный провал, катаклизм, довыделывались, звездец, треш, хана, крышка, конец, абзац, труба, каюк, апокалипсис.',
+    why: 'Знак создан в 2022 году. Это графема — графический символ для обозначения разговорной речи на письме: он придаёт сообщению нужную степень динамики и экономит экранное пространство.' },
+  { t: 'Иностранный агент', a: 'Иван Островский', img: 'img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Клеймо «Иностранный агент» означает принадлежность отмеченного им субъекта к лицам, чья деятельность находится под наблюдением, финансируется извне и требует контроля со стороны государственных органов, поскольку может быть направлена против государства.',
+    why: 'Знак создан в 2026 году. Это графема для обозначения термина на письме и для маркировки сообщений отмеченных им лиц и организаций. Его смысл — в необходимости соблюдать осторожность в общении с отмеченными субъектами и при необходимости сообщать об их потенциально опасных действиях в органы контроля.' },
   { t: 'Знаки цифрового антропогенеза', a: 'Юрий Мамчур', img: 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true, series: 5 },
   // Пояснения авторов: добавьте поля means: '...' и why: '...'
 ];
@@ -1735,6 +1808,18 @@ if (!worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) => `
       </div>
     ${w.series ? '</a>' : '</button>'}
   </li>`).join('');
+(function () {
+  const n = WORKS.filter((w) => !w.series).length;
+  if (!(n % 3) || worksEl.querySelector('.card--join')) return;
+  const li = document.createElement('li');
+  li.className = 'card card--join reveal';
+  li.innerHTML = `<a class="card__link" href="#contacts" aria-label="Предложите свой знак">
+      <div class="plate"><span class="join__mark" aria-hidden="true">+</span><span class="join__text">Место для вашего знака</span></div>
+      <div class="card__cap"><span class="card__title">Знак № ${String(n + SERIES.length + 1).padStart(2, '0')}</span><span class="card__author">Предложите свой знак →</span></div>
+    </a>`;
+  const ser = worksEl.querySelector('.card--series');
+  worksEl.insertBefore(li, ser);
+})();
 
 const peopleEl = document.getElementById('people');
 if (!peopleEl.children.length) peopleEl.innerHTML = PEOPLE.map((p, i) => `
