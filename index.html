@@ -1022,6 +1022,15 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 @media (max-width: 960px) { .contacts .wrap { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 300px) { .call__title { font-size: 19px; } .contacts .call__sub { font-size: 16px; } }
 .call > * { min-width: 0; max-width: 100%; }
+@media (min-width: 621px) {
+  /* ряды галереи: одинаковая высота карточек, линия над названием на одном уровне */
+  .grid > .card { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+  .card > button, .card > .card__link { display: grid !important; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; width: 100%; }
+  .card .plate { align-self: stretch; }
+  .card__cap { align-self: start; }
+  .card .plate.plate--fill { display: flex; align-items: center; justify-content: center; }
+  .card .plate.plate--fill:not(.plate--white) img { width: 100%; height: 100%; object-fit: cover; }
+}
 </style>
 </head>
 <body>
