@@ -485,6 +485,9 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .hero__eyebrow { margin-bottom: 6px; }
   .hero__date { font-size: 22px; }
 }
+/* при наведении фон карточки не меняется: белые остаются белыми */
+.card button:hover .plate, .card__link:hover .plate { background: var(--plate); }
+.card .plate.plate--white, .card button:hover .plate.plate--white, .card__link:hover .plate.plate--white, .card--series .plate, .card--join .plate { background: var(--paper) !important; }
 </style>
 
 <header class="nav" id="nav">
