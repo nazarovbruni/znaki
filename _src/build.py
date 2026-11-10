@@ -123,6 +123,41 @@ def add_size(m):
     return tag[:-1] + f' width="{w}" height="{h}">'
 page = re.sub(r'<img src="(img/[^"]+)"[^>]*>', add_size, page)
 
+# 2б. две страницы из одного исходника
+BU_URL = URL + 'bukhei.html'
+def cut(h, tag):
+    return re.sub(r'<!--%s-->.*?<!--/%s-->\n?' % (tag, tag), '', h, flags=re.S)
+def unmark(h):
+    return re.sub(r'<!--/?(MAIN|BU)-->\n?', '', h)
+main_page = unmark(cut(page, 'BU'))
+bu_page = unmark(cut(page, 'MAIN'))
+# на странице спецпроекта ссылки на разделы главной ведут на главную
+ids = set(re.findall(r'id="([^"]+)"', bu_page))
+bu_page = re.sub(r'href="#([^"]+)"', lambda m: m.group(0) if m.group(1) in ids else 'href="./#%s"' % m.group(1), bu_page)
+bu_page = bu_page.replace('<a class="nav__mark" href="#top">', '<a class="nav__mark" href="./" aria-label="ЗНАКИ — на главную">')
+bu_page = re.sub(r'<a class="cta" id="cta" href="[^"]*">.*?</a>',
+    '<a class="cta" href="./#gallery"><b aria-hidden="true">←</b><span><span class="cta__long">Вернуться на выставку</span><span class="cta__short">Выставка</span></span></a>', bu_page, count=1, flags=re.S)
+bu_page = bu_page.replace('<li><a href="bukhei.html">', '<li><a href="bukhei.html" aria-current="page">')
+bu_page = bu_page.replace('<ol>\n      <li><a href="./#manifest">', '<ol>\n      <li><a href="./">← Главная</a></li>\n      <li><a href="./#manifest">', 1)
+bu_page = bu_page.replace('<h2 id="bu-h">Бухейпроект</h2>', '<h1 id="bu-h">Бухейпроект</h1>', 1)
+# главное фото спецпроекта — сразу, без ленивой загрузки
+bu_page = re.sub(r'(<img src="img/artists/bukheevy-bulkin-sergey[^>]*?) loading="lazy"', r'\1 fetchpriority="high"', bu_page, count=1)
+BU_TITLE = 'Бухейпроект — спецпроект БУ ХЕЕВЫХ на выставке «ЗНАКИ» Секции плаката МСХ'
+BU_DESC = 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева) на виртуальной выставке «ЗНАКИ», декабрь 2026: 16 знаков постероконцептуализма — «Выбор», «Мы», «Победа», «Конформизм» и другие.'
+BU_IMG = URL + 'img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg'
+def set_head(h, title, desc, url, img):
+    t0 = re.search(r'<title>([^<]+)</title>', h).group(1)
+    d0 = re.search(r'<meta name="description" content="([^"]+)"', h).group(1)
+    h = h.replace(t0, title).replace(d0, desc)
+    h = h.replace('<link rel="canonical" href="%s">' % URL, '<link rel="canonical" href="%s">' % url)
+    h = h.replace('<meta property="og:url" content="%s">' % URL, '<meta property="og:url" content="%s">' % url)
+    h = h.replace(URL + 'img/og-znaki.jpg', img)
+    h = re.sub(r'<meta property="og:image:(width|height)"[^>]*>\n', '', h)
+    h = h.replace('<meta property="og:image:alt" content="ЗНАКИ — виртуальная выставка Секции плаката МСХ">',
+                  '<meta property="og:image:alt" content="БУ ХЕЕВЫ — Евгения Михеева и Сергей Булкин в объёмных плакатах «Выбор»">')
+    return h
+bu_page = set_head(bu_page, BU_TITLE, BU_DESC, BU_URL, BU_IMG)
+
 # 3. JSON-LD
 W, P, SER, SER_A, BU = res['W'], res['P'], res['SER'], res['SER_A'], res['BU']
 BUIMG = lambda slug: 'img/works/bukheevy-bulkin-mikheeva-%s-moskovskiy-soyuz-khudozhnikov.jpg' % slug
@@ -187,17 +222,17 @@ artworks += [series_node] + ser_parts
 bu_parts = []
 for i, b in enumerate(BU):
     imgs_ = [URL + BUIMG(f) for f in b['frames']] if b.get('frames') else URL + BUIMG(b['slug'])
-    bu_parts.append({'@type': 'VisualArtwork', '@id': URL + '#bukhei-%d' % (i + 1), 'name': 'Знак «%s»' % b['t'],
-        'url': URL + '#bukhei-%d' % (i + 1), 'creator': {'@id': pid.get('БУ ХЕЕВЫ')}, 'artform': 'Плакат', 'inLanguage': 'ru',
+    bu_parts.append({'@type': 'VisualArtwork', '@id': BU_URL + '#bukhei-%d' % (i + 1), 'name': 'Знак «%s»' % b['t'],
+        'url': BU_URL + '#bukhei-%d' % (i + 1), 'creator': {'@id': pid.get('БУ ХЕЕВЫ')}, 'artform': 'Плакат', 'inLanguage': 'ru',
         'image': imgs_, 'description': strip_tags(b['means'])})
-artworks += [{'@type': 'CreativeWorkSeries', '@id': URL + '#bukhei', 'name': 'Бухейпроект',
-    'alternateName': 'Постероконцептуализм', 'creator': {'@id': pid.get('БУ ХЕЕВЫ')}, 'url': URL + '#bukhei',
+artworks += [{'@type': 'CreativeWorkSeries', '@id': BU_URL + '#bukhei', 'name': 'Бухейпроект',
+    'alternateName': 'Постероконцептуализм', 'creator': {'@id': pid.get('БУ ХЕЕВЫ')}, 'url': BU_URL,
     'image': URL + 'img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg',
     'isPartOf': {'@id': URL + '#exhibition'}, 'hasPart': [{'@id': x['@id']} for x in bu_parts],
     'description': 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева): 16 знаков-идеограмм в духе постероконцептуализма — теории, по которой плакат одновременно самодостаточен, становится частью общей картины, обретает значимость через тиражирование и переходит из плоскости в объём.'}] + bu_parts
 
-desc = re.search(r'<meta name="description" content="([^"]+)"', page).group(1)
-title = re.search(r'<title>([^<]+)</title>', page).group(1)
+desc = re.search(r'<meta name="description" content="([^"]+)"', main_page).group(1)
+title = re.search(r'<title>([^<]+)</title>', main_page).group(1)
 graph = [
     {'@type': 'WebSite', '@id': URL + '#site', 'url': URL, 'name': 'ЗНАКИ', 'inLanguage': 'ru',
      'description': desc, 'publisher': {'@id': URL + '#section'}},
@@ -220,9 +255,27 @@ graph = [
     section, *persons, *artworks,
 ]
 ld = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False, indent=1)
-page = page.replace('<!--JSONLD-->', '<script type="application/ld+json">\n' + ld + '\n</script>', 1)
-
+page = main_page.replace('<!--JSONLD-->', '<script type="application/ld+json">\n' + ld + '\n</script>', 1)
 open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(page)
+
+bu_nodes = [x for x in artworks if x['@id'].startswith(BU_URL)]
+bu_group = [x for x in persons if x['name'] == 'БУ ХЕЕВЫ']
+bu_graph = [
+    {'@type': 'WebPage', '@id': BU_URL + '#page', 'url': BU_URL, 'name': BU_TITLE, 'description': BU_DESC,
+     'inLanguage': 'ru', 'isPartOf': {'@type': 'WebSite', '@id': URL + '#site', 'url': URL, 'name': 'ЗНАКИ'},
+     'primaryImageOfPage': BU_IMG, 'about': {'@id': BU_URL + '#bukhei'}, 'breadcrumb': {'@id': BU_URL + '#crumbs'}},
+    {'@type': 'BreadcrumbList', '@id': BU_URL + '#crumbs', 'itemListElement': [
+        {'@type': 'ListItem', 'position': 1, 'name': 'ЗНАКИ', 'item': URL},
+        {'@type': 'ListItem', 'position': 2, 'name': 'Галерея знаков', 'item': URL + '#gallery'},
+        {'@type': 'ListItem', 'position': 3, 'name': 'Бухейпроект', 'item': BU_URL}]},
+    {'@type': 'ExhibitionEvent', '@id': URL + '#exhibition', 'name': 'ЗНАКИ', 'url': URL,
+     'startDate': '2026-12-01', 'endDate': '2026-12-31',
+     'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode',
+     'location': {'@type': 'VirtualLocation', 'url': URL}, 'organizer': {'@id': URL + '#section'}},
+    section, *bu_group, *bu_nodes]
+ld_bu = json.dumps({'@context': 'https://schema.org', '@graph': bu_graph}, ensure_ascii=False, indent=1)
+bu_page = bu_page.replace('<!--JSONLD-->', '<script type="application/ld+json">\n' + ld_bu + '\n</script>', 1)
+open(os.path.join(OUT, 'bukhei.html'), 'w', encoding='utf-8').write(bu_page)
 
 # sitemap с картинками
 today = datetime.date.today().isoformat()
@@ -236,10 +289,10 @@ imgs += ''.join(
 imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>Знаки цифрового антропогенеза, {SER_A}, Московский союз художников</image:title></image:image>'
  for u in ())
-imgs += ''.join(
+bu_imgs = ''.join(
     f'\n    <image:image><image:loc>{URL}{BUIMG(f)}</image:loc><image:title>Знак «{b["t"]}», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников</image:title></image:image>'
     for b in BU for f in (b.get('frames') or [b['slug']]))
-imgs += ''.join(
+bu_imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>{t}</image:title></image:image>'
     for u, t in ((BUIMG('vybor-1987-plakat'), 'Плакат «Выбор», 1987, БУ ХЕЕВЫ'), (BUIMG('vybor-1997-tarart'), 'Объёмный «Выбор», Тарарт, 1997, БУ ХЕЕВЫ'),
                  (BUIMG('kontur-vybora-2008-ekspozitsiya'), 'Проект «Контур выбора», 2008, БУ ХЕЕВЫ'), (BUIMG('bukheyproekt-seriya'), 'Бухейпроект, БУ ХЕЕВЫ')))
@@ -257,6 +310,7 @@ open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write(
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
     'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
     f'  <url>\n    <loc>{URL}</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>{imgs}\n  </url>\n'
+    f'  <url>\n    <loc>{BU_URL}</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>{bu_imgs}\n  </url>\n'
     '</urlset>\n')
 
 open(os.path.join(OUT, 'robots.txt'), 'w').write(
@@ -287,7 +341,7 @@ for i, w in enumerate(W):
     if w.get('empty'):
         continue
     if w.get('series'):
-        lines.append(f'- №{i + 1:02d}. Серия «{w["t"]}» — {w["a"]}, {w["series"]} знаков (см. раздел «Спецпроект» ниже)')
+        lines.append(f'- №{i + 1:02d}. {"Спецпроект" if w.get("label") else "Серия знаков"} «{w["t"]}» — {w["a"]}, {w["series"]} знаков (см. ниже)')
         continue
     line = f'- №{i + 1:02d}. Знак «{w["t"]}» — {w["a"]}'
     if w.get('means'):
@@ -299,7 +353,7 @@ lines += ['', f'## Спецпроект: «Знаки цифрового ант�
 for i, x in enumerate(SER):
     lines.append(f'- {i + 1}. «{x["t"]}»' + (f' ({x["sub"]})' if x['sub'] else '') + f' / {x["en"]}. Концепт: {x["concept"]} Смысл: {x["depth"]}')
 lines += ['', '## Спецпроект: «Бухейпроект» — БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева)', '',
-          f'Адрес: {URL}#bukhei', '',
+          f'Отдельная страница: {BU_URL}', '',
           'Постероконцептуализм (post — после, постер — плакат) — термин авторов: произведение создаётся как самодостаточное; одновременно может стать частью общей картины или новой смысловой мозаики; может обрести новую значимость через тиражирование; может перейти из плоскости в объём. Направление «Тарарт» — объёмный плакат. Знак «Выбор» (1987) представлен шестью вариантами, сменяющими друг друга.', '']
 for i, b in enumerate(BU):
     lines.append(f'- {i + 1}. «{b["t"]}». Обозначает: {strip_tags(b["means"])} Почему: {strip_tags(b["why"])}')
@@ -316,4 +370,4 @@ lines += ['', '## Секция плаката МСХ', '',
           '', '## Контакты', '', 'Телефон: +7 495 995-06-13', 'Почта: gallery@glubinagallery.ru', '']
 open(os.path.join(OUT, 'llms.txt'), 'w', encoding='utf-8').write('\n'.join(lines))
 
-print('ok:', len(page) // 1024, 'KB;', len(persons), 'artists;', len(artworks), 'artworks')
+print('ok:', len(page) // 1024, 'KB +', len(bu_page) // 1024, 'KB bukhei;', len(persons), 'artists;', len(artworks), 'artworks')
