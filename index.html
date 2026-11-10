@@ -1576,6 +1576,16 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 .bunext__links b { position: absolute; right: 20px; top: 22px; font-size: 22px; }
 @media (max-width: 960px) { .bunext__links { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 620px) { .bunext { padding-block: 64px; } .crumbs__path { display: none; } }
+/* ---------- подсказка «нажмите на знак» */
+.gallery__tip { display: flex; align-items: center; gap: 14px; margin: -12px 0 36px; font-family: var(--ui); font-weight: 600; font-size: 18px; color: var(--signal); }
+.gallery__tip b { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--signal); color: var(--paper); display: grid; place-items: center; font-size: 20px; animation: tipNudge 1.8s ease-in-out infinite; }
+@keyframes tipNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+@media (prefers-reduced-motion: reduce) { .gallery__tip b { animation: none; } }
+.plate__open { position: absolute; z-index: 3; right: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--paper); font-family: var(--ui); font-weight: 600; font-size: 14px; padding: 6px 6px 6px 14px; border-radius: 999px; opacity: 0; transform: translateY(8px); transition: opacity .2s, transform .2s; pointer-events: none; }
+.plate__open b { width: 24px; height: 24px; border-radius: 50%; background: var(--signal); display: grid; place-items: center; font-size: 17px; line-height: 1; }
+@media (hover: hover) { .card button:hover .plate__open, .card button:focus-visible .plate__open { opacity: 1; transform: none; } }
+@media (hover: none) { .plate__open { display: none; } }
+@media (max-width: 620px) { .gallery__tip { font-size: 16px; margin: -8px 0 28px; gap: 12px; } .gallery__tip b { width: 34px; height: 34px; font-size: 17px; } }
 </style>
 </head>
 <body>
@@ -1678,169 +1688,170 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
         <h2 id="g-h">Галерея знаков</h2>
         <p>Каждая работа здесь не иллюстрирует понятие, а предлагает новый способ его обозначить.</p>
       </div>
+      <p class="gallery__tip"><b aria-hidden="true">↓</b>Нажмите на любой знак — откроется его история: что он обозначает и зачем понадобился</p>
       <ul class="grid" id="works">
 <li class="card reveal" id="znak-01" style="--d:0ms">
     <button type="button" data-work="0" aria-label="Открыть: Знак «Глушь немая», Измаил Бадоев">
       <div class="plate  plate--white ">
-        <span class="plate__no">№ 01</span><picture><source type="image/webp" srcset="img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.webp 1400w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Глушь немая», Измаил Бадоев, Московский союз художников" loading="lazy" width="1400" height="998"></picture>
+        <span class="plate__no">№ 01</span><picture><source type="image/webp" srcset="img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.webp 1400w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Глушь немая», Измаил Бадоев, Московский союз художников" loading="lazy" width="1400" height="998"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Глушь немая»</span>
-        <span class="card__author">Измаил Бадоев</span>
+        <span class="card__author">Измаил Бадоев</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-02" style="--d:120ms">
     <button type="button" data-work="1" aria-label="Открыть: Знак «Всё хорошо. Ангел в пустоте», Юлия Назар">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 02</span><picture><source type="image/webp" srcset="img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.webp 876w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Всё хорошо. Ангел в пустоте», Юлия Назар, Московский союз художников" loading="lazy" width="876" height="1280"></picture>
+        <span class="plate__no">№ 02</span><picture><source type="image/webp" srcset="img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.webp 876w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Всё хорошо. Ангел в пустоте», Юлия Назар, Московский союз художников" loading="lazy" width="876" height="1280"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Всё хорошо. Ангел в пустоте»</span>
-        <span class="card__author">Юлия Назар</span>
+        <span class="card__author">Юлия Назар</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-03" style="--d:240ms">
     <button type="button" data-work="2" aria-label="Открыть: Знак «Птица», Измаил Бадоев">
       <div class="plate   plate--fill">
-        <span class="plate__no">№ 03</span><picture><source type="image/webp" srcset="img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.webp 624w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Птица», Измаил Бадоев, Московский союз художников" loading="lazy" width="624" height="1200"></picture>
+        <span class="plate__no">№ 03</span><picture><source type="image/webp" srcset="img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.webp 624w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Птица», Измаил Бадоев, Московский союз художников" loading="lazy" width="624" height="1200"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Птица»</span>
-        <span class="card__author">Измаил Бадоев</span>
+        <span class="card__author">Измаил Бадоев</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-04" style="--d:0ms">
     <button type="button" data-work="3" aria-label="Открыть: Знак «Самопознание. Путь в небо», Анна Смоляницкая">
       <div class="plate   plate--fill">
-        <span class="plate__no">№ 04</span><picture><source type="image/webp" srcset="img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card-800.webp 800w, img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.webp 1079w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «Самопознание. Путь в небо», Анна Смоляницкая, Московский союз художников" loading="lazy" width="1079" height="1280"></picture>
+        <span class="plate__no">№ 04</span><picture><source type="image/webp" srcset="img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card-800.webp 800w, img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.webp 1079w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «Самопознание. Путь в небо», Анна Смоляницкая, Московский союз художников" loading="lazy" width="1079" height="1280"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Самопознание. Путь в небо»</span>
-        <span class="card__author">Анна Смоляницкая</span><span class="card__hint">Нажмите, чтобы увидеть оригинал работы →</span>
+        <span class="card__author">Анна Смоляницкая</span><span class="card__hint">Что означает знак · фото оригинала →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-05" style="--d:120ms">
     <button type="button" data-work="4" aria-label="Открыть: Знак «ИИ», Анна Смоляницкая">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 05</span><picture><source type="image/webp" srcset="img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card-800.webp 800w, img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.webp 1280w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «ИИ», Анна Смоляницкая, Московский союз художников" loading="lazy" width="1280" height="977"></picture>
+        <span class="plate__no">№ 05</span><picture><source type="image/webp" srcset="img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card-800.webp 800w, img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.webp 1280w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «ИИ», Анна Смоляницкая, Московский союз художников" loading="lazy" width="1280" height="977"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «ИИ»</span>
-        <span class="card__author">Анна Смоляницкая</span><span class="card__hint">Нажмите, чтобы увидеть оригинал работы →</span>
+        <span class="card__author">Анна Смоляницкая</span><span class="card__hint">Что означает знак · фото оригинала →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-06" style="--d:240ms">
     <button type="button" data-work="5" aria-label="Открыть: Знак «ПЦ», Иван Островский">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 06</span><picture><source type="image/webp" srcset="img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.webp 1060w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «ПЦ», Иван Островский, Московский союз художников" loading="lazy" width="1060" height="1200"></picture>
+        <span class="plate__no">№ 06</span><picture><source type="image/webp" srcset="img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.webp 1060w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «ПЦ», Иван Островский, Московский союз художников" loading="lazy" width="1060" height="1200"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «ПЦ»</span>
-        <span class="card__author">Иван Островский</span>
+        <span class="card__author">Иван Островский</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-07" style="--d:0ms">
     <button type="button" data-work="6" aria-label="Открыть: Знак «Дети бегут от грозы», Виктор Куплевацкий">
       <div class="plate  plate--white ">
-        <span class="plate__no">№ 07</span><picture><source type="image/webp" srcset="img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.webp 670w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Дети бегут от грозы», Виктор Куплевацкий, Московский союз художников" loading="lazy" width="670" height="375"></picture>
+        <span class="plate__no">№ 07</span><picture><source type="image/webp" srcset="img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.webp 670w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Дети бегут от грозы», Виктор Куплевацкий, Московский союз художников" loading="lazy" width="670" height="375"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Дети бегут от грозы»</span>
-        <span class="card__author">Виктор Куплевацкий</span>
+        <span class="card__author">Виктор Куплевацкий</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-08" style="--d:120ms">
     <button type="button" data-work="7" aria-label="Открыть: Знак «Insight», Виктор Куплевацкий">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 08</span><video autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg" aria-label="Знак «Insight», Виктор Куплевацкий, Московский союз художников"><source src="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm" type="video/webm"><source src="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4" type="video/mp4"></video>
+        <span class="plate__no">№ 08</span><video autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg" aria-label="Знак «Insight», Виктор Куплевацкий, Московский союз художников"><source src="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm" type="video/webm"><source src="img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4" type="video/mp4"></video><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Insight»</span>
-        <span class="card__author">Виктор Куплевацкий</span>
+        <span class="card__author">Виктор Куплевацкий</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-09" style="--d:240ms">
     <button type="button" data-work="8" aria-label="Открыть: Знак «Не теряй голову на дороге», Камиль Зайнетдинов">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 09</span><picture><source type="image/webp" srcset="img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.webp 727w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Не теряй голову на дороге», Камиль Зайнетдинов, Московский союз художников" loading="lazy" width="727" height="1106"></picture>
+        <span class="plate__no">№ 09</span><picture><source type="image/webp" srcset="img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.webp 727w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Не теряй голову на дороге», Камиль Зайнетдинов, Московский союз художников" loading="lazy" width="727" height="1106"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Не теряй голову на дороге»</span>
-        <span class="card__author">Камиль Зайнетдинов</span>
+        <span class="card__author">Камиль Зайнетдинов</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-10" style="--d:0ms">
     <button type="button" data-work="9" aria-label="Открыть: Знак «Лето. Дача», Эркен Кагаров">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 10</span><picture><source type="image/webp" srcset="img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card-800.webp 800w, img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.webp 1018w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «Лето. Дача», Эркен Кагаров, Московский союз художников" loading="lazy" width="1018" height="1203"></picture>
+        <span class="plate__no">№ 10</span><picture><source type="image/webp" srcset="img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card-800.webp 800w, img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.webp 1018w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «Лето. Дача», Эркен Кагаров, Московский союз художников" loading="lazy" width="1018" height="1203"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Лето. Дача»</span>
-        <span class="card__author">Эркен Кагаров</span><span class="card__hint">Нажмите, чтобы увидеть оригинал работы →</span>
+        <span class="card__author">Эркен Кагаров</span><span class="card__hint">Что означает знак · фото оригинала →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-11" style="--d:120ms">
     <button type="button" data-work="10" aria-label="Открыть: Знак «Парадокс», Эркен Кагаров">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 11</span><picture><source type="image/webp" srcset="img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov.webp 1400w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Парадокс», Эркен Кагаров, Московский союз художников" loading="lazy" width="1400" height="1290"></picture>
+        <span class="plate__no">№ 11</span><picture><source type="image/webp" srcset="img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov.webp 1400w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Парадокс», Эркен Кагаров, Московский союз художников" loading="lazy" width="1400" height="1290"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Парадокс»</span>
-        <span class="card__author">Эркен Кагаров</span>
+        <span class="card__author">Эркен Кагаров</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-12" style="--d:240ms">
     <button type="button" data-work="11" aria-label="Открыть: Знак «Бах», Эркен Кагаров">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 12</span><picture><source type="image/webp" srcset="img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.webp 1400w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Бах», Эркен Кагаров, Московский союз художников" loading="lazy" width="1400" height="1195"></picture>
+        <span class="plate__no">№ 12</span><picture><source type="image/webp" srcset="img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.webp 1400w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Бах», Эркен Кагаров, Московский союз художников" loading="lazy" width="1400" height="1195"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Бах»</span>
-        <span class="card__author">Эркен Кагаров</span>
+        <span class="card__author">Эркен Кагаров</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-13" style="--d:0ms">
     <button type="button" data-work="12" aria-label="Открыть: Знак «Единство», Светлана Дёмина">
       <div class="plate   plate--fill">
-        <span class="plate__no">№ 13</span><picture><source type="image/webp" srcset="img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.webp 540w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «Единство», Светлана Дёмина, Московский союз художников" loading="lazy" width="540" height="687"></picture>
+        <span class="plate__no">№ 13</span><picture><source type="image/webp" srcset="img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.webp 540w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg" alt="Знак «Единство», Светлана Дёмина, Московский союз художников" loading="lazy" width="540" height="687"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Единство»</span>
-        <span class="card__author">Светлана Дёмина</span><span class="card__hint">Нажмите, чтобы увидеть оригинал работы →</span>
+        <span class="card__author">Светлана Дёмина</span><span class="card__hint">Что означает знак · фото оригинала →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-14" style="--d:120ms">
     <button type="button" data-work="13" aria-label="Открыть: Знак «Иностранный агент», Иван Островский">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 14</span><picture><source type="image/webp" srcset="img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.webp 1200w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Иностранный агент», Иван Островский, Московский союз художников" loading="lazy" width="1200" height="1186"></picture>
+        <span class="plate__no">№ 14</span><picture><source type="image/webp" srcset="img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov-800.webp 800w, img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.webp 1200w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Иностранный агент», Иван Островский, Московский союз художников" loading="lazy" width="1200" height="1186"></picture><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Иностранный агент»</span>
-        <span class="card__author">Иван Островский</span>
+        <span class="card__author">Иван Островский</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
   <li class="card reveal" id="znak-15" style="--d:240ms">
     <button type="button" data-work="14" aria-label="Открыть: Знак «Река жизни», Павел Ермолов">
       <div class="plate  plate--white plate--fill">
-        <span class="plate__no">№ 15</span><video autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.jpg" aria-label="Знак «Река жизни», Павел Ермолов, Московский союз художников"><source src="img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.webm" type="video/webm"><source src="img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.mp4" type="video/mp4"></video>
+        <span class="plate__no">№ 15</span><video autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.jpg" aria-label="Знак «Река жизни», Павел Ермолов, Московский союз художников"><source src="img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.webm" type="video/webm"><source src="img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.mp4" type="video/mp4"></video><span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>
       </div>
       <div class="card__cap">
         <span class="card__title">Знак «Река жизни»</span>
-        <span class="card__author">Павел Ермолов</span>
+        <span class="card__author">Павел Ермолов</span><span class="card__hint">Что означает знак →</span>
       </div>
     </button>
   </li>
@@ -2370,11 +2381,11 @@ if (worksEl && !worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) =>
   <li class="card reveal${w.series ? ' card--series' : ''}" id="znak-${String(i + 1).padStart(2, '0')}" style="--d:${(i % 3) * 120}ms">
     ${w.series ? `<a class="card__link" href="${w.href}" aria-label="${w.label ? 'Спецпроект' : 'Серия знаков'} «${w.t}», ${w.a}: ${w.series} знаков">` : `<button type="button" data-work="${i}" aria-label="Открыть: Знак «${w.t}», ${w.a}">`}
       <div class="plate ${w.img || w.video || w.empty ? '' : 'plate--anim'} ${w.white ? 'plate--white' : ''} ${w.fill ? 'plate--fill' : ''}">
-        <span class="plate__no">${no(i)}</span>${media(w)}
+        <span class="plate__no">${no(i)}</span>${media(w)}${w.series ? '' : '<span class="plate__open" aria-hidden="true">Открыть <b>+</b></span>'}
       </div>
       <div class="card__cap">
         <span class="card__title">${w.series ? (w.label ? `Спецпроект «${w.t}» · ${w.series} знаков` : `Серия знаков «${w.t}»`) : `Знак «${w.t}»`}</span>
-        <span class="card__author">${w.a}</span>${w.card ? '<span class="card__hint">Нажмите, чтобы увидеть оригинал работы →</span>' : ''}${w.series ? `<span class="card__hint">${w.label ? 'Отдельная страница · Открыть спецпроект →' : w.series + ' знаков · Смотреть серию →'}</span>` : ''}
+        <span class="card__author">${w.a}</span>${!w.series && !w.empty ? `<span class="card__hint">${w.card ? 'Что означает знак · фото оригинала →' : 'Что означает знак →'}</span>` : ''}${w.series ? `<span class="card__hint">${w.label ? 'Отдельная страница · Открыть спецпроект →' : w.series + ' знаков · Смотреть серию →'}</span>` : ''}
       </div>
     ${w.series ? '</a>' : '</button>'}
   </li>`).join('');
