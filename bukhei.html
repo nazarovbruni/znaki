@@ -25,12 +25,14 @@
 <meta property="og:title" content="Бухейпроект — спецпроект БУ ХЕЕВЫХ на выставке «ЗНАКИ» Секции плаката МСХ">
 <meta property="og:description" content="Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева) на виртуальной выставке «ЗНАКИ», декабрь 2026: 16 знаков постероконцептуализма — «Выбор», «Мы», «Победа», «Конформизм» и другие.">
 <meta property="og:url" content="https://nazarovbruni.github.io/znaki/bukhei.html">
-<meta property="og:image" content="https://nazarovbruni.github.io/znaki/img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg">
+<meta property="og:image" content="https://nazarovbruni.github.io/znaki/img/og-bukheyproekt-znaki-moskovskiy-soyuz-khudozhnikov.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="БУ ХЕЕВЫ — Евгения Михеева и Сергей Булкин в объёмных плакатах «Выбор»">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Бухейпроект — спецпроект БУ ХЕЕВЫХ на выставке «ЗНАКИ» Секции плаката МСХ">
 <meta name="twitter:description" content="Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева) на виртуальной выставке «ЗНАКИ», декабрь 2026: 16 знаков постероконцептуализма — «Выбор», «Мы», «Победа», «Конформизм» и другие.">
-<meta name="twitter:image" content="https://nazarovbruni.github.io/znaki/img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg">
+<meta name="twitter:image" content="https://nazarovbruni.github.io/znaki/img/og-bukheyproekt-znaki-moskovskiy-soyuz-khudozhnikov.jpg">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -48,7 +50,7 @@
     "url": "https://nazarovbruni.github.io/znaki/",
     "name": "ЗНАКИ"
    },
-   "primaryImageOfPage": "https://nazarovbruni.github.io/znaki/img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg",
+   "primaryImageOfPage": "https://nazarovbruni.github.io/znaki/img/og-bukheyproekt-znaki-moskovskiy-soyuz-khudozhnikov.jpg",
    "about": {
     "@id": "https://nazarovbruni.github.io/znaki/bukhei.html#bukhei"
    },
@@ -989,6 +991,11 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .curator__frame img { object-position: 50% 32%; }
 }
 @media (max-width: 620px) { .curator__photo { grid-template-columns: 96px minmax(0, 1fr); } .curator__photo figcaption strong { font-size: 20px; } }
+/* «Бухейпроект»: подзаголовки второго уровня, контраст надписи на чёрном */
+.bu__theory h2, .bu__chron h2 { font-family: var(--ui); font-weight: 600; font-size: 15px; line-height: 1.3; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); border-top: 2px solid var(--ink); padding-top: 14px; margin: 0 0 14px; }
+.bu__choice h2 { color: var(--ink); font-size: clamp(44px, 6vw, 88px); margin: 8px 0 14px; }
+@media (max-width: 340px) { .bu__theory h2, .bu__chron h2 { overflow-wrap: anywhere; letter-spacing: .04em; } }
+.bu__eyebrow { color: #ff5a5f; }
 </style>
 </head>
 <body>
@@ -1061,7 +1068,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
     <div class="wrap">
       <div class="bu__theory">
         <div>
-          <h3>Постероконцептуализм</h3>
+          <h2>Постероконцептуализм</h2>
           <p>Термин авторов: <em>post</em> — после, <em>постер</em> — плакат. Стремясь отразить диалектическое единство мира, теория трактует понятие «часть целого — целая часть». У неё два источника: плакатное и концептуальное искусство. Её основные положения:</p>
           <ul class="bu__rules">
             <li>произведение создаётся как самодостаточное;</li>
@@ -1079,17 +1086,17 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
       <div class="bu__choice">
         <button type="button" class="bu__anim" data-bu="0" aria-label="Знак «Выбор»: рождение выбора, шесть вариантов. Открыть описание">
           <span class="bu__frames" aria-hidden="true">
-            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov.jpg" alt="" class="f0" style="--fd:0.0s" decoding="async" width="1000" height="1000"></picture>
-            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:2.5s" decoding="async" width="1000" height="1000"></picture>
-            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-1-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-1-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-1-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:5.0s" decoding="async" width="1000" height="1000"></picture>
-            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-2-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-2-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-2-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:7.5s" decoding="async" width="1000" height="1000"></picture>
-            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-3-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-3-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-3-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:10.0s" decoding="async" width="1000" height="1000"></picture>
-            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-vybor-variant-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-vybor-variant-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-vybor-variant-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:12.5s" decoding="async" width="1000" height="1000"></picture>
+            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 80vw, 460px"><img src="img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov.jpg" alt="" class="f0" style="--fd:0.0s" decoding="async" width="1000" height="1000"></picture>
+            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 80vw, 460px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:2.5s" decoding="async" width="1000" height="1000"></picture>
+            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-1-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-1-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 80vw, 460px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-1-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:5.0s" decoding="async" width="1000" height="1000"></picture>
+            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-2-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-2-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 80vw, 460px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-2-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:7.5s" decoding="async" width="1000" height="1000"></picture>
+            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-3-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-kontur-vybora-3-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 80vw, 460px"><img src="img/works/bukheevy-bulkin-mikheeva-kontur-vybora-3-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:10.0s" decoding="async" width="1000" height="1000"></picture>
+            <picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-vybor-variant-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-vybor-variant-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 80vw, 460px"><img src="img/works/bukheevy-bulkin-mikheeva-vybor-variant-moskovskiy-soyuz-khudozhnikov.jpg" alt="" style="--fd:12.5s" decoding="async" width="1000" height="1000"></picture>
           </span>
         </button>
         <div class="bu__choice-text">
           <span class="bu__no">01 · главный знак</span>
-          <h3>Выбор</h3>
+          <h2>Выбор</h2>
           <p class="bu__steps" aria-hidden="true"><span>Выбор</span><span>Контур выбора</span><span>Рождение выбора</span><span>Вариант 2</span><span>Вариант 3</span><span>Выбор (вариант)</span></p>
           <p>Человек-стрелка рождается из собственного контура и превращается в трезубец: шесть вариантов знака сменяют друг друга, как кадры. Плакат «Выбор» 1987 года стал программной работой БУ ХЕЕВЫХ: в 1997 году он стал объёмным, в 2008-м разросся в интерактивный проект «Контур выбора».</p>
           <p class="bu__more">Нажмите на знак, чтобы прочитать о нём →</p>
@@ -1100,70 +1107,70 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
       <ol class="bu__grid" id="bu-grid">
 <li class="bsign reveal" id="bukhei-2" style="--d:0ms">
     <button type="button" data-bu="1" aria-label="Открыть знак «Самопогружение», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-samopogruzhenie-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-samopogruzhenie-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-samopogruzhenie-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Самопогружение», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-samopogruzhenie-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-samopogruzhenie-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-samopogruzhenie-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Самопогружение», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
       <span class="bsign__no">02</span>
       <span class="bsign__t">Самопогружение</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-3" style="--d:80ms">
     <button type="button" data-bu="2" aria-label="Открыть знак «Единомыслие», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-edinomyslie-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-edinomyslie-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-edinomyslie-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Единомыслие», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-edinomyslie-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-edinomyslie-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-edinomyslie-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Единомыслие», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
       <span class="bsign__no">03</span>
       <span class="bsign__t">Единомыслие</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-4" style="--d:160ms">
     <button type="button" data-bu="3" aria-label="Открыть знак «Мы — хорошие и плохие, живые и мёртвые», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-my-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-my-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-my-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Мы — хорошие и плохие, живые и мёртвые», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-my-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-my-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-my-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Мы — хорошие и плохие, живые и мёртвые», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
       <span class="bsign__no">04</span>
       <span class="bsign__t">Мы — хорошие и плохие, живые и мёртвые</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-5" style="--d:240ms">
     <button type="button" data-bu="4" aria-label="Открыть знак «Мужчина и женщина», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-ona-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-ona-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-ona-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Мужчина и женщина», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-ona-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-ona-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-ona-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Мужчина и женщина», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
       <span class="bsign__no">05</span>
       <span class="bsign__t">Мужчина и женщина</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-6" style="--d:320ms">
     <button type="button" data-bu="5" aria-label="Открыть знак «Мировоззрение», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-mirovozzrenie-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-mirovozzrenie-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-mirovozzrenie-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Мировоззрение», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-mirovozzrenie-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-mirovozzrenie-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-mirovozzrenie-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Мировоззрение», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
       <span class="bsign__no">06</span>
       <span class="bsign__t">Мировоззрение</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-7" style="--d:0ms">
     <button type="button" data-bu="6" aria-label="Открыть знак «Объективность», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-obektivnost-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-obektivnost-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-obektivnost-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Объективность», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-obektivnost-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-obektivnost-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-obektivnost-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Объективность», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
       <span class="bsign__no">07</span>
       <span class="bsign__t">Объективность</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-8" style="--d:80ms">
     <button type="button" data-bu="7" aria-label="Открыть знак «Победа над смертью», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-pobeda-nad-smertyu-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-pobeda-nad-smertyu-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-pobeda-nad-smertyu-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Победа над смертью», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-pobeda-nad-smertyu-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-pobeda-nad-smertyu-moskovskiy-soyuz-khudozhnikov.webp 1000w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-pobeda-nad-smertyu-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Победа над смертью», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="1000" height="1000"></picture></span>
       <span class="bsign__no">08</span>
       <span class="bsign__t">Победа над смертью</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-9" style="--d:160ms">
     <button type="button" data-bu="8" aria-label="Открыть знак «Победа», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-pobeda-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-pobeda-moskovskiy-soyuz-khudozhnikov.webp 700w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-pobeda-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Победа», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="700" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-pobeda-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-pobeda-moskovskiy-soyuz-khudozhnikov.webp 700w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-pobeda-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Победа», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="700" height="1000"></picture></span>
       <span class="bsign__no">09</span>
       <span class="bsign__t">Победа</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-10" style="--d:240ms">
     <button type="button" data-bu="9" aria-label="Открыть знак «Пиррова победа», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-pirrova-pobeda-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-pirrova-pobeda-moskovskiy-soyuz-khudozhnikov.webp 699w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-pirrova-pobeda-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Пиррова победа», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="699" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-pirrova-pobeda-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-pirrova-pobeda-moskovskiy-soyuz-khudozhnikov.webp 699w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-pirrova-pobeda-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Пиррова победа», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="699" height="1000"></picture></span>
       <span class="bsign__no">10</span>
       <span class="bsign__t">Пиррова победа</span>
     </button>
   </li>
   <li class="bsign reveal" id="bukhei-11" style="--d:320ms">
     <button type="button" data-bu="10" aria-label="Открыть знак «Конформизм», БУ ХЕЕВЫ">
-      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-konformizm-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-konformizm-moskovskiy-soyuz-khudozhnikov.webp 727w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-konformizm-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Конформизм», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="727" height="1000"></picture></span>
+      <span class="bsign__tile"><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-konformizm-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/works/bukheevy-bulkin-mikheeva-konformizm-moskovskiy-soyuz-khudozhnikov.webp 727w" sizes="(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px"><img src="img/works/bukheevy-bulkin-mikheeva-konformizm-moskovskiy-soyuz-khudozhnikov.jpg" alt="Знак «Конформизм», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников" loading="lazy" width="727" height="1000"></picture></span>
       <span class="bsign__no">11</span>
       <span class="bsign__t">Конформизм</span>
     </button>
@@ -1171,7 +1178,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 </ol>
 
       <div class="bu__chron">
-        <h3>Путь знака «Выбор»</h3>
+        <h2>Путь знака «Выбор»</h2>
         <ol>
           <li><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-vybor-1987-plakat-moskovskiy-soyuz-khudozhnikov.webp 335w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-vybor-1987-plakat-moskovskiy-soyuz-khudozhnikov.jpg" alt="Плакат «Выбор», 1987. БУ ХЕЕВЫ, Московский союз художников" loading="lazy" width="335" height="514"></picture><b>1987</b><span>Плакат «Выбор». Бумага, шелкография, 90×60 см</span></li>
           <li><picture><source type="image/webp" srcset="img/works/bukheevy-bulkin-mikheeva-vybor-1997-tarart-moskovskiy-soyuz-khudozhnikov.webp 348w" sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px"><img src="img/works/bukheevy-bulkin-mikheeva-vybor-1997-tarart-moskovskiy-soyuz-khudozhnikov.jpg" alt="Объёмная интерпретация плаката «Выбор», 1997. БУ ХЕЕВЫ" loading="lazy" width="348" height="417"></picture><b>1997</b><span>«Тарарт — искусство в упаковке»: объёмный «Выбор» из микрогофрокартона. Модель общества — хоровод персонажей перед выбором, спрятанным внутри коробки</span></li>

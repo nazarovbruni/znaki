@@ -25,7 +25,7 @@ page = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
         + head + '</style>\n</head>\n<body>\n' + rest.lstrip() + '\n</body>\n</html>\n')
 
 # статика
-for name in ['favicon.ico', 'favicon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']:
+for name in ['404.html', 'favicon.ico', 'favicon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']:
     shutil.copy(os.path.join(SITE, name), os.path.join(OUT, name))
 if os.path.exists(os.path.join(OUT, 'img')):
     shutil.rmtree(os.path.join(OUT, 'img'))
@@ -102,6 +102,12 @@ def to_picture(m):
     kind = rel.split('/')[1]
     srcset = ', '.join(f'{f} {w}w' for f, w in webp_variants(rel))
     sizes = '(max-width: 960px) 100vw, 1240px' if 'data-wide' in tag else SIZES[kind]
+    if '--fd:' in tag:                      # кадры анимации «Выбор»
+        sizes = '(max-width: 620px) 80vw, 460px'
+    elif ', БУ ХЕЕВЫ (' in tag:              # плитки знаков БУ ХЕЕВЫХ
+        sizes = '(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px'
+    elif ', БУ ХЕЕВЫ"' in tag:               # миниатюры во входе на главной
+        sizes = '64px'
     return f'<picture><source type="image/webp" srcset="{srcset}" sizes="{sizes}">{tag}</picture>'
 page = re.sub(r'<img src="(img/(?:works|artists)/[^"]+\.jpg)"[^>]*>', to_picture, page)
 
@@ -144,7 +150,7 @@ bu_page = bu_page.replace('<h2 id="bu-h">Бухейпроект</h2>', '<h1 id="
 bu_page = re.sub(r'(<img src="img/artists/bukheevy-bulkin-sergey[^>]*?) loading="lazy"', r'\1 fetchpriority="high"', bu_page, count=1)
 BU_TITLE = 'Бухейпроект — спецпроект БУ ХЕЕВЫХ на выставке «ЗНАКИ» Секции плаката МСХ'
 BU_DESC = 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева) на виртуальной выставке «ЗНАКИ», декабрь 2026: 16 знаков постероконцептуализма — «Выбор», «Мы», «Победа», «Конформизм» и другие.'
-BU_IMG = URL + 'img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg'
+BU_IMG = URL + 'img/og-bukheyproekt-znaki-moskovskiy-soyuz-khudozhnikov.jpg'
 def set_head(h, title, desc, url, img):
     t0 = re.search(r'<title>([^<]+)</title>', h).group(1)
     d0 = re.search(r'<meta name="description" content="([^"]+)"', h).group(1)
@@ -157,6 +163,8 @@ def set_head(h, title, desc, url, img):
                   '<meta property="og:image:alt" content="БУ ХЕЕВЫ — Евгения Михеева и Сергей Булкин в объёмных плакатах «Выбор»">')
     return h
 bu_page = set_head(bu_page, BU_TITLE, BU_DESC, BU_URL, BU_IMG)
+bu_page = bu_page.replace('<meta property="og:image" content="%s">' % BU_IMG,
+    '<meta property="og:image" content="%s">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">' % BU_IMG, 1)
 
 # 3. JSON-LD
 W, P, SER, SER_A, BU = res['W'], res['P'], res['SER'], res['SER_A'], res['BU']
