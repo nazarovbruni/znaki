@@ -1605,6 +1605,23 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   .person--join .join__text { font-size: 13px; line-height: 1.35; padding: 0 6px; }
   .join__name { font-size: 16px; padding: 10px 12px; }
 }
+/* куратор с фото */
+.curator .wrap { align-items: start; }
+.curator__head { display: grid; gap: 32px; align-content: start; min-width: 0; }
+.curator__photo { margin: 0; display: grid; gap: 16px; max-width: 360px; }
+.curator__frame { display: block; aspect-ratio: 4 / 5; border: 2px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: 10px 10px 0 var(--signal); background: var(--plate); }
+.curator__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.curator__photo figcaption { display: grid; gap: 2px; font-family: var(--ui); }
+.curator__photo figcaption strong { font-family: var(--display); font-weight: 700; font-size: 22px; }
+.curator__photo figcaption span { font-size: 16px; color: var(--muted); }
+@media (max-width: 960px) {
+  .curator .wrap { grid-template-columns: minmax(0, 1fr); }
+  .curator__head { gap: 24px; }
+  .curator__photo { max-width: none; grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 18px; }
+  .curator__frame { aspect-ratio: 1; border-radius: 50%; box-shadow: 5px 5px 0 var(--signal); }
+  .curator__frame img { object-position: 50% 32%; }
+}
+@media (max-width: 620px) { .curator__photo { grid-template-columns: 96px minmax(0, 1fr); } .curator__photo figcaption strong { font-size: 20px; } }
 </style>
 </head>
 <body>
@@ -2126,7 +2143,13 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 
   <section class="curator" id="curator" aria-labelledby="c-h">
     <div class="wrap">
-      <h2 id="c-h">От куратора</h2>
+      <div class="curator__head">
+        <h2 id="c-h">От куратора</h2>
+        <figure class="curator__photo">
+          <span class="curator__frame"><picture><source type="image/webp" srcset="img/artists/nazar-yuliya-kurator-vystavki-znaki-moskovskiy-soyuz-khudozhnikov-480.webp 480w, img/artists/nazar-yuliya-kurator-vystavki-znaki-moskovskiy-soyuz-khudozhnikov.webp 900w" sizes="(max-width: 620px) 50vw, (max-width: 960px) 50vw, 380px"><img src="img/artists/nazar-yuliya-kurator-vystavki-znaki-moskovskiy-soyuz-khudozhnikov.jpg" alt="Юлия Назар, куратор выставки «ЗНАКИ», художник Секции плаката МСХ" loading="lazy" decoding="async" width="900" height="1125"></picture></span>
+          <figcaption><strong>Юлия Назар</strong><span>куратор выставки «ЗНАКИ»</span></figcaption>
+        </figure>
+      </div>
       <blockquote>
         <p>Этот проект не предлагает готовой системы знаков. Напротив, он показывает, насколько по-разному художники могут обозначать одно и то же пространство человеческого опыта.</p>
         <p>Здесь важен не только созданный образ, но и сам момент выбора: что сегодня кажется художнику настолько значимым, что для этого хочется придумать отдельный знак.</p>
