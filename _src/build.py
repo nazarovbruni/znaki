@@ -179,7 +179,7 @@ def strip_tags(t):
 section = {'@type': 'Organization', '@id': URL + '#section',
            'name': 'Секция плаката РОО «Московский союз художников»', 'url': SECTION_URL,
            'parentOrganization': {'@type': 'Organization', '@id': URL + '#msh',
-                                  'name': 'Московский союз художников', 'alternateName': 'МСХ',
+                                  'name': 'Московский союз художников', 'alternateName': ['МСХ', 'МОСХ', 'РОО «Московский союз художников»'],
                                   'url': MSH_URL, 'logo': URL + 'img/msh-logo.png'}}
 persons = []
 for i, p in enumerate(P):
@@ -200,6 +200,20 @@ for i, p in enumerate(P):
         d['sameAs'] = links
     persons.append(d)
 pid = {p['name']: p['@id'] for p in persons}
+# куратор: связать с личным сайтом и с «Глубиной»
+for d in persons:
+    if d['name'] == 'Юлия Назар':
+        d['jobTitle'] = ['Художник', 'Куратор']
+        d['url'] = 'https://julianazar.ru'
+        d['sameAs'] = sorted(set(d.get('sameAs', []) + ['https://julianazar.ru']))
+glubina = {'@type': ['ArtGallery', 'Organization'], '@id': URL + '#glubina',
+           'name': 'Галерея «Глубина»',
+           'alternateName': ['Галерея GLUBINA', 'GLUBINA', 'Арт-сообщество «Глубина»', 'Glubina Gallery'],
+           'description': 'Арт-сообщество и галерея, созданные художницами и кураторами Светланой Дёминой и Юлией Назар в 2022 году.',
+           'url': 'https://galleryglubina.ru', 'foundingDate': '2022',
+           'founder': [{'@id': pid[n]} for n in ('Светлана Дёмина', 'Юлия Назар') if n in pid],
+           'address': {'@type': 'PostalAddress', 'addressLocality': 'Москва', 'streetAddress': 'Фрунзенская наб., 46', 'addressCountry': 'RU'},
+           'logo': URL + 'img/glubina-gallery-logo.png'}
 artworks = []
 for i, w in enumerate(W):
     if w.get('empty') or w.get('series') or not (w.get('img') or w.get('video')):
@@ -255,12 +269,11 @@ graph = [
      'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode',
      'location': {'@type': 'VirtualLocation', 'url': URL},
      'isAccessibleForFree': True,
-     'organizer': [{'@id': URL + '#section'}, {'@type': 'Person', 'name': 'Юлия Назар',
-                                               'jobTitle': 'Куратор', 'url': 'https://julianazar.ru'}],
+     'organizer': [{'@id': URL + '#section'}, {'@id': pid.get('Юлия Назар')}],
      'performer': [{'@id': p['@id']} for p in persons],
-     'sponsor': {'@type': 'Organization', 'name': 'Галерея «Глубина»', 'alternateName': 'Glubina Gallery', 'url': 'https://galleryglubina.ru'},
+     'sponsor': {'@id': URL + '#glubina'},
      'workFeatured': [{'@id': a['@id']} for a in artworks]},
-    section, *persons, *artworks,
+    section, glubina, *persons, *artworks,
 ]
 ld = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False, indent=1)
 page = main_page.replace('<!--JSONLD-->', '<script type="application/ld+json">\n' + ld + '\n</script>', 1)
@@ -340,7 +353,7 @@ lines = ['# ЗНАКИ — виртуальная выставка', '',
          f'Адрес: {URL}',
          'Организатор: Секция плаката РОО «Московский союз художников» (МСХ)',
          'Куратор: Юлия Назар (https://julianazar.ru)',
-         'При поддержке галереи «Глубина» (https://galleryglubina.ru)',
+         'При поддержке галереи и арт-сообщества «Глубина» (GLUBINA, https://galleryglubina.ru), созданного Светланой Дёминой и Юлией Назар',
          'Даты: декабрь 2026',
          'Формат: виртуальная выставка, вход свободный', '',
          '## О проекте', '', manifest_text(), '',
