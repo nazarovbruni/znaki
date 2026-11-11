@@ -684,6 +684,10 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 .bu__choice h2 { color: var(--ink); font-size: clamp(44px, 6vw, 88px); margin: 8px 0 14px; }
 @media (max-width: 340px) { .bu__theory h2, .bu__chron h2 { overflow-wrap: anywhere; letter-spacing: .04em; } }
 .bu__eyebrow { color: #ff5a5f; }
+/* фото автора во всплывающем окне: рамка уменьшается вместе с фото, без белой полосы */
+.entry__img .portrait { width: min(100%, 420px, calc(70vh * .75)) !important; }
+.entry__img .portrait img { max-height: none; }
+@media (max-width: 960px) { .entry__img .portrait { width: min(100%, calc(52vh * .75)) !important; } }
 </style>
 
 <header class="nav" id="nav">
