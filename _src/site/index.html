@@ -810,6 +810,10 @@ a.hall-mini:hover strong { color: var(--signal); }
   .hall-mini em { font-size: 11px; letter-spacing: .06em; }
   .hall-mini strong { font-size: 15px; overflow-wrap: anywhere; }
 }
+/* страница никогда не ездит вбок (iPhone) */
+html, body { overflow-x: hidden; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
+main { overflow-x: clip; }
 </style>
 
 <header class="nav" id="nav">
