@@ -7,6 +7,8 @@
 """
 import json, os, re, shutil, subprocess, sys, datetime
 from PIL import Image
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from halls import HALLS, SPEC, ROUTE_TITLE, ROUTE_INTRO, shape_svg
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'site')
@@ -108,6 +110,8 @@ def to_picture(m):
         sizes = '(max-width: 620px) 45vw, (max-width: 960px) 30vw, 220px'
     elif ', БУ ХЕЕВЫ"' in tag:               # миниатюры во входе на главной
         sizes = '64px'
+    elif 'data-thumb' in tag:                # миниатюры залов
+        sizes = '72px'
     return f'<picture><source type="image/webp" srcset="{srcset}" sizes="{sizes}">{tag}</picture>'
 page = re.sub(r'<img src="(img/(?:works|artists)/[^"]+\.jpg)"[^>]*>', to_picture, page)
 
@@ -129,22 +133,117 @@ def add_size(m):
     return tag[:-1] + f' width="{w}" height="{h}">'
 page = re.sub(r'<img src="(img/[^"]+)"[^>]*>', add_size, page)
 
-# 2б. две страницы из одного исходника
+# 2а. залы: маршрут в фойе, шапки и переходы
+W0 = res['W']
+def plural(n, one, few, many):
+    n10, n100 = n % 10, n % 100
+    return one if n10 == 1 and n100 != 11 else few if 2 <= n10 <= 4 and not 12 <= n100 <= 14 else many
+def hall_works(n):
+    return [(i, w) for i, w in enumerate(W0) if w.get('hall') == n and not w.get('series')]
+def hall_count(n):
+    c = len(hall_works(n)) + (len(res['SER']) if n == 3 else 0)
+    return f'{c} {plural(c, "знак", "знака", "знаков")}'
+def thumbs(n):
+    out = []
+    for i, w in hall_works(n)[:3]:
+        src = w.get('card') or w.get('img')
+        if src:
+            out.append(f'<li><img src="{src}" alt="Знак «{w["t"]}», {w["a"]}" loading="lazy" decoding="async" data-thumb></li>')
+    return ''.join(out)
+def rcard(h, go, tag='a'):
+    spec = h is SPEC
+    k = 'Спецпроект · 16 знаков' if spec else f'Зал {h["roman"]} · {hall_count(h["n"])}'
+    th = ''.join(f'<li><img src="{u}" alt="" loading="lazy" decoding="async" data-thumb></li>' for u in h['thumbs']) if spec else thumbs(h['n'])
+    return (f'<a class="rcard{" rcard--spec" if spec else ""}" href="{h["slug"]}">'
+            + shape_svg(h['shape'], h['roman'] if not spec else '')
+            + f'<span class="rcard__k">{k}</span><span class="rcard__t">{h["title"]}</span>'
+            + f'<span class="rcard__line">{h["line"]}</span>'
+            + f'<ul class="rcard__thumbs" aria-hidden="true">{th}</ul>'
+            + f'<span class="rcard__go"><span>{h["sub"]}</span><em>{go}<b aria-hidden="true">→</b></em></span></a>')
+total_signs = len([w for w in W0 if not w.get('series')]) + len(res['SER']) + len(res['BU'])
+route_html = ('<section class="route" id="gallery" aria-labelledby="g-h">\n  <div class="wrap">\n'
+    f'    <div class="sec-head"><h2 id="g-h">{ROUTE_TITLE}</h2><p>Три зала и спецпроект. Нажмите на зал, чтобы войти.</p></div>\n'
+    f'    <p class="route__intro">{ROUTE_INTRO}</p>\n    <ol class="route__list">\n'
+    + ''.join(f'      <li>{rcard(h, "Войти в зал")}</li>\n' for h in HALLS)
+    + f'      <li>{rcard(SPEC, "Открыть спецпроект")}</li>\n    </ol>\n  </div>\n</section>')
+def hall_artists(n):
+    names = []
+    for i, w in hall_works(n):
+        if w['a'] not in names:
+            names.append(w['a'])
+    if n == 3:
+        names.append(res['SER_A'])
+    return ', '.join(names)
+def hall_top(h):
+    sw = ''.join(f'<li><a href="{x["slug"]}" aria-label="Зал {x["roman"]} · {x["title"]}"{' aria-current="page"' if x is h else ''}>{x["roman"]}</a></li>' for x in HALLS)
+    sw += f'<li><a href="{SPEC["slug"]}" aria-label="Спецпроект «Бухейпроект»">◆</a></li>'
+    concept = ''.join(f'<p>{p}</p>' for p in h['concept'])
+    return (f'<nav class="hbar" aria-label="Залы выставки"><div class="wrap">'
+            f'<a class="crumbs__back" href="./"><b aria-hidden="true">←</b>Фойе</a><ol class="hswitch">{sw}</ol></div></nav>\n'
+            f'<header class="hallhead"><div class="wrap">{shape_svg(h["shape"], h["roman"])}<div class="hallhead__text">'
+            f'<p class="hallhead__k">Зал {h["roman"]} из III · {hall_count(h["n"])}</p><h1>{h["title"]}</h1>'
+            f'<p class="hallhead__sub">{h["sub"]}</p><p class="hallhead__lead">{h["lead"]}</p>{concept}'
+            f'<p class="hallhead__who">Художники зала: <strong>{hall_artists(h["n"])}</strong></p></div></div></header>')
+def hall_next(h):
+    n = h['n']
+    nxt = HALLS[n] if n < 3 else SPEC
+    prev = HALLS[n - 2] if n > 1 else None
+    eyebrow = 'Следующий зал' if n < 3 else 'Дальше — спецпроект'
+    go = f'Перейти в Зал {nxt["roman"]}' if n < 3 else 'Открыть спецпроект'
+    more = (f'<a href="{prev["slug"]}">← Зал {prev["roman"]} · {prev["title"]}</a>' if prev else '') + \
+           '<a href="./">Фойе</a><a href="./#authors">Авторы</a><a href="./#curator">От куратора</a>'
+    return (f'<section class="hnext" aria-labelledby="hn-h"><div class="wrap"><p class="hnext__eyebrow" id="hn-h">{eyebrow}</p>'
+            f'{rcard(nxt, go)}<div class="hnext__more">{more}</div></div></section>')
+snip = {'ROUTE': route_html}
+for h in HALLS:
+    snip['TOP%d' % h['n']] = hall_top(h)
+    snip['NEXT%d' % h['n']] = hall_next(h)
+for k in snip:
+    v = re.sub(r'<img src="(img/(?:works|artists)/[^"]+\.jpg)"[^>]*>', to_picture, snip[k])
+    snip[k] = re.sub(r'<img src="(img/[^"]+)"[^>]*>', add_size, v)
+
+# 2б. страницы из одного исходника
 BU_URL = URL + 'bukhei.html'
 def cut(h, tag):
     return re.sub(r'<!--%s-->.*?<!--/%s-->\n?' % (tag, tag), '', h, flags=re.S)
 def unmark(h):
-    return re.sub(r'<!--/?(MAIN|BU)-->\n?', '', h)
-main_page = unmark(cut(page, 'BU'))
-bu_page = unmark(cut(page, 'MAIN'))
+    return re.sub(r'<!--/?(MAIN|BU|HALL|DIGITAL|HALLTOP|HALLNEXT)-->\n?', '', h)
+def localize(h):
+    ids = set(re.findall(r'id="([^"]+)"', h))
+    h = re.sub(r'href="#([^"]+)"', lambda m: m.group(0) if m.group(1) in ids else 'href="./#%s"' % m.group(1), h)
+    h = h.replace('<a class="nav__mark" href="#top">', '<a class="nav__mark" href="./" aria-label="ЗНАКИ — в фойе выставки">')
+    h = h.replace('<ol>\n      <li><a href="./#manifest">', '<ol>\n      <li><a href="./">← Фойе</a></li>\n      <li><a href="./#manifest">', 1)
+    return h
+def current(h, slug):
+    return h.replace(f'<a href="{slug}">', f'<a href="{slug}" aria-current="page">')
+main_page = unmark(cut(cut(page, 'BU'), 'HALL')).replace('<!--ROUTE-->', snip['ROUTE'], 1)
+main_page = main_page.replace('<a href="./"><i aria-hidden="true">⌂</i>', '<a href="./" aria-current="page"><i aria-hidden="true">⌂</i>', 1)
+bu_page = unmark(cut(cut(page, 'MAIN'), 'HALL'))
+hall_base = cut(cut(page, 'MAIN'), 'BU')
+hall_of = {i + 1: w.get('hall') for i, w in enumerate(W0)}
+CTA_NEXT = {1: ('Зал II · Вокруг', 'Зал II'), 2: ('Зал III · Время', 'Зал III'), 3: ('Спецпроект', 'Спецпроект')}
+hall_pages = {}
+for h in HALLS:
+    n = h['n']
+    hp = hall_base
+    if n != 3:
+        hp = cut(hp, 'DIGITAL')
+    hp = hp.replace('<!--HALLTOP-->', snip['TOP%d' % n], 1).replace('<!--HALLNEXT-->', snip['NEXT%d' % n], 1)
+    hp = re.sub(r'<li class="card[^"]*" id="znak-(\d+)".*?</li>\n?',
+                lambda m: m.group(0) if hall_of.get(int(m.group(1))) == n else '', hp, flags=re.S)
+    hp = hp.replace('<section class="gallery" id="gallery"', '<section class="gallery" id="znaki-zala"', 1)
+    hp = hp.replace('<main id="top">', f'<main id="top" data-hall="{n}">', 1)
+    nxt = HALLS[n]['slug'] if n < 3 else SPEC['slug']
+    lng, sh = CTA_NEXT[n]
+    hp = re.sub(r'<a class="cta" id="cta" href="[^"]*">.*?</a>',
+        f'<a class="cta" href="{nxt}"><b aria-hidden="true">→</b><span><span class="cta__long">{lng}</span><span class="cta__short">{sh}</span></span></a>', hp, count=1, flags=re.S)
+    hp = current(localize(unmark(hp)), h['slug'])
+    hall_pages[n] = hp
 # на странице спецпроекта ссылки на разделы главной ведут на главную
-ids = set(re.findall(r'id="([^"]+)"', bu_page))
-bu_page = re.sub(r'href="#([^"]+)"', lambda m: m.group(0) if m.group(1) in ids else 'href="./#%s"' % m.group(1), bu_page)
-bu_page = bu_page.replace('<a class="nav__mark" href="#top">', '<a class="nav__mark" href="./" aria-label="ЗНАКИ — на главную">')
+bu_page = localize(bu_page)
 bu_page = re.sub(r'<a class="cta" id="cta" href="[^"]*">.*?</a>',
     '<a class="cta" href="./#gallery"><b aria-hidden="true">←</b><span><span class="cta__long">Вернуться на выставку</span><span class="cta__short">Выставка</span></span></a>', bu_page, count=1, flags=re.S)
-bu_page = bu_page.replace('<li><a href="bukhei.html">', '<li><a href="bukhei.html" aria-current="page">')
-bu_page = bu_page.replace('<ol>\n      <li><a href="./#manifest">', '<ol>\n      <li><a href="./">← Главная</a></li>\n      <li><a href="./#manifest">', 1)
+bu_page = current(bu_page, 'bukhei.html')
 bu_page = bu_page.replace('<h2 id="bu-h">Бухейпроект</h2>', '<h1 id="bu-h">Бухейпроект</h1>', 1)
 # главное фото спецпроекта — сразу, без ленивой загрузки
 bu_page = re.sub(r'(<img src="img/artists/bukheevy-bulkin-sergey[^>]*?) loading="lazy"', r'\1 fetchpriority="high"', bu_page, count=1)
@@ -217,12 +316,14 @@ glubina = {'@type': ['ArtGallery', 'Organization'], '@id': URL + '#glubina',
            'founder': [{'@id': pid[n]} for n in ('Светлана Дёмина', 'Юлия Назар') if n in pid],
            'address': {'@type': 'PostalAddress', 'addressLocality': 'Москва', 'streetAddress': 'Фрунзенская наб., 46', 'addressCountry': 'RU'},
            'logo': URL + 'img/glubina-gallery-logo.png'}
+H3_URL = URL + HALLS[2]['slug']
 artworks = []
 for i, w in enumerate(W):
     if w.get('empty') or w.get('series') or not (w.get('img') or w.get('video')):
         continue
-    a = {'@type': 'VisualArtwork', '@id': URL + '#znak-%02d' % (i + 1),
-         'name': 'Знак «%s»' % w['t'], 'url': URL + '#znak-%02d' % (i + 1),
+    hu = URL + HALLS[w['hall'] - 1]['slug']
+    a = {'@type': 'VisualArtwork', '@id': hu + '#znak-%02d' % (i + 1),
+         'name': 'Знак «%s»' % w['t'], 'url': hu + '#znak-%02d' % (i + 1), '_hall': w['hall'],
          'creator': {'@id': pid.get(w['a'])} if w['a'] in pid else {'@type': 'Person', 'name': w['a']},
          'artform': 'Плакат', 'inLanguage': 'ru',
          'isPartOf': {'@id': URL + '#exhibition'}}
@@ -234,12 +335,12 @@ for i, w in enumerate(W):
 
 ser_parts = []
 for i, x in enumerate(SER):
-    ser_parts.append({'@type': 'VisualArtwork', '@id': URL + '#digital-%d' % (i + 1),
-        'name': 'Знак «%s»' % x['t'], 'alternateName': x['en'], 'url': URL + '#digital-%d' % (i + 1),
+    ser_parts.append({'@type': 'VisualArtwork', '@id': H3_URL + '#digital-%d' % (i + 1),
+        'name': 'Знак «%s»' % x['t'], 'alternateName': x['en'], 'url': H3_URL + '#digital-%d' % (i + 1), '_hall': 3,
         'creator': {'@id': pid.get(SER_A)}, 'artform': 'Графика', 'inLanguage': 'ru',
         'image': [URL + SIGN(x), URL + SCENE(x)], 'description': x['concept'] + ' ' + x['depth']})
-series_node = {'@type': 'CreativeWorkSeries', '@id': URL + '#digital', 'name': 'Знаки цифрового антропогенеза',
-    'creator': {'@id': pid.get(SER_A)}, 'dateCreated': '2026', 'url': URL + '#digital',
+series_node = {'@type': 'CreativeWorkSeries', '@id': H3_URL + '#digital', 'name': 'Знаки цифрового антропогенеза', '_hall': 3,
+    'creator': {'@id': pid.get(SER_A)}, 'dateCreated': '2026', 'url': H3_URL + '#digital',
     'image': [URL + COVER, URL + BOX], 'isPartOf': {'@id': URL + '#exhibition'},
     'hasPart': [{'@id': x['@id']} for x in ser_parts],
     'description': 'Графическое исследование тектонических сдвигов в человеческой природе: серия из пяти знаков о новом виде человека, изменённого интерфейсами, алгоритмами и цифровой средой.'}
@@ -278,6 +379,9 @@ graph = [
      'workFeatured': [{'@id': a['@id']} for a in artworks]},
     section, glubina, *persons, *artworks,
 ]
+hall_nodes = {h['n']: [x for x in artworks if x.get('_hall') == h['n']] for h in HALLS}
+for x in artworks:
+    x.pop('_hall', None)
 ld = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False, indent=1)
 page = main_page.replace('<!--JSONLD-->', '<script type="application/ld+json">\n' + ld + '\n</script>', 1)
 open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(page)
@@ -290,7 +394,7 @@ bu_graph = [
      'primaryImageOfPage': BU_IMG, 'about': {'@id': BU_URL + '#bukhei'}, 'breadcrumb': {'@id': BU_URL + '#crumbs'}},
     {'@type': 'BreadcrumbList', '@id': BU_URL + '#crumbs', 'itemListElement': [
         {'@type': 'ListItem', 'position': 1, 'name': 'ЗНАКИ', 'item': URL},
-        {'@type': 'ListItem', 'position': 2, 'name': 'Галерея знаков', 'item': URL + '#gallery'},
+        {'@type': 'ListItem', 'position': 2, 'name': 'Залы', 'item': URL + '#gallery'},
         {'@type': 'ListItem', 'position': 3, 'name': 'Бухейпроект', 'item': BU_URL}]},
     {'@type': 'ExhibitionEvent', '@id': URL + '#exhibition', 'name': 'ЗНАКИ', 'url': URL,
      'startDate': '2026-12-01', 'endDate': '2026-12-31',
@@ -300,6 +404,35 @@ bu_graph = [
 ld_bu = json.dumps({'@context': 'https://schema.org', '@graph': bu_graph}, ensure_ascii=False, indent=1)
 bu_page = bu_page.replace('<!--JSONLD-->', '<script type="application/ld+json">\n' + ld_bu + '\n</script>', 1)
 open(os.path.join(OUT, 'bukhei.html'), 'w', encoding='utf-8').write(bu_page)
+
+# страницы залов
+for h in HALLS:
+    n, hu = h['n'], URL + h['slug']
+    og = URL + 'img/og-zal-%d-%s-znaki-moskovskiy-soyuz-khudozhnikov.jpg' % (n, h['slug'].split('-')[2].split('.')[0])
+    hp = set_head(hall_pages[n], h['seo_title'], h['seo_desc'], hu, og)
+    hp = hp.replace('<meta property="og:image:alt" content="БУ ХЕЕВЫ — Евгения Михеева и Сергей Булкин в объёмных плакатах «Выбор»">',
+                    f'<meta property="og:image:alt" content="Зал {h["roman"]} «{h["title"]}» — {h["sub"].lower()}, выставка «ЗНАКИ»">')
+    hp = hp.replace('<meta property="og:image" content="%s">' % og,
+        '<meta property="og:image" content="%s">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">' % og, 1)
+    nodes = hall_nodes[n]
+    creators = {x['creator'].get('@id') for x in nodes if isinstance(x.get('creator'), dict)}
+    hg = [
+        {'@type': 'CollectionPage', '@id': hu + '#page', 'url': hu, 'name': h['seo_title'], 'description': h['seo_desc'],
+         'inLanguage': 'ru', 'isPartOf': {'@type': 'WebSite', '@id': URL + '#site', 'url': URL, 'name': 'ЗНАКИ'},
+         'primaryImageOfPage': og, 'breadcrumb': {'@id': hu + '#crumbs'},
+         'about': {'@id': URL + '#exhibition'}, 'hasPart': [{'@id': x['@id']} for x in nodes]},
+        {'@type': 'BreadcrumbList', '@id': hu + '#crumbs', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'ЗНАКИ', 'item': URL},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Залы', 'item': URL + '#gallery'},
+            {'@type': 'ListItem', 'position': 3, 'name': f'Зал {h["roman"]} «{h["title"]}»', 'item': hu}]},
+        {'@type': 'ExhibitionEvent', '@id': URL + '#exhibition', 'name': 'ЗНАКИ', 'url': URL,
+         'startDate': '2026-12-01', 'endDate': '2026-12-31',
+         'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode',
+         'location': {'@type': 'VirtualLocation', 'url': URL}, 'organizer': {'@id': URL + '#section'}},
+        section, *[p for p in persons if p['@id'] in creators], *nodes]
+    ldh = json.dumps({'@context': 'https://schema.org', '@graph': hg}, ensure_ascii=False, indent=1)
+    hp = hp.replace('<!--JSONLD-->', '<script type="application/ld+json">\n' + ldh + '\n</script>', 1)
+    open(os.path.join(OUT, h['slug']), 'w', encoding='utf-8').write(hp)
 
 # sitemap с картинками
 today = datetime.date.today().isoformat()
@@ -329,11 +462,30 @@ imgs += ''.join(
 imgs += ''.join(
     f'\n    <image:image><image:loc>{URL}{p["photo"]}</image:loc><image:title>{p["n"]}, художник, Московский союз художников</image:title></image:image>'
     for p in P if p.get('photo'))
+# картинки работ — в адресах залов, на главной остаются фото авторов
+def itag(u, t):
+    return f'\n    <image:image><image:loc>{URL}{u}</image:loc><image:title>{t}</image:title></image:image>'
+hall_imgs = {h['n']: '' for h in HALLS}
+for w in W:
+    if w.get('series') or not w.get('img'):
+        continue
+    t = f'Знак «{w["t"]}», {w["a"]}, Московский союз художников'
+    hall_imgs[w['hall']] += (itag(w['card'], t) if w.get('card') else '') + itag(w['img'], t)
+hall_imgs[3] += ''.join(itag(u, t) for x in SER for u, t in (
+    (SIGN(x), f'Знак «{x["t"]}», {SER_A}, Московский союз художников'),
+    (SCENE(x), f'Знак «{x["t"]}» в среде, {SER_A}, Московский союз художников')))
+hall_imgs[3] += ''.join(itag(u, f'Знаки цифрового антропогенеза, {SER_A}, Московский союз художников')
+    for u in (COVER, BOX, 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg'))
+imgs = ''.join(itag(p['photo'], f'{p["n"]}, художник, Московский союз художников') for p in P if p.get('photo'))
+hall_urls = ''.join(
+    f'  <url>\n    <loc>{URL}{h["slug"]}</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>{hall_imgs[h["n"]]}\n  </url>\n'
+    for h in HALLS)
 open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write(
     '<?xml version="1.0" encoding="UTF-8"?>\n'
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
     'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
     f'  <url>\n    <loc>{URL}</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>{imgs}\n  </url>\n'
+    + hall_urls +
     f'  <url>\n    <loc>{BU_URL}</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>{bu_imgs}\n  </url>\n'
     '</urlset>\n')
 
@@ -360,10 +512,18 @@ lines = ['# ЗНАКИ — виртуальная выставка', '',
          'Даты: декабрь 2026',
          'Формат: виртуальная выставка, вход свободный', '',
          '## О проекте', '', manifest_text(), '',
-         '## Работы', '']
+         '## Залы', '', ROUTE_INTRO, '']
+for h in HALLS:
+    lines += [f'### Зал {h["roman"]} «{h["title"]}» — {h["sub"]}', '', f'Страница: {URL}{h["slug"]}', '',
+              h['lead'], '', *[c for c in h['concept']], '']
+lines += ['## Работы по залам', '']
+cur_h = None
 for i, w in enumerate(W):
     if w.get('empty'):
         continue
+    if w.get('hall') != cur_h:
+        cur_h = w.get('hall'); hh = HALLS[cur_h - 1]
+        lines += ['', f'Зал {hh["roman"]} «{hh["title"]}» ({URL}{hh["slug"]}):']
     if w.get('series'):
         lines.append(f'- №{i + 1:02d}. {"Спецпроект" if w.get("label") else "Серия знаков"} «{w["t"]}» — {w["a"]}, {w["series"]} знаков (см. ниже)')
         continue
@@ -372,7 +532,7 @@ for i, w in enumerate(W):
         line += '. ' + strip_tags(w['means'])
     lines.append(line)
 lines += ['', f'## Спецпроект: «Знаки цифрового антропогенеза» — {SER_A}, 2026', '',
-          f'Адрес: {URL}#digital', '',
+          f'Адрес: {URL}{HALLS[2]["slug"]}#digital (финал Зала III)', '',
           'Графическое исследование тектонических сдвигов в человеческой природе. Серия фиксирует появление нового вида человека, изменённого интерфейсами, алгоритмами и цифровой средой. Знаки построены на языке системной графики, дорожных стандартов и интерфейсов. Визуализации выполнены с применением инструментов генеративного искусства и цифрового монтажа.', '']
 for i, x in enumerate(SER):
     lines.append(f'- {i + 1}. «{x["t"]}»' + (f' ({x["sub"]})' if x['sub'] else '') + f' / {x["en"]}. Концепт: {x["concept"]} Смысл: {x["depth"]}')

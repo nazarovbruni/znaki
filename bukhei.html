@@ -71,7 +71,7 @@
     {
      "@type": "ListItem",
      "position": 2,
-     "name": "Галерея знаков",
+     "name": "Залы",
      "item": "https://nazarovbruni.github.io/znaki/#gallery"
     },
     {
@@ -1004,17 +1004,102 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 .entry__img .portrait { width: min(100%, 420px, calc(70vh * .75)) !important; }
 .entry__img .portrait img { max-height: none; }
 @media (max-width: 960px) { .entry__img .portrait { width: min(100%, calc(52vh * .75)) !important; } }
+/* ================= ЗАЛЫ ================= */
+.hshape { display: block; width: 100%; height: auto; overflow: visible; }
+.hshape text { font-family: var(--display); font-weight: 900; }
+/* маршрут в фойе */
+.route { border-top: 2px solid var(--ink); }
+.route__intro { font-size: 20px; line-height: 1.55; max-width: 62ch; margin: 0 0 40px; }
+.route__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.rcard { position: relative; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 8px 24px; align-content: start; height: 100%; text-decoration: none; color: inherit; border: 2px solid var(--ink); border-radius: 22px; padding: 28px; background: var(--paper); box-shadow: 0 8px 0 var(--ink); transition: box-shadow .25s, transform .25s; }
+.rcard .hshape { grid-row: span 3; width: 96px; }
+.rcard__k { font-family: var(--ui); font-weight: 600; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.rcard__t { font-family: var(--display); font-weight: 900; font-size: clamp(26px, 3.2vw, 40px); line-height: 1.05; }
+.rcard__line { font-size: 17px; line-height: 1.5; }
+.rcard__thumbs { grid-column: 1 / -1; list-style: none; margin: 10px 0 0; padding: 0; display: flex; gap: 10px; }
+.rcard__thumbs li { width: 72px; height: 72px; border: 1.5px solid var(--ink); border-radius: 10px; overflow: hidden; background: var(--paper); }
+.rcard__thumbs img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.rcard__go { grid-column: 1 / -1; margin-top: 8px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; font-family: var(--ui); font-weight: 600; font-size: 17px; }
+.rcard__go b { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--signal); color: var(--paper); margin-left: 10px; transition: transform .25s; }
+.rcard__go span { color: var(--muted); font-weight: 400; font-size: 15px; }
+.rcard__go em { font-style: normal; white-space: nowrap; }
+.rcard--spec { background: var(--ink); color: var(--paper); box-shadow: 0 8px 0 var(--signal); }
+.rcard--spec .rcard__k { color: #ff5a5f; }
+.rcard--spec .rcard__go span { color: #bbb; }
+.rcard--spec .rcard__thumbs li { border-color: var(--paper); }
+@media (hover: hover) {
+  .rcard:hover { transform: translateY(-4px); box-shadow: 0 12px 0 var(--signal); }
+  .rcard--spec:hover { box-shadow: 0 12px 0 var(--ink); }
+  .rcard:hover .rcard__t { color: var(--signal); }
+  .rcard--spec:hover .rcard__t { color: #ff5a5f; }
+  .rcard:hover .rcard__go b { transform: translateX(6px); }
+}
+.rcard:focus-visible { outline: 3px solid var(--signal); outline-offset: 6px; }
+/* шапка зала */
+.hbar { padding: 6px 0 18px; }
+.hbar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; }
+.hswitch { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+.hswitch a { display: grid; place-items: center; min-width: 48px; height: 48px; padding: 0 12px; border: 2px solid var(--ink); border-radius: 999px; font-family: var(--display); font-weight: 900; font-size: 16px; text-decoration: none; }
+.hswitch a[aria-current] { background: var(--ink); color: var(--paper); }
+.hswitch a:hover { border-color: var(--signal); color: var(--signal); }
+.hswitch a[aria-current]:hover { color: var(--paper); }
+.hallhead { padding: 40px 0 56px; border-top: 2px solid var(--ink); }
+.hallhead .wrap { display: grid; grid-template-columns: minmax(140px, 260px) minmax(0, 1fr); gap: 32px 64px; align-items: start; }
+.hallhead__k { margin: 0 0 14px; font-family: var(--ui); font-weight: 600; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.hallhead h1 { font-family: var(--display); font-weight: 900; font-size: clamp(48px, 9vw, 128px); line-height: .95; margin: 0 0 12px; }
+.hallhead__sub { margin: 0 0 28px; font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.4vw, 30px); }
+.hallhead__lead { margin: 0 0 22px; font-size: clamp(20px, 2vw, 25px); line-height: 1.5; font-style: italic; max-width: 60ch; }
+.hallhead__text p { margin: 0 0 16px; font-size: 19px; line-height: 1.65; max-width: 64ch; }
+.hallhead__who { margin-top: 24px !important; font-family: var(--ui); font-size: 16px !important; color: var(--muted); }
+.hallhead__who strong { color: var(--ink); }
+/* переход в следующий зал */
+.hnext { border-top: 2px solid var(--ink); padding-block: 88px; }
+.hnext__eyebrow { margin: 0 0 18px; font-family: var(--ui); font-weight: 600; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.hnext .rcard { grid-template-columns: 140px minmax(0, 1fr); padding: 36px; }
+.hnext .rcard .hshape { width: 140px; }
+.hnext .rcard__t { font-size: clamp(32px, 5vw, 64px); }
+.hnext__more { display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 36px; font-family: var(--ui); font-weight: 600; font-size: 17px; }
+.hnext__more a { text-decoration: none; border-bottom: 2px solid var(--ink); padding-bottom: 2px; }
+.hnext__more a:hover { color: var(--signal); border-color: var(--signal); }
+/* карта выставки в подвале */
+.xmap { margin: 48px 0 8px; padding-top: 28px; border-top: 2px solid var(--paper); }
+.xmap__t { margin: 0 0 16px; font-family: var(--ui); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+.xmap ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.xmap a { display: inline-flex; align-items: center; gap: 8px; color: var(--paper); text-decoration: none; border: 1.5px solid var(--paper); border-radius: 999px; padding: 9px 16px; font-family: var(--ui); font-weight: 600; font-size: 16px; }
+.xmap a i { font-style: normal; color: #ff5a5f; }
+.xmap a:hover { background: var(--paper); color: var(--ink); }
+.xmap a[aria-current] { background: var(--paper); color: var(--ink); }
+@media (max-width: 960px) {
+  .route__list { grid-template-columns: minmax(0, 1fr); }
+  .hallhead .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hallhead .hshape { width: 120px; }
+}
+@media (max-width: 620px) {
+  .route__intro { font-size: 17px; }
+  .rcard { grid-template-columns: 64px minmax(0, 1fr); padding: 20px; gap: 6px 16px; border-radius: 18px; }
+  .rcard .hshape { width: 64px; }
+  .rcard__line { font-size: 16px; }
+  .rcard__thumbs li { width: 56px; height: 56px; }
+  .hallhead { padding: 28px 0 40px; }
+  .hallhead .hshape { width: 92px; }
+  .hallhead__text p { font-size: 17px; }
+  .hnext { padding-block: 56px; }
+  .hnext .rcard { grid-template-columns: 72px minmax(0, 1fr); padding: 22px; }
+  .hnext .rcard .hshape { width: 72px; }
+  .hswitch a { min-width: 42px; height: 42px; font-size: 14px; }
+  .xmap a { font-size: 15px; padding: 8px 13px; }
+}
 </style>
 </head>
 <body>
 <header class="nav" id="nav">
   <div class="wrap">
     <div class="nav__bar">
-      <a class="nav__mark" href="./" aria-label="ЗНАКИ — на главную">ЗНАКИ<span>.</span></a>
+      <a class="nav__mark" href="./" aria-label="ЗНАКИ — в фойе выставки">ЗНАКИ<span>.</span></a>
       <nav aria-label="Разделы">
         <ul>
           <li><a href="./#manifest">О проекте</a></li>
-          <li><a href="./#digital">Серия знаков</a></li>
+          <li><a href="./#gallery">Залы</a></li>
           <li><a href="bukhei.html" aria-current="page">БУ ХЕЕВЫ</a></li>
           <li><a href="./#authors">Авторы</a></li>
           <li><a href="./#curator">От куратора</a></li>
@@ -1032,11 +1117,13 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 <div class="mmenu" id="mmenu" aria-label="Меню">
   <nav aria-label="Разделы (мобильное меню)">
     <ol>
-      <li><a href="./">← Главная</a></li>
+      <li><a href="./">← Фойе</a></li>
       <li><a href="./#manifest">О проекте</a></li>
-      <li><a href="./#gallery">Галерея знаков</a></li>
-      <li><a href="./#digital">Серия знаков Юрия Мамчура</a></li>
-      <li><a href="bukhei.html" aria-current="page">БУ ХЕЕВЫ · Бухейпроект ↗</a></li>
+      <li><a href="zal-1-vnutri.html">Зал I · Внутри</a></li>
+      <li><a href="zal-2-vokrug.html">Зал II · Вокруг</a></li>
+      <li><a href="zal-3-vremya.html">Зал III · Время</a></li>
+      <li><a href="zal-3-vremya.html#digital">Серия знаков Юрия Мамчура</a></li>
+      <li><a href="bukhei.html" aria-current="page">Спецпроект БУ ХЕЕВЫХ</a></li>
       <li><a href="./#authors">Авторы</a></li>
       <li><a href="./#curator">От куратора</a></li>
       <li><a href="./#section">Секция плаката</a></li>
@@ -1055,7 +1142,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   <nav class="crumbs" aria-label="Навигация по сайту">
     <div class="wrap">
       <a class="crumbs__back" href="./"><b aria-hidden="true">←</b>На главную</a>
-      <span class="crumbs__path"><a href="./">ЗНАКИ</a><i aria-hidden="true">/</i><a href="./#gallery">Галерея знаков</a><i aria-hidden="true">/</i><span aria-current="page">Бухейпроект</span></span>
+      <span class="crumbs__path"><a href="./">ЗНАКИ</a><i aria-hidden="true">/</i><a href="./#gallery">Залы</a><i aria-hidden="true">/</i><span aria-current="page">Бухейпроект</span></span>
     </div>
   </nav>
   <section class="bu" id="bukhei" aria-labelledby="bu-h">
@@ -1200,9 +1287,9 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
     <div class="wrap">
       <p class="bunext__eyebrow">Вы посмотрели спецпроект БУ ХЕЕВЫХ</p>
       <h2 id="bn-h" class="bunext__title">Вернуться на&nbsp;выставку</h2>
-      <a class="cta bunext__btn" href="./#gallery"><b aria-hidden="true">←</b>К галерее знаков</a>
+      <a class="cta bunext__btn" href="zal-3-vremya.html"><b aria-hidden="true">←</b>Вернуться в Зал III</a>
       <ul class="bunext__links">
-        <li><a href="./#digital"><span class="bunext__k">Серия знаков</span><strong>Знаки цифрового антропогенеза</strong><span>Юрий Мамчур · 5 знаков</span><b aria-hidden="true">→</b></a></li>
+        <li><a href="zal-3-vremya.html#digital"><span class="bunext__k">Серия знаков</span><strong>Знаки цифрового антропогенеза</strong><span>Юрий Мамчур · 5 знаков</span><b aria-hidden="true">→</b></a></li>
         <li><a href="./#authors"><span class="bunext__k">Авторы</span><strong>13 художников выставки</strong><span>Биографии и работы</span><b aria-hidden="true">→</b></a></li>
         <li><a href="./"><span class="bunext__k">Главная</span><strong>ЗНАКИ</strong><span>Виртуальная выставка · Декабрь 2026</span><b aria-hidden="true">→</b></a></li>
       </ul>
@@ -1226,6 +1313,18 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
       <a class="msh-logo msh-logo--foot" href="https://artanum.ru/" target="_blank" rel="noopener" aria-label="Московский союз художников"><img src="img/msh-logo-dark.png" alt="Московский союз художников" width="900" height="136" loading="lazy"></a>
       <a class="glubina" href="https://galleryglubina.ru" target="_blank" rel="noopener"><img src="img/glubina-gallery-logo.png" alt="Галерея «Глубина»" width="246" height="192" loading="lazy"><span>При поддержке<br>галереи и арт-сообщества «Глубина»</span></a>
     </div>
+    <nav class="xmap" aria-label="Карта выставки">
+      <p class="xmap__t">Карта выставки</p>
+      <ol>
+        <li><a href="./"><i aria-hidden="true">⌂</i>Фойе</a></li>
+        <li><a href="zal-1-vnutri.html"><i aria-hidden="true">●</i>Зал I · Внутри</a></li>
+        <li><a href="zal-2-vokrug.html"><i aria-hidden="true">▲</i>Зал II · Вокруг</a></li>
+        <li><a href="zal-3-vremya.html"><i aria-hidden="true">■</i>Зал III · Время</a></li>
+        <li><a href="bukhei.html" aria-current="page"><i aria-hidden="true">◆</i>Бухейпроект</a></li>
+        <li><a href="./#authors">Авторы</a></li>
+        <li><a href="./#curator">От куратора</a></li>
+      </ol>
+    </nav>
     <div class="contacts__base">
       <span>ЗНАКИ · Виртуальная выставка · Секция плаката РОО «МСХ»</span>
       <span>Куратор — Юлия Назар</span>
@@ -1242,68 +1341,65 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
 
 <script>
 const WORKS = [
-  { t: 'Глушь немая', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg', white: true,
-    means: 'Место, где тебя не услышат. Два профиля с открытыми ртами — как схемы из учебника фонетики — кричат «А» и «У», но звук никуда не долетает. Знак глуши, где «ау» остаётся без ответа.',
-    why: 'Обычные знаки обозначают места, где опасно. Этот — место, где пусто: ни связи, ни эха, ни ответа. Такое чувство знакомо каждому, кто кричал в лесу, но обозначения у него не было.' },
-  { t: 'Всё хорошо. Ангел в пустоте', a: 'Юлия Назар', img: 'img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+  { t: 'Всё хорошо. Ангел в пустоте', hall: 1, a: 'Юлия Назар', img: 'img/works/nazar-yulia-vsyo-khorosho-angel-v-pustote-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
     means: 'Присутствие того, кого не видно. Ангел здесь не нарисован: он возникает из пустоты между двумя перьями — голова, плечи, вытянутая фигура, а сами перья становятся его крыльями. Знак того, что всё хорошо, даже когда рядом, кажется, никого нет.',
     why: 'Привычные знаки предупреждают об опасности. Этот — наоборот, о защите. Для тихой уверенности, что тебя берегут, нет обозначения, и изобразить её напрямую нельзя — можно только оставить для неё место. Поэтому ангел сделан из пустоты: его видит тот, кто всматривается.' },
-  { t: 'Птица', a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.jpg', fill: true,
-    means: 'Границу между небом и водой. Тёмный силуэт отражается сам в себе: верхняя половина — в сером небе, нижняя — в бирюзовой воде, и уже не понять, где птица, а где её отражение.',
-    why: 'Птица — существо двух стихий. Знак фиксирует момент равновесия, когда полёт и отражение становятся одной формой, — состояние, для которого в привычной системе знаков нет места.' },
-  { t: 'Самопознание. Путь в небо', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true,
-    means: 'Путь вверх, который начинается внутри. Один непрерывный мазок поднимается зигзагом, сужаясь к вершине, как дерево или лестница, а внизу он заострён, как стрела, вонзённая в землю.',
-    why: 'Путь к себе не бывает прямым: он идёт поворотами, возвращается и снова поднимается. Знак напоминает, что каждый поворот — тоже движение вверх.' },
-  { t: 'ИИ', a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
-    means: 'Искусственный интеллект, который всё видит и слышит. Глаз с буквами «ИИ» в зрачке, по бокам — огромные уши, внизу — микрофон: машина смотрит, слушает и записывает одновременно.',
-    why: 'ИИ уже рядом с каждым, но у него нет собственного знака — только логотипы компаний. Это знак присутствия: напоминание, что рядом с нами постоянно есть внимательный и невидимый собеседник.' },
-  { t: 'ПЦ', a: 'Иван Островский', img: 'img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
-    means: 'Характеристику состояния или явление в сжатой форме. Смысл передают слова-синонимы: тотальный крах, тяжёлый случай, жесть, полный провал, катаклизм, довыделывались, звездец, треш, хана, крышка, конец, абзац, труба, каюк, апокалипсис.',
-    why: 'Знак создан в 2022 году. Это графема — графический символ для обозначения разговорной речи на письме: он придаёт сообщению нужную степень динамики и экономит экранное пространство.' },
-  { t: 'Дети бегут от грозы', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg', white: true,
-    means: 'Детскую тревогу перед стихией. Привычный знак «Дети» вдруг оживает: фигурки бегут не через дорогу, а прочь от соседнего знака «Высокое напряжение» с его молнией.',
-    why: 'Два стандартных дорожных знака, поставленных рядом, рассказывают историю, которой нет ни в одних правилах. Знак о том, как казённые символы начинают говорить о живых чувствах.' },
-  // Когда придёт анимация: video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm'
-  { t: 'Insight', a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg', anim: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov-anim.webp', video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm', white: true, fill: true,
+  { t: 'Insight', hall: 1, a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.jpg', anim: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov-anim.webp', video: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/kuplevatskiy-viktor-insight-moskovskiy-soyuz-khudozhnikov.webm', white: true, fill: true,
     means: 'Озарение — момент, когда приходит идея. Голова-лампочка смотрит на нас, наливается красным, затем вспыхивает жёлтым светом и гаснет, оставляя только глаза.',
     why: 'У идеи есть символ — лампочка, но нет знака для самого мгновения, когда она загорается. Анимация делает этот миг видимым: озарение длится секунду и исчезает.' },
-  // Место под девятый знак: замените t, a и добавьте img, затем уберите empty
-  { t: 'Не теряй голову на дороге', a: 'Камиль Зайнетдинов', img: 'img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
-    means: 'Не только призыв к безопасности, но и напоминание о важности ясности сознания.',
-    why: 'Дорога становится образом жизни, а способность сохранять ясность, внимание и присутствие помогает не сбиться с собственного пути.' },
-  { t: 'Лето. Дача', a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
-    means: 'Лето, которое остановило движение. Белый треугольник, похожий на знак «Уступи дорогу», лежит в траве, а сквозь него прорастает куст с ягодами.',
-    why: 'На даче уступают не машинам, а саду. Дорожный знак, оказавшийся в траве, становится знаком медленного времени, когда правила города больше не действуют.' },
-  { t: 'Парадокс', a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
-    means: 'Противоречие, которое нельзя объяснить. На грани кубика четыре точки, а рядом высыпались пять: число не сходится само с собой.',
-    why: 'Игральный кубик — символ случая и честного счёта. Когда он ошибается, мир на миг теряет логику. Знак — для тех ситуаций, где всё правильно, но не сходится.' },
-  { t: 'Бах', a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
-    means: 'Музыку Баха. Каллиграфическая буква «Б» закручивается в скрипичный ключ: имя композитора и знак музыки становятся одной линией.',
-    why: 'Музыку нельзя нарисовать, но можно обозначить. Буква, превращённая в ключ, — знак того, что имя может звучать.' },
-  { t: 'Единство', a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true,
-    means: 'Связь, у которой нет конца. Две ладони сплетаются в знак бесконечности, а вместе — в сердце, и бережно держат цветок лотоса.',
-    why: 'Единство — это не одно целое, а двое, которые держат что-то хрупкое вместе. Знак показывает, что сила связи — в бережности, а не в слиянии.' },
-  { t: 'Иностранный агент', a: 'Иван Островский', img: 'img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
-    means: 'Клеймо «Иностранный агент» означает принадлежность отмеченного им субъекта к лицам, чья деятельность находится под наблюдением, финансируется извне и требует контроля со стороны государственных органов, поскольку может быть направлена против государства.',
-    why: 'Знак создан в 2026 году. Это графема для обозначения термина на письме и для маркировки сообщений отмеченных им лиц и организаций. Его смысл — в необходимости соблюдать осторожность в общении с отмеченными субъектами и при необходимости сообщать об их потенциально опасных действиях в органы контроля.' },
-  { t: 'Река жизни', a: 'Павел Ермолов', img: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.jpg', anim: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov-anim.webp', video: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.webm', white: true, fill: true,
+  { t: 'Самопознание. Путь в небо', hall: 1, a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/smolyanitskaya-anna-samopoznanie-put-v-nebo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true,
+    means: 'Путь вверх, который начинается внутри. Один непрерывный мазок поднимается зигзагом, сужаясь к вершине, как дерево или лестница, а внизу он заострён, как стрела, вонзённая в землю.',
+    why: 'Путь к себе не бывает прямым: он идёт поворотами, возвращается и снова поднимается. Знак напоминает, что каждый поворот — тоже движение вверх.' },
+  { t: 'Река жизни', hall: 1, a: 'Павел Ермолов', img: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.jpg', anim: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov-anim.webp', video: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.mp4', webm: 'img/works/ermolov-pavel-reka-zhizni-moskovskiy-soyuz-khudozhnikov.webm', white: true, fill: true,
     means: 'За кажущейся лёгкостью движения человека скрывается огромный, монотонный, невидимый глазу труд или глубокий багаж прошлого, который «держит» эту лодку или заставляет её двигаться.',
     why: 'Чтобы автор или зритель мог задуматься: что на самом деле движет моей «лодкой»? Лёгкое течение или скрытая глубинная работа и тяжесть?' },
-  { t: 'Дипломатия', a: 'Людмила Васильева-Линецкая', img: 'img/works/vasileva-linetskaya-lyudmila-diplomatiya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
-    means: 'Дипломатия как взаимное сдерживание: все держат друг друга на прицеле, и никто не может выстрелить первым.',
-    why: 'Чтобы показать, что современная дипломатия часто держится не на доверии, а на хрупком балансе страха и взаимной угрозы.' },
-  { t: 'СМИ', a: 'Людмила Васильева-Линецкая', img: 'img/works/vasileva-linetskaya-lyudmila-smi-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
-    means: 'СМИ вкручиваются в голову и нарушают строй наших собственных мыслей.',
-    why: 'Чтобы напомнить, что массовая информация часто действует агрессивно — ломает внутренние границы и мешает сохранять ясность ума.' },
-  { t: 'Кольская АЭС', a: 'Константин Гераймович', img: 'img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
+  { t: 'Парадокс', hall: 1, a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-paradoks-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Противоречие, которое нельзя объяснить. На грани кубика четыре точки, а рядом высыпались пять: число не сходится само с собой.',
+    why: 'Игральный кубик — символ случая и честного счёта. Когда он ошибается, мир на миг теряет логику. Знак — для тех ситуаций, где всё правильно, но не сходится.' },
+  { t: 'Бах', hall: 1, a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-bakh-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Музыку Баха. Каллиграфическая буква «Б» закручивается в скрипичный ключ: имя композитора и знак музыки становятся одной линией.',
+    why: 'Музыку нельзя нарисовать, но можно обозначить. Буква, превращённая в ключ, — знак того, что имя может звучать.' },
+  { t: 'Единство', hall: 1, a: 'Светлана Дёмина', img: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg', fill: true,
+    means: 'Связь, у которой нет конца. Две ладони сплетаются в знак бесконечности, а вместе — в сердце, и бережно держат цветок лотоса.',
+    why: 'Единство — это не одно целое, а двое, которые держат что-то хрупкое вместе. Знак показывает, что сила связи — в бережности, а не в слиянии.' },
+  { t: 'Глушь немая', hall: 2, a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg', white: true,
+    means: 'Место, где тебя не услышат. Два профиля с открытыми ртами — как схемы из учебника фонетики — кричат «А» и «У», но звук никуда не долетает. Знак глуши, где «ау» остаётся без ответа.',
+    why: 'Обычные знаки обозначают места, где опасно. Этот — место, где пусто: ни связи, ни эха, ни ответа. Такое чувство знакомо каждому, кто кричал в лесу, но обозначения у него не было.' },
+  { t: 'Птица', hall: 2, a: 'Измаил Бадоев', img: 'img/works/badoev-izmail-ptitsa-moskovskiy-soyuz-khudozhnikov.jpg', fill: true,
+    means: 'Границу между небом и водой. Тёмный силуэт отражается сам в себе: верхняя половина — в сером небе, нижняя — в бирюзовой воде, и уже не понять, где птица, а где её отражение.',
+    why: 'Птица — существо двух стихий. Знак фиксирует момент равновесия, когда полёт и отражение становятся одной формой, — состояние, для которого в привычной системе знаков нет места.' },
+  { t: 'Дети бегут от грозы', hall: 2, a: 'Виктор Куплевацкий', img: 'img/works/kuplevatskiy-viktor-deti-begut-ot-grozy-moskovskiy-soyuz-khudozhnikov.jpg', white: true,
+    means: 'Детскую тревогу перед стихией. Привычный знак «Дети» вдруг оживает: фигурки бегут не через дорогу, а прочь от соседнего знака «Высокое напряжение» с его молнией.',
+    why: 'Два стандартных дорожных знака, поставленных рядом, рассказывают историю, которой нет ни в одних правилах. Знак о том, как казённые символы начинают говорить о живых чувствах.' },
+  { t: 'Лето. Дача', hall: 2, a: 'Эркен Кагаров', img: 'img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
+    means: 'Лето, которое остановило движение. Белый треугольник, похожий на знак «Уступи дорогу», лежит в траве, а сквозь него прорастает куст с ягодами.',
+    why: 'На даче уступают не машинам, а саду. Дорожный знак, оказавшийся в траве, становится знаком медленного времени, когда правила города больше не действуют.' },
+  { t: 'Не теряй голову на дороге', hall: 2, a: 'Камиль Зайнетдинов', img: 'img/works/zaynetdinov-kamil-ne-teryay-golovu-na-doroge-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Не только призыв к безопасности, но и напоминание о важности ясности сознания.',
+    why: 'Дорога становится образом жизни, а способность сохранять ясность, внимание и присутствие помогает не сбиться с собственного пути.' },
+  { t: 'Кольская АЭС', hall: 2, a: 'Константин Гераймович', img: 'img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
     means: 'Энергию, которую нельзя увидеть. Три жёстких бруса складываются в треугольник и одновременно в букву «А» — атом. Внутри растровый круг: тысячи точек, как стержни реактора, держат в себе огромную силу, а стальной контур не выпускает её наружу. Знак изображает не здание станции, а её суть: мощь, заключённую в порядок.',
     why: 'Чтобы грандиозное сооружение за Полярным кругом, на Кольском полуострове, можно было узнать одним взглядом. Работу атомной станции невозможно показать — её можно только обозначить. Знак делает видимым то, что скрыто за бетоном: укрощённую энергию и конструкцию, которая её удерживает.' },
-  { t: 'Контакт', a: 'Константин Гераймович', img: 'img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
+  { t: 'ИИ', hall: 3, a: 'Анна Смоляницкая', img: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/smolyanitskaya-anna-ii-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
+    means: 'Искусственный интеллект, который всё видит и слышит. Глаз с буквами «ИИ» в зрачке, по бокам — огромные уши, внизу — микрофон: машина смотрит, слушает и записывает одновременно.',
+    why: 'ИИ уже рядом с каждым, но у него нет собственного знака — только логотипы компаний. Это знак присутствия: напоминание, что рядом с нами постоянно есть внимательный и невидимый собеседник.' },
+  { t: 'СМИ', hall: 3, a: 'Людмила Васильева-Линецкая', img: 'img/works/vasileva-linetskaya-lyudmila-smi-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'СМИ вкручиваются в голову и нарушают строй наших собственных мыслей.',
+    why: 'Чтобы напомнить, что массовая информация часто действует агрессивно — ломает внутренние границы и мешает сохранять ясность ума.' },
+  { t: 'Контакт', hall: 3, a: 'Константин Гераймович', img: 'img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
     means: 'Контакт, в котором нет другого. Две фигуры похожи на человеческие головы, повёрнутые друг к другу, но это одна и та же форма, только перевёрнутая. Они касаются, сливаются в правильный ромб — и уже не различить, где кончается один и начинается другой. Встреча с отражением вместо встречи с человеком.',
     why: 'Чтобы спросить: с чем мы на самом деле в контакте — с реальностью или с собственной копией? Мир потребления делает всех одинаковыми: одни вещи, одни желания, одна лента на всех. Знак, созданный в конце 1980-х, сегодня читается как диагноз: мы тянемся друг к другу, а находим самих себя.' },
-  { t: 'Знаки цифрового антропогенеза', href: '#digital', a: 'Юрий Мамчур', img: 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true, series: 5 },
-  { t: 'Бухейпроект', href: 'bukhei.html', label: 'Постероконцептуализм', a: 'БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева)', img: 'img/works/bukheevy-bulkin-mikheeva-bukheyproekt-seriya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true, series: 16 },
-  // Пояснения авторов: добавьте поля means: '...' и why: '...'
+  { t: 'Дипломатия', hall: 3, a: 'Людмила Васильева-Линецкая', img: 'img/works/vasileva-linetskaya-lyudmila-diplomatiya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Дипломатия как взаимное сдерживание: все держат друг друга на прицеле, и никто не может выстрелить первым.',
+    why: 'Чтобы показать, что современная дипломатия часто держится не на доверии, а на хрупком балансе страха и взаимной угрозы.' },
+  { t: 'ПЦ', hall: 3, a: 'Иван Островский', img: 'img/works/ostrovskiy-ivan-pc-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Характеристику состояния или явление в сжатой форме. Смысл передают слова-синонимы: тотальный крах, тяжёлый случай, жесть, полный провал, катаклизм, довыделывались, звездец, треш, хана, крышка, конец, абзац, труба, каюк, апокалипсис.',
+    why: 'Знак создан в 2022 году. Это графема — графический символ для обозначения разговорной речи на письме: он придаёт сообщению нужную степень динамики и экономит экранное пространство.' },
+  { t: 'Иностранный агент', hall: 3, a: 'Иван Островский', img: 'img/works/ostrovskiy-ivan-inostrannyy-agent-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true,
+    means: 'Клеймо «Иностранный агент» означает принадлежность отмеченного им субъекта к лицам, чья деятельность находится под наблюдением, финансируется извне и требует контроля со стороны государственных органов, поскольку может быть направлена против государства.',
+    why: 'Знак создан в 2026 году. Это графема для обозначения термина на письме и для маркировки сообщений отмеченных им лиц и организаций. Его смысл — в необходимости соблюдать осторожность в общении с отмеченными субъектами и при необходимости сообщать об их потенциально опасных действиях в органы контроля.' },
+  { t: 'Знаки цифрового антропогенеза', hall: 3, href: '#digital', a: 'Юрий Мамчур', img: 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true, series: 5 },
+  { t: 'Бухейпроект', hall: 3, href: 'bukhei.html', label: 'Постероконцептуализм', a: 'БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева)', img: 'img/works/bukheevy-bulkin-mikheeva-bukheyproekt-seriya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true, series: 16 },
 ];
 
 const SERIES = [
@@ -1419,7 +1515,7 @@ const PEOPLE = [
     rows: [['Образование', 'Московский академический художественный лицей при РАХ (2003); МГАХИ им. В. И. Сурикова (2010); МГППУ, магистратура (2019)'],
            ['Членство и награды', 'член Московского союза художников (с 2010); член Союза художников России (с 2017), дипломант СХР'],
            ['Практика', 'участник российских и международных выставок. В творчестве объединяет живопись, графику и дизайн. Параллельно ведёт педагогическую деятельность'],
-           ['Серия знаков', '<a href="./#digital" data-close>«Знаки цифрового антропогенеза»</a>, 2026'],
+           ['Серия знаков', '<a href="zal-3-vremya.html#digital">«Знаки цифрового антропогенеза»</a>, 2026'],
            ['Сайт', '<a href="https://mmchr.art" target="_blank" rel="noopener">mmchr.art</a>']] },
   { n: 'Иван Островский', ini: 'ИО', photo: 'img/artists/ostrovskiy-ivan-moskovskiy-soyuz-khudozhnikov.jpg',
     lead: 'Иван Васильевич Островский — художник-плакатист. Родился в 1967 году в Москве.',
@@ -1452,7 +1548,7 @@ const PEOPLE = [
     rows: [['Сергей Натанович Булкин', 'родился в 1955 году в Москве. Образование высшее. Член Союза художников России и Московского союза художников с 1988 года. Участвует в выставках с 1980 года'],
            ['Евгения Авенировна Михеева', 'родилась в 1957 году в Москве. Образование высшее. Член Союза художников России и Московского союза художников с 1988 года. Участвует в выставках с 1979 года'],
            ['Теория', 'создали теорию «Постероконцептуализм» (плакат-идеограмма, плакат-проект) и разработали оригинальное направление «Тарарт» — объёмный плакат'],
-           ['Спецпроект', '<a href="bukhei.html">«Бухейпроект»</a> — 16 знаков, отдельная страница']] },
+           ['Спецпроект', '<a href="bukhei.html" aria-current="page">«Бухейпроект»</a> — 16 знаков, отдельная страница']] },
 ];
 
 const no = (i) => '№ ' + String(i + 1).padStart(2, '0');
@@ -1473,8 +1569,9 @@ function media(w, big) {
   return '<span class="anim-empty">' + PLAY + '<span>Место для анимации (GIF)</span></span>';
 }
 
+const HALL = +(document.querySelector('main')?.dataset.hall || 0);
 const worksEl = document.getElementById('works');
-if (worksEl && !worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) => `
+if (worksEl && !worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) => HALL && w.hall !== HALL ? '' : `
   <li class="card reveal${w.series ? ' card--series' : ''}" id="znak-${String(i + 1).padStart(2, '0')}" style="--d:${(i % 3) * 120}ms">
     ${w.series ? `<a class="card__link" href="${w.href}" aria-label="${w.label ? 'Спецпроект' : 'Серия знаков'} «${w.t}», ${w.a}: ${w.series} знаков">` : `<button type="button" data-work="${i}" aria-label="Открыть: Знак «${w.t}», ${w.a}">`}
       <div class="plate ${w.img || w.video || w.empty ? '' : 'plate--anim'} ${w.white ? 'plate--white' : ''} ${w.fill ? 'plate--fill' : ''}">
@@ -1487,13 +1584,14 @@ if (worksEl && !worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) =>
     ${w.series ? '</a>' : '</button>'}
   </li>`).join('');
 (function () {
-  const n = WORKS.filter((w) => !w.series).length;
+  const n = WORKS.filter((w) => !w.series && (!HALL || w.hall === HALL)).length;
+  const total = WORKS.filter((w) => !w.series).length;
   if (!worksEl || n % 3 !== 2 || worksEl.querySelector('.card--join')) return;
   const li = document.createElement('li');
   li.className = 'card card--join reveal';
   li.innerHTML = `<a class="card__link" href="#contacts" aria-label="Предложите свой знак">
       <div class="plate"><span class="join__mark" aria-hidden="true">+</span><span class="join__text">Место для вашего знака</span></div>
-      <div class="card__cap"><span class="card__title">Знак № ${String(n + SERIES.length + BU.length + 1).padStart(2, '0')}</span><span class="card__author">Предложите свой знак →</span></div>
+      <div class="card__cap"><span class="card__title">Знак № ${String(total + SERIES.length + BU.length + 1).padStart(2, '0')}</span><span class="card__author">Предложите свой знак →</span></div>
     </a>`;
   const ser = worksEl.querySelector('.card--series');
   worksEl.insertBefore(li, ser);
