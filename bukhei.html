@@ -1214,7 +1214,7 @@ dialog::backdrop { background: rgba(0,0,0,.72); }
   <div class="wrap">
     <div class="call">
       <h2 class="call__title">Художники Секции плаката, <span>присоединяйтесь!</span></h2>
-      <p class="call__sub">Знак <span>№&nbsp;35</span> ждёт своего автора.</p>
+      <p class="call__sub">Знак <span>№&nbsp;36</span> ждёт своего автора.</p>
       <p class="call__text">Словарь открыт и пополняется. Если вы видите то, у&nbsp;чего ещё нет обозначения, — нарисуйте для этого знак. Пришлите работу, её название и пару строк о&nbsp;том, что она обозначает, и&nbsp;мы добавим её в&nbsp;экспозицию.</p>
       <a class="cta call__btn" href="mailto:gallery@glubinagallery.ru?subject=%D0%97%D0%BD%D0%B0%D0%BA%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8%20%C2%AB%D0%97%D0%9D%D0%90%D0%9A%D0%98%C2%BB"><b aria-hidden="true">→</b>Предложить свой знак</a>
     </div>
@@ -1298,6 +1298,9 @@ const WORKS = [
   { t: 'Кольская АЭС', a: 'Константин Гераймович', img: 'img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
     means: 'Энергию, которую нельзя увидеть. Три жёстких бруса складываются в треугольник и одновременно в букву «А» — атом. Внутри растровый круг: тысячи точек, как стержни реактора, держат в себе огромную силу, а стальной контур не выпускает её наружу. Знак изображает не здание станции, а её суть: мощь, заключённую в порядок.',
     why: 'Чтобы грандиозное сооружение за Полярным кругом, на Кольском полуострове, можно было узнать одним взглядом. Работу атомной станции невозможно показать — её можно только обозначить. Знак делает видимым то, что скрыто за бетоном: укрощённую энергию и конструкцию, которая её удерживает.' },
+  { t: 'Контакт', a: 'Константин Гераймович', img: 'img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov.jpg', card: 'img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov-card.jpg', white: true, fill: true,
+    means: 'Встречу двух противоположностей. Две капли входят друг в друга и вместе складываются в ромб, а между ними остаётся белая волна — линия касания. В цвете фигуры были пурпурной и синей: горячее и холодное, пламя и лёд. Одна — фирма, другая — заказчик: разные по природе, они держатся только вместе.',
+    why: 'Конец 1980-х, первые частные риелторы, и слово «контакт» звучит как обещание. Знак сделан для фирмы, которая всегда на связи с клиентом, но говорит о большем: о доверии, которое возникает, когда противоположности находят общую форму.' },
   { t: 'Знаки цифрового антропогенеза', href: '#digital', a: 'Юрий Мамчур', img: 'img/works/mamchur-yuriy-znaki-tsifrovogo-antropogeneza-seriya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true, series: 5 },
   { t: 'Бухейпроект', href: 'bukhei.html', label: 'Постероконцептуализм', a: 'БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева)', img: 'img/works/bukheevy-bulkin-mikheeva-bukheyproekt-seriya-moskovskiy-soyuz-khudozhnikov.jpg', white: true, fill: true, series: 16 },
   // Пояснения авторов: добавьте поля means: '...' и why: '...'
@@ -1485,7 +1488,7 @@ if (worksEl && !worksEl.children.length) worksEl.innerHTML = WORKS.map((w, i) =>
   </li>`).join('');
 (function () {
   const n = WORKS.filter((w) => !w.series).length;
-  if (!worksEl || !(n % 3) || worksEl.querySelector('.card--join')) return;
+  if (!worksEl || n % 3 !== 2 || worksEl.querySelector('.card--join')) return;
   const li = document.createElement('li');
   li.className = 'card card--join reveal';
   li.innerHTML = `<a class="card__link" href="#contacts" aria-label="Предложите свой знак">

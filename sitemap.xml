@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://nazarovbruni.github.io/znaki/</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/badoev-izmail-glush-nemaya-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Глушь немая», Измаил Бадоев, Московский союз художников</image:title></image:image>
@@ -23,6 +23,7 @@
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/vasileva-linetskaya-lyudmila-diplomatiya-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Дипломатия», Людмила Васильева-Линецкая, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/vasileva-linetskaya-lyudmila-smi-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «СМИ», Людмила Васильева-Линецкая, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Кольская АЭС», Константин Гераймович, Московский союз художников</image:title></image:image>
+    <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Контакт», Константин Гераймович, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/mamchur-yuriy-ekrannoe-rabstvo-moskovskiy-soyuz-khudozhnikov.png</image:loc><image:title>Знак «Экранное рабство», Юрий Мамчур, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/mamchur-yuriy-ekrannoe-rabstvo-sreda-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Экранное рабство» в среде, Юрий Мамчур, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/mamchur-yuriy-illyuziya-vybora-moskovskiy-soyuz-khudozhnikov.png</image:loc><image:title>Знак «Иллюзия выбора», Юрий Мамчур, Московский союз художников</image:title></image:image>
@@ -41,6 +42,7 @@
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/kagarov-erken-leto-dacha-moskovskiy-soyuz-khudozhnikov-card.jpg</image:loc><image:title>Знак «Лето. Дача», Эркен Кагаров, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/demina-svetlana-edinstvo-moskovskiy-soyuz-khudozhnikov-card.jpg</image:loc><image:title>Знак «Единство», Светлана Дёмина, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/geraymovich-konstantin-kolskaya-aes-moskovskiy-soyuz-khudozhnikov-card.jpg</image:loc><image:title>Знак «Кольская АЭС», Константин Гераймович, Московский союз художников</image:title></image:image>
+    <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/geraymovich-konstantin-kontakt-moskovskiy-soyuz-khudozhnikov-card.jpg</image:loc><image:title>Знак «Контакт», Константин Гераймович, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/artists/badoev-izmail-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Измаил Бадоев, художник, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/artists/demina-svetlana-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Светлана Дёмина, художник, Московский союз художников</image:title></image:image>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/artists/nazar-yulia-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Юлия Назар, художник, Московский союз художников</image:title></image:image>
@@ -57,7 +59,7 @@
   </url>
   <url>
     <loc>https://nazarovbruni.github.io/znaki/bukhei.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://nazarovbruni.github.io/znaki/img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov.jpg</image:loc><image:title>Знак «Выбор», БУ ХЕЕВЫ (Сергей Булкин, Евгения Михеева), Московский союз художников</image:title></image:image>
