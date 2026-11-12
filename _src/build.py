@@ -236,7 +236,11 @@ def current(h, slug):
     return h.replace(f'<a href="{slug}">', f'<a href="{slug}" aria-current="page">')
 main_page = unmark(cut(cut(page, 'BU'), 'HALL')).replace('<!--ROUTE-->', snip['ROUTE'], 1)
 main_page = main_page.replace('<a href="./"><i aria-hidden="true">⌂</i>', '<a href="./" aria-current="page"><i aria-hidden="true">⌂</i>', 1)
-bu_page = unmark(cut(cut(page, 'MAIN'), 'HALL'))
+# блок «Секция плаката МСХ» — в конце залов и спецпроекта, перед подвалом
+SEC_BLOCK = re.search(r'\n  <section class="section-msh" id="section".*?\n  </section>\n', page, re.S).group(0)
+def add_section(h):
+    return h.replace('</main>', SEC_BLOCK + '</main>', 1)
+bu_page = add_section(unmark(cut(cut(page, 'MAIN'), 'HALL')))
 hall_base = cut(cut(page, 'MAIN'), 'BU')
 hall_of = {i + 1: w.get('hall') for i, w in enumerate(W0)}
 def top_menu(h):
@@ -259,7 +263,7 @@ for h in HALLS:
     lng, sh = CTA_NEXT[n]
     hp = re.sub(r'<a class="cta" id="cta" href="[^"]*">.*?</a>',
         f'<a class="cta" href="{nxt}"><b aria-hidden="true">→</b><span><span class="cta__long">{lng}</span><span class="cta__short">{sh}</span></span></a>', hp, count=1, flags=re.S)
-    hp = current(localize(unmark(hp)), h['slug'])
+    hp = current(localize(unmark(add_section(hp))), h['slug'])
     hall_pages[n] = hp
 # на странице спецпроекта ссылки на разделы главной ведут на главную
 bu_page = localize(bu_page)
