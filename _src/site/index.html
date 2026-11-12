@@ -842,6 +842,10 @@ main { overflow-x: clip; }
 .js .bu__steps span { animation: none !important; transition: background .3s, color .3s; }
 .js .bu__steps span.is-on { background: var(--ink); color: var(--paper); }
 @media (prefers-reduced-motion: reduce) { .js .bu__frames img, .js .bu__steps span { transition: none; } }
+/* следующий зал в списке — главный переход */
+.hall-all { margin-top: 0; }
+.hall-mini.is-next { border-color: var(--signal); box-shadow: 0 6px 0 var(--signal); }
+.hall-mini.is-next i { color: var(--signal); font-weight: 600; }
 </style>
 
 <header class="nav" id="nav">

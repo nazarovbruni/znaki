@@ -173,14 +173,14 @@ def hall_artists(n):
     if n == 3:
         cnt[res['SER_A']] = len(res['SER'])
     return ''.join(f'<li><a href="./#authors"><strong>{a}</strong><span>{c} {plural(c, "знак", "знака", "знаков")}</span></a></li>' for a, c in cnt.items())
-def all_halls(cur):
-    items = [(x['slug'], shape_svg(x['shape'], x['roman'], 'hshape'), f'Зал {x["roman"]}', x['title'], x is cur) for x in HALLS]
-    items.append((SPEC['slug'], shape_svg(SPEC['shape'], '', 'hshape'), 'Спецпроект', SPEC['title'], SPEC is cur))
+def all_halls(cur, nxt=None):
+    items = [(x['slug'], shape_svg(x['shape'], x['roman'], 'hshape'), f'Зал {x["roman"]}', x['title'], x is cur, x is nxt) for x in HALLS]
+    items.append((SPEC['slug'], shape_svg(SPEC['shape'], '', 'hshape'), 'Спецпроект', SPEC['title'], SPEC is cur, SPEC is nxt))
     out = ''.join(
         (f'<li><span class="hall-mini is-here" aria-current="page">{sv}<span><em>{k}</em><strong>{t}</strong><i>Вы здесь</i></span></span></li>' if here else
-         f'<li><a class="hall-mini" href="{sl}">{sv}<span><em>{k}</em><strong>{t}</strong><i>Перейти →</i></span></a></li>')
-        for sl, sv, k, t, here in items)
-    return f'<div class="hall-all"><p class="hall-all__t">Все залы выставки</p><ol>{out}<li><a class="hall-mini hall-mini--home" href="./"><span class="hall-mini__home" aria-hidden="true">⌂</span><span><em>Фойе</em><strong>Маршрут</strong><i>Перейти →</i></span></a></li></ol></div>'
+         f'<li><a class="hall-mini{" is-next" if nx else ""}" href="{sl}">{sv}<span><em>{k}</em><strong>{t}</strong><i>{"Следующий зал →" if nx else "Перейти →"}</i></span></a></li>')
+        for sl, sv, k, t, here, nx in items)
+    return f'<div class="hall-all"><p class="hall-all__t">Куда дальше · все залы выставки</p><ol>{out}<li><a class="hall-mini hall-mini--home" href="./"><span class="hall-mini__home" aria-hidden="true">⌂</span><span><em>Фойе</em><strong>Маршрут</strong><i>Перейти →</i></span></a></li></ol></div>'
 def grid_fill(h):
     n = h['n']
     k = len(hall_works(n))
@@ -209,8 +209,9 @@ def hall_next(h):
     go = f'Перейти в Зал {nxt["roman"]}' if n < 3 else 'Открыть спецпроект'
     more = (f'<a href="{prev["slug"]}">← Зал {prev["roman"]} · {prev["title"]}</a>' if prev else '') + \
            '<a href="./">Фойе</a><a href="./#authors">Авторы</a><a href="./#curator">От куратора</a>'
-    return (f'<section class="hnext" aria-labelledby="hn-h"><div class="wrap"><p class="hnext__eyebrow" id="hn-h">{eyebrow}</p>'
-            f'{rcard(nxt, go)}{all_halls(h)}<div class="hnext__more">{more}</div></div></section>')
+    more = '<a href="./#authors">Авторы</a><a href="./#curator">От куратора</a>'
+    return (f'<section class="hnext" aria-label="Переход между залами"><div class="wrap">'
+            f'{all_halls(h, nxt)}<div class="hnext__more">{more}</div></div></section>')
 snip = {'ROUTE': route_html}
 for h in HALLS:
     snip['TOP%d' % h['n']] = hall_top(h)
@@ -252,7 +253,6 @@ for h in HALLS:
     hp = re.sub(r'<li class="card[^"]*" id="znak-(\d+)".*?</li>\n?',
                 lambda m: m.group(0) if hall_of.get(int(m.group(1))) == n else '', hp, flags=re.S)
     hp = hp.replace('<section class="gallery" id="gallery"', '<section class="gallery" id="znaki-zala"', 1)
-    hp = re.sub(r'(<ul class="grid" id="works">.*?)(\n?</ul>)', lambda m: m.group(1) + grid_fill(h) + m.group(2), hp, count=1, flags=re.S)
     hp = top_menu(hp)
     hp = hp.replace('<main id="top">', f'<main id="top" data-hall="{n}">', 1)
     nxt = HALLS[n]['slug'] if n < 3 else SPEC['slug']
