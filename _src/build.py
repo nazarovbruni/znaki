@@ -167,13 +167,30 @@ route_html = ('<section class="route" id="gallery" aria-labelledby="g-h">\n  <di
     + ''.join(f'      <li>{rcard(h, "Войти в зал")}</li>\n' for h in HALLS)
     + f'      <li>{rcard(SPEC, "Открыть спецпроект")}</li>\n    </ol>\n  </div>\n</section>')
 def hall_artists(n):
-    names = []
+    cnt = {}
     for i, w in hall_works(n):
-        if w['a'] not in names:
-            names.append(w['a'])
+        cnt[w['a']] = cnt.get(w['a'], 0) + 1
     if n == 3:
-        names.append(res['SER_A'])
-    return ', '.join(names)
+        cnt[res['SER_A']] = len(res['SER'])
+    return ''.join(f'<li><a href="./#authors"><strong>{a}</strong><span>{c} {plural(c, "знак", "знака", "знаков")}</span></a></li>' for a, c in cnt.items())
+def all_halls(cur):
+    items = [(x['slug'], shape_svg(x['shape'], x['roman'], 'hshape'), f'Зал {x["roman"]}', x['title'], x is cur) for x in HALLS]
+    items.append((SPEC['slug'], shape_svg(SPEC['shape'], '', 'hshape'), 'Спецпроект', SPEC['title'], SPEC is cur))
+    out = ''.join(
+        (f'<li><span class="hall-mini is-here" aria-current="page">{sv}<span><em>{k}</em><strong>{t}</strong><i>Вы здесь</i></span></span></li>' if here else
+         f'<li><a class="hall-mini" href="{sl}">{sv}<span><em>{k}</em><strong>{t}</strong><i>Перейти →</i></span></a></li>')
+        for sl, sv, k, t, here in items)
+    return f'<div class="hall-all"><p class="hall-all__t">Все залы выставки</p><ol>{out}<li><a class="hall-mini hall-mini--home" href="./"><span class="hall-mini__home" aria-hidden="true">⌂</span><span><em>Фойе</em><strong>Маршрут</strong><i>Перейти →</i></span></a></li></ol></div>'
+def grid_fill(h):
+    n = h['n']
+    k = len(hall_works(n))
+    slots = (3 - k % 3) % 3
+    nxt = HALLS[n] if n < 3 else SPEC
+    cards = [(nxt['slug'], shape_svg(nxt['shape'], nxt['roman'] if nxt is not SPEC else ''), 'Дальше', (f'Зал {nxt["roman"]} · ' if nxt is not SPEC else '') + nxt['title'], nxt['sub']),
+             ('./#gallery', '<span class="gnav__home" aria-hidden="true">⌂</span>', 'Все залы', 'Маршрут выставки', 'Фойе и карта залов')]
+    return ''.join(f'<li class="card card--gnav"><a class="card__link" href="{u}"><div class="plate gnav">{sv}</div>'
+                   f'<div class="card__cap"><span class="card__title">{k}: {t}</span><span class="card__author">{s}</span><span class="card__hint">Перейти →</span></div></a></li>'
+                   for u, sv, k, t, s in cards[:slots])
 def hall_top(h):
     sw = ''.join(f'<li><a href="{x["slug"]}" aria-label="Зал {x["roman"]} · {x["title"]}"{' aria-current="page"' if x is h else ''}>{x["roman"]}</a></li>' for x in HALLS)
     sw += f'<li><a href="{SPEC["slug"]}" aria-label="Спецпроект «Бухейпроект»">◆</a></li>'
@@ -183,7 +200,7 @@ def hall_top(h):
             f'<header class="hallhead"><div class="wrap">{shape_svg(h["shape"], h["roman"])}<div class="hallhead__text">'
             f'<p class="hallhead__k">Зал {h["roman"]} из III · {hall_count(h["n"])}</p><h1>{h["title"]}</h1>'
             f'<p class="hallhead__sub">{h["sub"]}</p><p class="hallhead__lead">{h["lead"]}</p>{concept}'
-            f'<p class="hallhead__who">Художники зала: <strong>{hall_artists(h["n"])}</strong></p></div></div></header>')
+            f'<p class="hallhead__who">Художники зала</p><ul class="hall-artists">{hall_artists(h["n"])}</ul></div></div></header>')
 def hall_next(h):
     n = h['n']
     nxt = HALLS[n] if n < 3 else SPEC
@@ -193,7 +210,7 @@ def hall_next(h):
     more = (f'<a href="{prev["slug"]}">← Зал {prev["roman"]} · {prev["title"]}</a>' if prev else '') + \
            '<a href="./">Фойе</a><a href="./#authors">Авторы</a><a href="./#curator">От куратора</a>'
     return (f'<section class="hnext" aria-labelledby="hn-h"><div class="wrap"><p class="hnext__eyebrow" id="hn-h">{eyebrow}</p>'
-            f'{rcard(nxt, go)}<div class="hnext__more">{more}</div></div></section>')
+            f'{rcard(nxt, go)}{all_halls(h)}<div class="hnext__more">{more}</div></div></section>')
 snip = {'ROUTE': route_html}
 for h in HALLS:
     snip['TOP%d' % h['n']] = hall_top(h)
@@ -221,6 +238,9 @@ main_page = main_page.replace('<a href="./"><i aria-hidden="true">⌂</i>', '<a 
 bu_page = unmark(cut(cut(page, 'MAIN'), 'HALL'))
 hall_base = cut(cut(page, 'MAIN'), 'BU')
 hall_of = {i + 1: w.get('hall') for i, w in enumerate(W0)}
+def top_menu(h):
+    items = '<li><a href="./">← Фойе</a></li>' + ''.join(f'<li><a href="{x["slug"]}">Зал {x["roman"]} · {x["title"]}</a></li>' for x in HALLS) + f'<li><a href="{SPEC["slug"]}">{SPEC["title"]}</a></li>'
+    return re.sub(r'(<nav aria-label=")Разделы(">\s*<ul>).*?(</ul>)', lambda m: m.group(1) + 'Залы выставки' + m.group(2) + items + m.group(3), h, count=1, flags=re.S)
 CTA_NEXT = {1: ('Зал II · Вокруг', 'Зал II'), 2: ('Зал III · Время', 'Зал III'), 3: ('Спецпроект', 'Спецпроект')}
 hall_pages = {}
 for h in HALLS:
@@ -232,6 +252,8 @@ for h in HALLS:
     hp = re.sub(r'<li class="card[^"]*" id="znak-(\d+)".*?</li>\n?',
                 lambda m: m.group(0) if hall_of.get(int(m.group(1))) == n else '', hp, flags=re.S)
     hp = hp.replace('<section class="gallery" id="gallery"', '<section class="gallery" id="znaki-zala"', 1)
+    hp = re.sub(r'(<ul class="grid" id="works">.*?)(\n?</ul>)', lambda m: m.group(1) + grid_fill(h) + m.group(2), hp, count=1, flags=re.S)
+    hp = top_menu(hp)
     hp = hp.replace('<main id="top">', f'<main id="top" data-hall="{n}">', 1)
     nxt = HALLS[n]['slug'] if n < 3 else SPEC['slug']
     lng, sh = CTA_NEXT[n]
@@ -243,7 +265,7 @@ for h in HALLS:
 bu_page = localize(bu_page)
 bu_page = re.sub(r'<a class="cta" id="cta" href="[^"]*">.*?</a>',
     '<a class="cta" href="./#gallery"><b aria-hidden="true">←</b><span><span class="cta__long">Вернуться на выставку</span><span class="cta__short">Выставка</span></span></a>', bu_page, count=1, flags=re.S)
-bu_page = current(bu_page, 'bukhei.html')
+bu_page = current(top_menu(bu_page), 'bukhei.html')
 bu_page = bu_page.replace('<h2 id="bu-h">Бухейпроект</h2>', '<h1 id="bu-h">Бухейпроект</h1>', 1)
 # главное фото спецпроекта — сразу, без ленивой загрузки
 bu_page = re.sub(r'(<img src="img/artists/bukheevy-bulkin-sergey[^>]*?) loading="lazy"', r'\1 fetchpriority="high"', bu_page, count=1)
