@@ -1242,6 +1242,20 @@ main { overflow-x: clip; }
   .hall-mini strong { font-size: 18px; }
   .hall-mini i { margin: 0; }
 }
+/* верхняя панель никогда не шире экрана */
+.nav, .nav .wrap, .nav__bar { max-width: 100%; }
+.nav__bar { min-width: 0; }
+.nav__right { min-width: 0; flex-shrink: 1; }
+.nav .cta { min-width: 0; max-width: 100%; }
+.nav .cta > span { white-space: nowrap; }
+.nav .burger { flex-shrink: 0; }
+@media (max-width: 380px) { .nav .cta { padding-right: 14px; } .nav .cta__short { font-size: 15px; } }
+/* «Выбор»: кадры и подписи переключает скрипт — работает на любом телефоне */
+.js .bu__frames img { animation: none !important; opacity: 0; transition: opacity .45s ease; }
+.js .bu__frames img.is-on { opacity: 1; }
+.js .bu__steps span { animation: none !important; transition: background .3s, color .3s; }
+.js .bu__steps span.is-on { background: var(--ink); color: var(--paper); }
+@media (prefers-reduced-motion: reduce) { .js .bu__frames img, .js .bu__steps span { transition: none; } }
 </style>
 </head>
 <body>
@@ -1990,6 +2004,25 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') openSign(cur + 1);
 });
 peopleEl?.addEventListener('click', (e) => { const b = e.target.closest('[data-person]'); if (b) openPerson(+b.dataset.person); });
+
+// «Выбор»: шесть кадров сменяют друг друга каждые 2,5 секунды (на странице и во всплывающем окне)
+(function () {
+  function tick(first) {
+    document.querySelectorAll('.bu__frames').forEach((el) => {
+      const imgs = el.querySelectorAll('img'); if (!imgs.length) return;
+      const n = imgs.length;
+      let i = el.dataset.i === undefined ? -1 : +el.dataset.i;
+      i = first && i < 0 ? 0 : (i + 1) % n;
+      el.dataset.i = i;
+      imgs.forEach((im, k) => { im.classList.toggle('is-on', k === i); im.classList.remove('f0'); });
+      const steps = el.closest('.bu__choice, .buteaser__link')?.querySelectorAll('.bu__steps span');
+      if (steps) steps.forEach((sp, k) => sp.classList.toggle('is-on', k === i));
+    });
+  }
+  tick(true);
+  setInterval(() => tick(false), 2500);
+  new MutationObserver(() => tick(true)).observe(document.getElementById('dlg-body'), { childList: true });
+})();
 </script>
 
 </body>
