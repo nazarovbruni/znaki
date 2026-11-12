@@ -198,7 +198,7 @@ def hall_top(h):
     return (f'<nav class="hbar" aria-label="Залы выставки"><div class="wrap">'
             f'<a class="crumbs__back" href="./"><b aria-hidden="true">←</b>Фойе</a><ol class="hswitch">{sw}</ol></div></nav>\n'
             f'<header class="hallhead"><div class="wrap">{shape_svg(h["shape"], h["roman"])}<div class="hallhead__text">'
-            f'<p class="hallhead__k">Зал {h["roman"]} из III · {hall_count(h["n"])}</p><h1>{h["title"]}</h1>'
+            f'<p class="hallhead__k">Зал {h["roman"]} · {hall_count(h["n"])}</p><h1>{h["title"]}</h1>'
             f'<p class="hallhead__sub">{h["sub"]}</p><p class="hallhead__lead">{h["lead"]}</p>{concept}'
             f'<p class="hallhead__who">Художники зала</p><ul class="hall-artists">{hall_artists(h["n"])}</ul></div></div></header>')
 def hall_next(h):
