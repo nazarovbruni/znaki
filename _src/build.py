@@ -241,7 +241,7 @@ hall_of = {i + 1: w.get('hall') for i, w in enumerate(W0)}
 def top_menu(h):
     items = '<li><a href="./">← Фойе</a></li>' + ''.join(f'<li><a href="{x["slug"]}">Зал {x["roman"]} · {x["title"]}</a></li>' for x in HALLS) + f'<li><a href="{SPEC["slug"]}">{SPEC["title"]}</a></li>'
     return re.sub(r'(<nav aria-label=")Разделы(">\s*<ul>).*?(</ul>)', lambda m: m.group(1) + 'Залы выставки' + m.group(2) + items + m.group(3), h, count=1, flags=re.S)
-CTA_NEXT = {1: ('Зал II · Вокруг', 'Зал II'), 2: ('Зал III · Время', 'Зал III'), 3: ('Спецпроект', 'Спецпроект')}
+CTA_NEXT = {1: ('Зал II · Вокруг', 'Зал II'), 2: ('Зал III · Время', 'Зал III'), 3: ('Спецпроект «Бухейпроект»', 'Дальше')}
 hall_pages = {}
 for h in HALLS:
     n = h['n']

@@ -1222,12 +1222,26 @@ a.hall-mini:hover strong { color: var(--signal); }
   .hall-artists strong { font-size: 15px; }
   .hall-artists span { font-size: 13px; }
   .hall-mini em { font-size: 11px; letter-spacing: .06em; }
-  .hall-mini strong { font-size: 15px; overflow-wrap: anywhere; }
+  .hall-mini strong { font-size: 16px; }
 }
 /* страница никогда не ездит вбок (iPhone) */
 html, body { overflow-x: hidden; }
 @supports (overflow: clip) { html, body { overflow-x: clip; } }
 main { overflow-x: clip; }
+/* телефон: карточки залов без переносов по буквам */
+.rcard__t, .hall-mini strong { overflow-wrap: normal; word-break: normal; hyphens: manual; }
+@media (max-width: 620px) {
+  .rcard, .hnext .rcard { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .rcard .hshape, .hnext .rcard .hshape { grid-row: auto; width: 60px; margin-bottom: 6px; }
+  .rcard__t, .hnext .rcard__t { font-size: clamp(26px, 8.4vw, 36px); }
+  .rcard__go { flex-direction: column; align-items: flex-start; }
+  .hall-all ol { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .hall-mini { grid-template-columns: 40px minmax(0, 1fr); padding: 10px 14px; }
+  .hall-mini > span:last-child { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; }
+  .hall-mini em { width: 100%; }
+  .hall-mini strong { font-size: 18px; }
+  .hall-mini i { margin: 0; }
+}
 </style>
 </head>
 <body>
@@ -1239,7 +1253,7 @@ main { overflow-x: clip; }
         <ul><li><a href="./">← Фойе</a></li><li><a href="zal-1-vnutri.html">Зал I · Внутри</a></li><li><a href="zal-2-vokrug.html">Зал II · Вокруг</a></li><li><a href="zal-3-vremya.html" aria-current="page">Зал III · Время</a></li><li><a href="bukhei.html">Бухейпроект</a></li></ul>
       </nav>
       <div class="nav__right">
-        <a class="cta" href="bukhei.html"><b aria-hidden="true">→</b><span><span class="cta__long">Спецпроект</span><span class="cta__short">Спецпроект</span></span></a>
+        <a class="cta" href="bukhei.html"><b aria-hidden="true">→</b><span><span class="cta__long">Спецпроект «Бухейпроект»</span><span class="cta__short">Дальше</span></span></a>
         <button class="burger" type="button" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mmenu"><span></span><span></span></button>
       </div>
     </div>
