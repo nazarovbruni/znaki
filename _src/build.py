@@ -255,7 +255,7 @@ for h in HALLS:
         hp = cut(hp, 'DIGITAL')
     hp = hp.replace('<!--HALLTOP-->', snip['TOP%d' % n], 1).replace('<!--HALLNEXT-->', snip['NEXT%d' % n], 1)
     hp = re.sub(r'<li class="card[^"]*" id="znak-(\d+)".*?</li>\n?',
-                lambda m: m.group(0) if hall_of.get(int(m.group(1))) == n else '', hp, flags=re.S)
+                lambda m: m.group(0) if hall_of.get(int(m.group(1))) == n and 'card--series' not in m.group(0)[:80] else '', hp, flags=re.S)
     hp = hp.replace('<section class="gallery" id="gallery"', '<section class="gallery" id="znaki-zala"', 1)
     hp = top_menu(hp)
     hp = hp.replace('<main id="top">', f'<main id="top" data-hall="{n}">', 1)
