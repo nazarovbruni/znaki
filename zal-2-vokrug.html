@@ -1116,6 +1116,14 @@ main { overflow-x: clip; }
 .hall-all { margin-top: 0; }
 .hall-mini.is-next { border-color: var(--signal); box-shadow: 0 6px 0 var(--signal); }
 .hall-mini.is-next i { color: var(--signal); font-weight: 600; }
+/* работы автора в его карточке */
+.pworks { margin-top: 28px; padding-top: 20px; border-top: 2px solid var(--ink); }
+.pworks__t { margin: 0 0 12px; font-family: var(--ui); font-weight: 600; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.pworks ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.pworks a { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 14px; text-decoration: none; border: 2px solid var(--ink); border-radius: 14px; padding: 12px 16px; }
+.pworks strong { font-family: var(--display); font-weight: 700; font-size: 17px; line-height: 1.25; }
+.pworks span { font-family: var(--ui); font-weight: 600; font-size: 15px; color: var(--signal); white-space: nowrap; }
+.pworks a:hover { border-color: var(--signal); box-shadow: 0 5px 0 var(--signal); }
 </style>
 </head>
 <body>
@@ -1473,7 +1481,6 @@ const PEOPLE = [
     rows: [['Образование', 'Московский академический художественный лицей при РАХ (2003); МГАХИ им. В. И. Сурикова (2010); МГППУ, магистратура (2019)'],
            ['Членство и награды', 'член Московского союза художников (с 2010); член Союза художников России (с 2017), дипломант СХР'],
            ['Практика', 'участник российских и международных выставок. В творчестве объединяет живопись, графику и дизайн. Параллельно ведёт педагогическую деятельность'],
-           ['Серия знаков', '<a href="zal-3-vremya.html#digital">«Знаки цифрового антропогенеза»</a>, 2026'],
            ['Сайт', '<a href="https://mmchr.art" target="_blank" rel="noopener">mmchr.art</a>']] },
   { n: 'Иван Островский', ini: 'ИО', photo: 'img/artists/ostrovskiy-ivan-moskovskiy-soyuz-khudozhnikov.jpg',
     lead: 'Иван Васильевич Островский — художник-плакатист. Родился в 1967 году в Москве.',
@@ -1505,8 +1512,7 @@ const PEOPLE = [
     lead: 'БУ ХЕЕВЫ — арт-группа Сергея Булкина и Евгении Михеевой. Работают в области графического дизайна (плакаты, фирменные стили, альбомы, буклеты), живописи, оформления выставок и интерьеров.',
     rows: [['Сергей Натанович Булкин', 'родился в 1955 году в Москве. Образование высшее. Член Союза художников России и Московского союза художников с 1988 года. Участвует в выставках с 1980 года'],
            ['Евгения Авенировна Михеева', 'родилась в 1957 году в Москве. Образование высшее. Член Союза художников России и Московского союза художников с 1988 года. Участвует в выставках с 1979 года'],
-           ['Теория', 'создали теорию «Постероконцептуализм» (плакат-идеограмма, плакат-проект) и разработали оригинальное направление «Тарарт» — объёмный плакат'],
-           ['Спецпроект', '<a href="bukhei.html">«Бухейпроект»</a> — 16 знаков, отдельная страница']] },
+           ['Теория', 'создали теорию «Постероконцептуализм» (плакат-идеограмма, плакат-проект) и разработали оригинальное направление «Тарарт» — объёмный плакат']] },
 ];
 
 const no = (i) => '№ ' + String(i + 1).padStart(2, '0');
@@ -1697,10 +1703,32 @@ function openPerson(i) {
         <h3 id="dlg-title">${p.n}</h3>
         <p class="bio__lead">${leadText(p)}</p>
         <dl>${p.rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+        ${personWorks(p)}
       </div>
     </article>`;
   show();
 }
+// работы автора на выставке — ссылки в залы, окно работы откроется само
+const HALL_PAGE = { 1: ['zal-1-vnutri.html', 'Зал I'], 2: ['zal-2-vokrug.html', 'Зал II'], 3: ['zal-3-vremya.html', 'Зал III'] };
+function personWorks(p) {
+  let links = WORKS.map((w, i) => [w, i]).filter(([w]) => w.a === p.n && !w.series)
+    .map(([w, i]) => `<li><a href="${HALL_PAGE[w.hall][0]}#znak-${String(i + 1).padStart(2, '0')}"><strong>Знак «${w.t}»</strong><span>${HALL_PAGE[w.hall][1]} →</span></a></li>`);
+  if (p.n === SERIES_AUTHOR) links.push(`<li><a href="zal-3-vremya.html#digital"><strong>Серия «Знаки цифрового антропогенеза»</strong><span>Зал III · 5 знаков →</span></a></li>`);
+  if (p.group) links.push(`<li><a href="bukhei.html"><strong>Спецпроект «Бухейпроект»</strong><span>16 знаков →</span></a></li>`);
+  if (!links.length) return '';
+  return `<div class="pworks"><p class="pworks__t">Работы на выставке</p><ul>${links.join('')}</ul></div>`;
+}
+// пришли по ссылке #znak-NN — показать и открыть работу
+function openFromHash(delay) {
+  const m = location.hash.match(/^#znak-(\d+)$/);
+  if (!m) return;
+  const btn = document.querySelector(`#znak-${m[1]} [data-work]`);
+  if (!btn) return;
+  setTimeout(() => { document.getElementById('znak-' + m[1]).scrollIntoView({ block: 'center' }); openWork(+btn.dataset.work); }, delay);
+}
+openFromHash(300);
+// ссылка на работу этого же зала — страница не перезагружается
+window.addEventListener('hashchange', () => openFromHash(50));
 function show() {
   lastFocus = document.activeElement;
   if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
