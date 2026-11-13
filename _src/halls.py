@@ -79,7 +79,7 @@ HALLS = [
 SPEC = {
     'slug': 'bukhei.html', 'shape': 'diamond', 'roman': '◆',
     'title': 'Бухейпроект', 'sub': 'Спецпроект БУ ХЕЕВЫХ',
-    'line': 'Ромб — знак главной дороги. 16 знаков постероконцептуализма и путь «Выбора» длиной в сорок лет.',
+    'line': 'Ромб — знак главной дороги. 11 знаков постероконцептуализма и путь «Выбора» длиной в сорок лет.',
     'thumbs': ['img/works/bukheevy-bulkin-mikheeva-vybor-moskovskiy-soyuz-khudozhnikov.jpg',
                'img/works/bukheevy-bulkin-mikheeva-my-moskovskiy-soyuz-khudozhnikov.jpg',
                'img/works/bukheevy-bulkin-mikheeva-pobeda-moskovskiy-soyuz-khudozhnikov.jpg'],

@@ -31,6 +31,9 @@ for name in ['404.html', 'favicon.ico', 'favicon.svg', 'icon-192.png', 'icon-512
     shutil.copy(os.path.join(SITE, name), os.path.join(OUT, name))
 if os.path.exists(os.path.join(OUT, 'img')):
     shutil.rmtree(os.path.join(OUT, 'img'))
+if os.path.exists(os.path.join(OUT, 'fonts')):
+    shutil.rmtree(os.path.join(OUT, 'fonts'))
+shutil.copytree(os.path.join(SITE, 'fonts'), os.path.join(OUT, 'fonts'))
 shutil.copytree(os.path.join(SITE, 'img'), os.path.join(OUT, 'img'),
                 ignore=shutil.ignore_patterns('znak-*.jpg', 'yulia-nazar.jpg'))
 
@@ -82,6 +85,10 @@ def webp_variants(rel):
     w, h = im.size
     out = []
     im.save(os.path.join(OUT, base + '.webp'), 'WEBP', quality=80, method=6)
+    if w > 400:                              # для маленьких миниатюр (72px, 220px)
+        im.resize((240, round(h * 240 / w)), Image.LANCZOS).save(
+            os.path.join(OUT, base + '-240.webp'), 'WEBP', quality=80, method=6)
+        out.append((base + '-240.webp', 240))
     if 600 < w <= 1000:
         im.resize((480, round(h * 480 / w)), Image.LANCZOS).save(
             os.path.join(OUT, base + '-480.webp'), 'WEBP', quality=80, method=6)
@@ -152,7 +159,7 @@ def thumbs(n):
     return ''.join(out)
 def rcard(h, go, tag='a'):
     spec = h is SPEC
-    k = 'Спецпроект · 16 знаков' if spec else f'Зал {h["roman"]} · {hall_count(h["n"])}'
+    k = 'Спецпроект · 11 знаков' if spec else f'Зал {h["roman"]} · {hall_count(h["n"])}'
     th = ''.join(f'<li><img src="{u}" alt="" loading="lazy" decoding="async" data-thumb></li>' for u in h['thumbs']) if spec else thumbs(h['n'])
     return (f'<a class="rcard{" rcard--spec" if spec else ""}" href="{h["slug"]}">'
             + shape_svg(h['shape'], h['roman'] if not spec else '')
@@ -274,7 +281,7 @@ bu_page = bu_page.replace('<h2 id="bu-h">Бухейпроект</h2>', '<h1 id="
 # главное фото спецпроекта — сразу, без ленивой загрузки
 bu_page = re.sub(r'(<img src="img/artists/bukheevy-bulkin-sergey[^>]*?) loading="lazy"', r'\1 fetchpriority="high"', bu_page, count=1)
 BU_TITLE = 'Бухейпроект — спецпроект БУ ХЕЕВЫХ на выставке «ЗНАКИ» Секции плаката МСХ'
-BU_DESC = 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева) на виртуальной выставке «ЗНАКИ», декабрь 2026: 16 знаков постероконцептуализма — «Выбор», «Мы», «Победа», «Конформизм» и другие.'
+BU_DESC = 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева) на виртуальной выставке «ЗНАКИ», декабрь 2026: 11 знаков постероконцептуализма — «Выбор», «Мы», «Победа», «Конформизм» и другие.'
 BU_IMG = URL + 'img/og-bukheyproekt-znaki-moskovskiy-soyuz-khudozhnikov.jpg'
 def set_head(h, title, desc, url, img):
     t0 = re.search(r'<title>([^<]+)</title>', h).group(1)
@@ -381,7 +388,7 @@ artworks += [{'@type': 'CreativeWorkSeries', '@id': BU_URL + '#bukhei', 'name': 
     'alternateName': 'Постероконцептуализм', 'creator': {'@id': pid.get('БУ ХЕЕВЫ')}, 'url': BU_URL,
     'image': URL + 'img/artists/bukheevy-bulkin-sergey-mikheeva-evgeniya-moskovskiy-soyuz-khudozhnikov.jpg',
     'isPartOf': {'@id': URL + '#exhibition'}, 'hasPart': [{'@id': x['@id']} for x in bu_parts],
-    'description': 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева): 16 знаков-идеограмм в духе постероконцептуализма — теории, по которой плакат одновременно самодостаточен, становится частью общей картины, обретает значимость через тиражирование и переходит из плоскости в объём.'}] + bu_parts
+    'description': 'Спецпроект арт-группы БУ ХЕЕВЫ (Сергей Булкин и Евгения Михеева): 11 знаков-идеограмм в духе постероконцептуализма — теории, по которой плакат одновременно самодостаточен, становится частью общей картины, обретает значимость через тиражирование и переходит из плоскости в объём.'}] + bu_parts
 
 desc = re.search(r'<meta name="description" content="([^"]+)"', main_page).group(1)
 title = re.search(r'<title>([^<]+)</title>', main_page).group(1)
