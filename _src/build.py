@@ -170,7 +170,7 @@ def rcard(h, go, tag='a'):
 total_signs = len([w for w in W0 if not w.get('series')]) + len(res['SER']) + len(res['BU'])
 route_html = ('<section class="route" id="gallery" aria-labelledby="g-h">\n  <div class="wrap">\n'
     f'    <div class="sec-head"><h2 id="g-h">{ROUTE_TITLE}</h2><p>Три зала и спецпроект. Нажмите на зал, чтобы войти.</p></div>\n'
-    f'    <p class="route__intro">{ROUTE_INTRO}</p>\n    <ol class="route__list">\n'
+    f'    <p class="route__intro">{ROUTE_INTRO}</p>\n    <h3 class="route__expo">Экспозиция</h3>\n    <ol class="route__list">\n'
     + ''.join(f'      <li>{rcard(h, "Войти в зал")}</li>\n' for h in HALLS)
     + f'      <li>{rcard(SPEC, "Открыть спецпроект")}</li>\n    </ol>\n  </div>\n</section>')
 def hall_artists(n):
@@ -207,7 +207,7 @@ def hall_top(h):
             f'<header class="hallhead"><div class="wrap">{shape_svg(h["shape"], h["roman"])}<div class="hallhead__text">'
             f'<p class="hallhead__k">Зал {h["roman"]} · {hall_count(h["n"])}</p><h1>{h["title"]}</h1>'
             f'<p class="hallhead__sub">{h["sub"]}</p><p class="hallhead__lead">{h["lead"]}</p>{concept}'
-            f'<p class="hallhead__who">Художники зала</p><ul class="hall-artists">{hall_artists(h["n"])}</ul></div></div></header>')
+            f'</div></div></header>')
 def hall_next(h):
     n = h['n']
     nxt = HALLS[n] if n < 3 else SPEC
